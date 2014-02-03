@@ -1,0 +1,4 @@
+/// class NoCheat - 
+class NoCheat {
+};
+

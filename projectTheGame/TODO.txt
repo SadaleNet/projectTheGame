@@ -1,0 +1,10 @@
+adapt project.cpp to the Scene class
+	event handling
+	painting
+
+GameObject
+	...many stuffs...
+
+database
+	local
+	remote

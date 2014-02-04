@@ -20,7 +20,7 @@ void TestScene::handleEvents(){
 		*paintMessage = std::to_wstring(static_cast<long double>(mousePos.x))+L","+std::to_wstring(static_cast<long double>(mousePos.y))+L"; time:"+std::to_wstring(static_cast<long double>(this->parent->getSec()));
 	}
 }
-void TestScene::update(){}
+
 void TestScene::render(){
 	/*initialize a buffer for double buffering*/
 	RECT clientRect;

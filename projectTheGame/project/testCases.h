@@ -1,5 +1,5 @@
-#include "util/Mat33.h"
-#include "util/Vec2.h"
+#include "./utils/Mat33.h"
+#include "./utils/Vec2.h"
 #include <iostream>
 
 void testCases(){

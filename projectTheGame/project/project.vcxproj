@@ -72,35 +72,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="project.ico" />
     <None Include="ReadMe.txt" />
     <None Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameobjects\GameObject.h" />
+    <ClInclude Include="gameobjects\Shape.h" />
+    <ClInclude Include="gameobjects\ShapeRenderer.h" />
     <ClInclude Include="project.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="scenes\EventData.h" />
     <ClInclude Include="scenes\Scene.h" />
     <ClInclude Include="scenes\SceneRunner.h" />
-    <ClInclude Include="scenes\SceneRunner_winapi.h" />
+    <ClInclude Include="scenes\SceneRunner_Winapi.h" />
     <ClInclude Include="scenes\TestScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="testCases.h" />
-    <ClInclude Include="util\Mat33.h" />
-    <ClInclude Include="util\Vec2.h" />
+    <ClInclude Include="utils\Mat33.h" />
+    <ClInclude Include="utils\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="project.cpp" />
     <ClCompile Include="scenes\SceneRunner.cpp" />
-    <ClCompile Include="scenes\sceneRunner_winapi.cpp" />
-    <ClCompile Include="scenes\TestScene_winapi.cpp" />
+    <ClCompile Include="scenes\SceneRunner_Winapi.cpp" />
+    <ClCompile Include="scenes\Scene_Winapi.cpp" />
+    <ClCompile Include="scenes\TestScene_Winapi.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="util\Mat33.cpp" />
-    <ClCompile Include="util\Vec2.cpp" />
+    <ClCompile Include="utils\Mat33.cpp" />
+    <ClCompile Include="utils\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="project.rc" />

@@ -1,6 +1,7 @@
 class TestScene;
-#ifndef TESTSCENE_H
-#define TESTSCENE_H
+#ifndef TEST_SCENE_H
+#define TEST_SCENE_H
+
 #include "SceneRunner.h"
 #include "Scene.h"
 #include <string>
@@ -11,7 +12,6 @@ private:
 public:
 	TestScene(std::wstring* paintMessage);
 	virtual void handleEvents() override;
-	virtual void update() override;
 	virtual void render() override;
 };
 

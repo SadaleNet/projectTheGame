@@ -22,9 +22,8 @@ void SceneRunner_Winapi::run(){
 			}
 		}
 		this->getScene()->handleEvents();
-		this->getScene()->update();
 		//wait a while
-		Sleep(1000.0/this->getFps());
+		Sleep(static_cast<DWORD>(1000.0/this->getFps()));
 		//update display
 		InvalidateRgn(hWnd, NULL, FALSE);
 	}

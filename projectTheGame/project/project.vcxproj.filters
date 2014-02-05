@@ -95,6 +95,15 @@
     <ClCompile Include="scenes\Scene_Winapi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameobjects\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scenes\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Shape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="project.rc">

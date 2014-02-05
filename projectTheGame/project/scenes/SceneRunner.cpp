@@ -2,6 +2,13 @@
 #include "../testCases.h"
 #include <iostream>
 
+void SceneRunner::handleEvents(){
+	return this->scene->handleEvents();
+}
+void SceneRunner::render(){
+	return this->scene->render();
+}
+
 SceneRunner::SceneRunner(Scene* scene, int fps){
 	testCases();
 	this->scene = std::shared_ptr<Scene>(scene);

@@ -1,15 +1,16 @@
 #include "Scene.h"
+#include "../project.h"
 #include <windows.h>
 
+#define EACH_GAME_OBJECT(_identifier) \
+	GameObjectIt it = gameObjects.begin();\
+	for( ; it != gameObjects.end(); it++ ){\
+		GameObject* _identifier = (*it).get();
+
+#define END_EACH }
+
+
 void Scene::handleEvents(){
-	/*
-		if(isMouseMoved()){
-			EventData mouseMove = MouseData(mouse.getX(), mouse.getY());
-			for(auto& it: gameObjects){
-				it->trigger(MOUSE_MOVE, mouseMove);
-			}
-		}
-	*/
 	POINT tempMousePos;
 	if (GetCursorPos(&tempMousePos)){
 		ScreenToClient(hWnd, &tempMousePos);
@@ -18,13 +19,18 @@ void Scene::handleEvents(){
 		mousePos.y = tempMousePos.y;
 		if( this->mousePos != mousePos ){
 			this->mousePos = mousePos;
-			/*for(auto& i: gameObjects){
-				i.trigger(MOUSE_MOVE, mouseMove);
-			}*/
-			for( GameObjectIt it = gameObjects.begin(); it != gameObjects.end(); it++ ){
+			EACH_GAME_OBJECT(i)
 				MouseEvent me; me.button = NA; me.pos=this->mousePos;
-				(*it)->trigger(MOUSE_MOVE, me);
-			}
+				i->trigger(MOUSE_MOVE, me);
+			END_EACH
 		}
 	}
+
+	handleExtraEvents();
+}
+
+void Scene::render(){
+	EACH_GAME_OBJECT(i)
+		i->render();
+	END_EACH
 }

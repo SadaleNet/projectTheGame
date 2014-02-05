@@ -15,21 +15,32 @@ class GameObject;
 
 /// class GameObject - Problems: a) Assumes rectangular objects b) strongly coupled with Scene
 class GameObject{
-protected:
+private:
+	//callback: return true to propagate to parent(default), false else.
 	std::map<EventType, std::function<bool(EventData)>> callbackList;
-	Mat33 trans; //transformation
-	Shape shape;
-
 	std::vector<std::shared_ptr<GameObject>> children;
 	GameObject* parent;
+	std::shared_ptr<ShapeRenderer> renderer;
+
+protected:
+	Mat33 trans; //local transformation
+	Mat33 gTrans; //global transformation
+	std::shared_ptr<Shape> shape;
 
 public:
-	//event handling functions
+	GameObject();
+	GameObject& setShape(Shape* shape);
+	GameObject& setRenderer(ShapeRenderer* renderer);
+
+	//event handling functions. TODO: If this framework scales, move event handling stuffs to else where?
 	GameObject& on(EventType eventType, const std::function<bool(EventData)>& callback);
-	GameObject& trigger(EventType eventType);
+	GameObject& trigger(EventType eventType, EventData eventData);
 	GameObject& off(EventType eventType);
 
-	//children manipulation functions
+	void update();
+	void render() const;
+
+	//children manipulation functions, TODO: unimplemented.
 	GameObject& add(GameObject* child);
 	GameObject& remove(GameObject* child);
 	std::vector<std::shared_ptr<GameObject>>::iterator begin(GameObject* child);
@@ -37,7 +48,12 @@ public:
 
 
 	//forwards to Shape
-	virtual GameObject& render() const = 0;
+	bool isCollide(const Shape& b) const;
+	bool isCollide(const Vec2& p) const;
+
+	//getters
+	const Mat33& getTrans() const;
+	const Mat33& getGTrans() const;
 
 	/*
 	GameObject setPos (setPos pos);

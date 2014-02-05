@@ -11,8 +11,6 @@ private:
 	std::wstring* paintMessage;
 public:
 	TestScene(std::wstring* paintMessage);
-	virtual void handleEvents() override;
-	virtual void render() override;
 };
 
 #endif

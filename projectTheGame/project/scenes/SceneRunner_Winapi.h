@@ -3,6 +3,7 @@ class SceneRunner_Winapi;
 #define SCENERUNNER_WINAPI_H
 
 #include "Scene.h"
+#include "SceneRunner.h"
 #include <memory>
 #include <windows.h>
 
@@ -13,7 +14,6 @@ public:
 	SceneRunner_Winapi(Scene* scene, int fps=60);
 	
 	virtual void run(); /// Runs Scene methods repeatively until teminate() is called by the scene.
-	void render();
 	virtual double getSec() const;
 };
 

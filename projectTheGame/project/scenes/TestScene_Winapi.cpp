@@ -7,28 +7,20 @@ using namespace Gdiplus;
 #pragma comment (lib,"Gdiplus.lib")
 
 TestScene::TestScene(std::wstring* paintMessage){
-	this->paintMessage = paintMessage;
+	//this->paintMessage = paintMessage;
+	GameObject* line = new GameObject;
+	//TODO: set line properties
+	this->add(line);
 }
 
-void TestScene::handleEvents(){
-	//TODO: a) move state-stuff to sceneRunner and make a getter for it.
-	//      b) *paintMessage = ... should be called within a callback.
-	POINT mousePos;
-	if (GetCursorPos(&mousePos)){
-		//std::cout <<(i++) <<std::endl;
-		ScreenToClient(hWnd, &mousePos);
-		*paintMessage = std::to_wstring(static_cast<long double>(mousePos.x))+L","+std::to_wstring(static_cast<long double>(mousePos.y))+L"; time:"+std::to_wstring(static_cast<long double>(this->parent->getSec()));
-	}
-}
-
-void TestScene::render(){
-	/*initialize a buffer for double buffering*/
+/*void TestScene::render(){
+	//initialize a buffer for double buffering
 	RECT clientRect;
 	GetClientRect(hWnd, &clientRect);
 	Bitmap buffer(clientRect.right, clientRect.bottom);
 	Graphics graphicsBuffer(&buffer);
 
-	/*Draw stuffs here*/
+	//Draw stuffs here
 	graphicsBuffer.Clear(Color(255, 255, 255, 255));
 	Pen      pen(Color(255, 0, 0, 255));
 	graphicsBuffer.DrawLine(&pen, 0, 0, 200, 100);
@@ -40,7 +32,7 @@ void TestScene::render(){
 
 	graphicsBuffer.DrawString(this->paintMessage->c_str(), -1, &font, pointF, &brush);
 
-	/*copy stuff from the new buffer to the old one*/
+	//copy stuff from the new buffer to the old one
 	Graphics graphics(hdc);
 	graphics.DrawImage(&buffer, 0, 0);
-}
+}*/

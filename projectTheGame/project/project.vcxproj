@@ -94,7 +94,10 @@
     <ClInclude Include="utils\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gameobjects\GameObject.cpp" />
+    <ClCompile Include="gameobjects\Shape.cpp" />
     <ClCompile Include="project.cpp" />
+    <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="scenes\SceneRunner.cpp" />
     <ClCompile Include="scenes\SceneRunner_Winapi.cpp" />
     <ClCompile Include="scenes\Scene_Winapi.cpp" />

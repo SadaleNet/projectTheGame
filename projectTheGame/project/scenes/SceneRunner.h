@@ -11,6 +11,11 @@ private:
 	double second;
 	int fps;
 	bool terminated;
+protected:
+	//forwards to scene. Since these methods are private in Scene, and only SceneRunner is a friend of Scene,
+	//subclasses of SceneRunner need these methods to access the methods in Scene.
+	void handleEvents();
+
 public:
 	SceneRunner(Scene* scene, int fps=60);
 	void setScene(std::shared_ptr<Scene> scene);
@@ -22,6 +27,9 @@ public:
 	std::shared_ptr<Scene> getScene() const;
 	bool getTerminated() const;
 	int getFps() const;
+
+	//forwards to scene.
+	void render();
 };
 
 #endif

@@ -21,22 +21,13 @@ void SceneRunner_Winapi::run(){
 				DispatchMessage(&msg);
 			}
 		}
-		this->getScene()->handleEvents();
+		this->handleEvents();
 		//wait a while
 		Sleep(static_cast<DWORD>(1000.0/this->getFps()));
 		//update display
 		InvalidateRgn(hWnd, NULL, FALSE);
 	}
 	/// Runs Scene methods repeatively until teminate() is called by the scene.
-}
-
-#include <objidl.h>
-#include <gdiplus.h>
-#include <string>
-using namespace Gdiplus;
-#pragma comment (lib,"Gdiplus.lib")
-void SceneRunner_Winapi::render(){
-	this->getScene()->render();
 }
 
 /*Getter method(s)*/

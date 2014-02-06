@@ -5,20 +5,19 @@
 void SceneRunner::handleEvents(){
 	return this->scene->handleEvents();
 }
-void SceneRunner::render(){
-	return this->scene->render();
-}
 
-SceneRunner::SceneRunner(Scene* scene, int fps){
+SceneRunner::SceneRunner(int fps){
 	testCases();
-	this->scene = std::shared_ptr<Scene>(scene);
 	this->fps = fps;
 	this->terminated = false;
-	scene->parent = this;
 }
 
-void SceneRunner::setScene(std::shared_ptr<Scene> scene){
-	this->scene = scene;
+void SceneRunner::renderScene(){
+	this->scene->render();
+}
+
+void SceneRunner::updateScene(){
+	this->scene->update();
 }
 
 void SceneRunner::terminate(){

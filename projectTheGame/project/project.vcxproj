@@ -78,8 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameobjects\GameObject.h" />
-    <ClInclude Include="gameobjects\Shape.h" />
-    <ClInclude Include="gameobjects\ShapeRenderer.h" />
+    <ClInclude Include="gameobjects\Rect.h" />
     <ClInclude Include="project.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="scenes\EventData.h" />
@@ -95,17 +94,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameobjects\GameObject.cpp" />
-    <ClCompile Include="gameobjects\Shape.cpp" />
+    <ClCompile Include="gameobjects\objectRender_Winapi.cpp" />
+    <ClCompile Include="gameobjects\Rect.cpp" />
     <ClCompile Include="project.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="scenes\SceneRunner.cpp" />
     <ClCompile Include="scenes\SceneRunner_Winapi.cpp" />
-    <ClCompile Include="scenes\Scene_Winapi.cpp" />
+    <ClCompile Include="scenes\scene_Winapi.cpp" />
     <ClCompile Include="scenes\TestScene_Winapi.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="utils\Color.h" />
     <ClCompile Include="utils\Mat33.cpp" />
     <ClCompile Include="utils\Vec2.cpp" />
   </ItemGroup>

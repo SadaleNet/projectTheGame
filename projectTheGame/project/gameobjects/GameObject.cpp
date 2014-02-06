@@ -1,76 +1,21 @@
-#include "GameObject.h"
+﻿#include "GameObject.h"
 #include <stdexcept>
 #include <cassert>
 
-GameObject::GameObject():
-	parent(nullptr){
-	/*this->on(UPDATE, [](EventData){
-		return true;
-	});*/
-}
-
-GameObject& GameObject::setShape(Shape* shape){
-	this->shape = std::shared_ptr<Shape>(shape);
-	return *this;
-}
-
-GameObject& GameObject::setRenderer(ShapeRenderer* renderer){
-	this->renderer = std::shared_ptr<ShapeRenderer>(renderer);
-	return *this;
-}
-
-GameObject& GameObject::on(EventType eventType, const std::function<bool(EventData)>& callback){
-	this->callbackList[eventType] = callback;
-
-	return *this;
-}
-
-GameObject& GameObject::trigger(EventType eventType, EventData eventData){
-	bool propogate = true;
-	try{
-		propogate = this->callbackList.at(eventType)(eventData);
-	}catch(std::out_of_range&){}
-
-	if( parent != nullptr && propogate ){
-		parent->trigger(eventType, eventData);
-	}
-
-	return *this;
-}
-
-GameObject& GameObject::off(EventType eventType){
-	size_t removedNum = this->callbackList.erase(eventType);
-	assert( removedNum == 1 );
-
-	return *this;
+GameObject::GameObject(Vec2 pos, Vec2 size):
+	pos(pos),size(size){
 }
 
 void GameObject::update(){
-	//TODO: recalculate trans and gTrans here.
+	this->pos += this->vel*this->scene->getDeltaSec();
 }
 
-void GameObject::render() const{
-	if(renderer)
-		this->renderer->render();
-}
-
-
-bool GameObject::isCollide(const Shape& b) const{
-	if( this->shape == nullptr )
-		return false;
-	return this->shape->isCollide(*this);
+bool GameObject::isCollide(const GameObject& b) const{
+	return (b.pos.x+b.size.x > this->pos.x && b.pos.x < this->pos.x+this->size.x)
+		&& (b.pos.y+b.size.y > this->pos.y && b.pos.y < this->pos.y+this->size.y);
 }
 
 bool GameObject::isCollide(const Vec2& p) const{
-	if( this->shape == nullptr )
-		return false;
-	return this->shape->isCollide(*this);
-}
-
-const Mat33& GameObject::getTrans() const{
-	return trans;
-}
-
-const Mat33& GameObject::getGTrans() const{
-	return gTrans;
+	return (p.x > this->pos.x && p.x < this->pos.x+this->size.x)
+		&& (p.y > this->pos.y && p.y < this->pos.y+this->size.y);
 }

@@ -3,14 +3,16 @@
 #include <objidl.h>
 #include <gdiplus.h>
 #include <string>
-using namespace Gdiplus;
 #pragma comment (lib,"Gdiplus.lib")
 
-TestScene::TestScene(std::wstring* paintMessage){
-	//this->paintMessage = paintMessage;
-	GameObject* line = new GameObject;
-	//TODO: set line properties
-	this->add(line);
+#include "../gameobjects/Rect.h"
+#include "../utils/Vec2.h"
+
+TestScene::TestScene(const SceneRunner* sceneRunner)
+	:Scene(sceneRunner){
+	GameObject* rect = new Rect(Vec2(100, 100), Vec2(50, 50), Color(0.5, 1.0, 0.5, 1.0));
+	rect->addVel(Vec2(5, 5));
+	this->add(rect);
 }
 
 /*void TestScene::render(){

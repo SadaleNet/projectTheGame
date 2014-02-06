@@ -7,10 +7,8 @@ class TestScene;
 #include <string>
 
 class TestScene : public Scene{
-private:
-	std::wstring* paintMessage;
 public:
-	TestScene(std::wstring* paintMessage);
+	TestScene(const SceneRunner* sceneRunner);
 };
 
 #endif

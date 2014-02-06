@@ -14,7 +14,7 @@ using namespace Gdiplus;
 #pragma comment (lib,"Gdiplus.lib")
 
 #include "project.h"
-#include "scenes/sceneRunner_Winapi.h"
+#include "scenes/SceneRunner_Winapi.h"
 #include "scenes/testScene.h"
 #include <iostream>
 #include <string>
@@ -127,7 +127,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	freopen("conout$","w",stderr);
 
 	//initialize global variables
-	sceneRunner = std::shared_ptr<SceneRunner_Winapi>(new SceneRunner_Winapi(new TestScene(&paintMessage)));
+	sceneRunner = std::shared_ptr<SceneRunner_Winapi>( SceneRunner::instantiate<SceneRunner_Winapi, TestScene>() );
 
 	hInst = hInstance; // Store instance handle in our global variable
 

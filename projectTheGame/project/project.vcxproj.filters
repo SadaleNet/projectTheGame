@@ -1,17 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Entry point">
+      <UniqueIdentifier>{551be12e-f764-4cc5-ae31-a4976691395d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{e07b23e2-1875-4be0-b3a2-72301f873b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="Game Objects">
+      <UniqueIdentifier>{7aca302a-6776-4d12-b91c-d3872797b1ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,85 +35,88 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="project.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scenes\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scenes\SceneRunner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scenes\TestScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="testCases.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scenes\SceneRunner_Winapi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameobjects\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameobjects\Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameobjects\ShapeRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\Mat33.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\Vec2.h">
-      <Filter>Header Files</Filter>
+      <Filter>Misc</Filter>
     </ClInclude>
     <ClInclude Include="scenes\EventData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobjects\GameObject.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Vec2.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Mat33.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="project.h">
+      <Filter>Entry point</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Entry point</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Entry point</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Entry point</Filter>
+    </ClInclude>
+    <ClInclude Include="scenes\Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scenes\TestScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scenes\SceneRunner.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scenes\SceneRunner_Winapi.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobjects\Rect.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="project.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="scenes\SceneRunner.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="scenes\SceneRunner_Winapi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\Mat33.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\Vec2.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="scenes\TestScene_Winapi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="scenes\Scene_Winapi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gameobjects\GameObject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="scenes\Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="gameobjects\Shape.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="gameobjects\GameObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Vec2.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Mat33.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="project.cpp">
+      <Filter>Entry point</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Entry point</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Rect.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\objectRender_Winapi.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="scenes\scene_Winapi.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Color.h">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

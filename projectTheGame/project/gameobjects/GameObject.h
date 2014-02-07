@@ -11,12 +11,16 @@ class GameObject;
 #include <vector>
 #include <memory>
 #include <functional>
+#include <cassert>
 
 /// class GameObject - Problems: a) Assumes rectangular objects b) strongly coupled with Scene
 class GameObject{
 private:
 	std::vector<std::shared_ptr<GameObject>> children;
-	//GameObject* parent; //TODO: unimplemented
+	//GameObject* parent; //TODO: move it to Panel
+	//mouse states
+	bool hovered, focused;
+	bool held[MOUSE_KEY_NUM];
 	Scene* scene;
 	friend Scene;
 
@@ -25,21 +29,9 @@ protected:
 	Vec2 vel;
 	Vec2 size;
 
-	const Scene* getScene() const{ return this->scene; }
-
 public:
 	GameObject(Vec2 pos, Vec2 size);
 
-	virtual void onStep(){}
-	virtual void onMouseMove(Vec2){}
-	virtual void onMouseDown(MouseButton, Vec2){}
-	virtual void onMouseUp(MouseButton, Vec2){}
-	virtual void onKeyDown(char key){}
-	virtual void onKeyUp(char key){}
-	virtual void onClick(MouseButton, Vec2){}
-	virtual void onFocus(){}
-	virtual void onBlur(){}
-	virtual void update();
 	virtual void render() const = 0;
 
 	bool isCollide(const GameObject& b) const;
@@ -55,7 +47,33 @@ public:
 	Vec2 getVel() const{ return this->vel; }
 	Vec2 getSize() const{ return this->size; }
 
-	//children manipulation functions, TODO: unimplemented.
+	const Scene* getScene() const{ return this->scene; }
+	Scene* getScene(){ return this->scene; }
+	void setScene(Scene* scene){ this->scene = scene; }
+
+	//event handllers
+	virtual void onMouseMove(Vec2){} //triggered when mouse is moved, regardless of states
+	virtual void onMouseDown(MouseButton, Vec2){} //triggered when mouse key is down AND the object is hovered
+	virtual void onMouseUp(MouseButton, Vec2){} //triggered when ( the object is held AND ( mouse key is up OR the mouse leaves ) )
+	virtual void onClick(MouseButton, Vec2){}  //triggered when ( the object is held AND mouse key is up )
+	virtual void onMouseIn(Vec2){} //triggered when the object is just hovered
+	virtual void onMouseOut(Vec2){} //triggered when the object is just unhovered
+	virtual void onKeyDown(char key){} //triggered when a keyboard key is pressed, regardless of states
+	virtual void onKeyUp(char key){} //triggered when a keyboard key is released, regardless of states
+	virtual void onFocus(){}
+	virtual void onBlur(){}
+	virtual void update();
+
+	virtual void onStep(){} //triggered by GameObject::update()
+	virtual void onSceneAdded(){} //triggered by Scene::add()
+	virtual void onSceneRemoved(){} //triggered by Scene::remove()
+
+	//mouse-related state functions
+	bool isHovered() const{ return this->hovered; }
+	bool isHeld(MouseButton button) const{ return this->held[button]; }
+	bool isFocused() const{ return this->focused; }
+
+	//children manipulation functions, TODO: move them to Panel
 	/*GameObject& add(GameObject* child);
 	GameObject& remove(GameObject* child);
 	std::vector<std::shared_ptr<GameObject>>::iterator begin(GameObject* child);

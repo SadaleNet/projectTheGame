@@ -6,4 +6,3 @@ Rect::Rect(Vec2 pos, Vec2 size, Color fillColor, double borderSize, Color border
 	borderSize(borderSize),
 	borderColor(borderColor){
 }
-

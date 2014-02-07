@@ -77,8 +77,11 @@
     <None Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameobjects\Button.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="gameobjects\Rect.h" />
+    <ClInclude Include="gameobjects\SpriteObject.h" />
+    <ClInclude Include="gameobjects\Text.h" />
     <ClInclude Include="project.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="scenes\EventData.h" />
@@ -90,12 +93,16 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="testCases.h" />
     <ClInclude Include="utils\Mat33.h" />
+    <ClInclude Include="utils\utils.h" />
     <ClInclude Include="utils\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gameobjects\Button.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="gameobjects\objectRender_Winapi.cpp" />
     <ClCompile Include="gameobjects\Rect.cpp" />
+    <ClCompile Include="gameobjects\SpriteObject.cpp" />
+    <ClCompile Include="gameobjects\Text.cpp" />
     <ClCompile Include="project.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="scenes\SceneRunner.cpp" />

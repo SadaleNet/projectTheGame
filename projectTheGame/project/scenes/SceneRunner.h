@@ -1,6 +1,6 @@
 class SceneRunner;
-#ifndef SCENERUNNER_H
-#define SCENERUNNER_H
+#ifndef SCENE_RUNNER_H
+#define SCENE_RUNNER_H
 
 #include "Scene.h"
 #include <memory>

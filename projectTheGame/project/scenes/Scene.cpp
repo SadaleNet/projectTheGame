@@ -27,12 +27,14 @@ void Scene::render(){
 Scene& Scene::add(GameObject* obj){
 	this->gameObjects.push_back(std::shared_ptr<GameObject>(obj));
 	obj->scene = this;
+	obj->onSceneAdded();
 	return *this;
 }
 
 Scene& Scene::remove(GameObject* obj){
 	assert( std::remove(this->gameObjects.begin(), this->gameObjects.end(), std::shared_ptr<GameObject>(obj)) == this->gameObjects.end() );
 	obj->scene = nullptr;
+	obj->onSceneRemoved();
 	return *this;
 }
 

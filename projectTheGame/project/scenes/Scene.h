@@ -4,9 +4,9 @@ class Scene;
 #define SCENE_H
 
 #define EACH_GAME_OBJECT(_identifier) \
-	GameObjectIt it = gameObjects.begin();\
-	for( ; it != gameObjects.end(); it++ ){\
-		GameObject* _identifier = (*it).get();
+	GameObjectIt it_##_identifier = gameObjects.begin();\
+	for( ; it_##_identifier != gameObjects.end(); it_##_identifier++ ){\
+		GameObject* _identifier = (*it_##_identifier).get();
 
 #define END_EACH }
 

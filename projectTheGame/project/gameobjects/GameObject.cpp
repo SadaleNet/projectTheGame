@@ -2,12 +2,18 @@
 #include <stdexcept>
 #include <cassert>
 
-GameObject::GameObject(Vec2 pos, Vec2 size):
-	pos(pos),size(size){
+GameObject::GameObject(Vec2 pos, Vec2 size)
+	:pos(pos),
+	size(size),
+	scene(nullptr),
+	hovered(false){
+	for(int i=0; i<MOUSE_KEY_NUM; i++)
+		this->held[i] = false;
 }
 
 void GameObject::update(){
 	this->pos += this->vel*this->scene->getDeltaSec();
+	this->onStep();
 }
 
 bool GameObject::isCollide(const GameObject& b) const{

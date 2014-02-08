@@ -16,17 +16,18 @@ class GameObject;
 /// class GameObject - Problems: a) Assumes rectangular objects b) strongly coupled with Scene
 class GameObject{
 private:
-	std::vector<std::shared_ptr<GameObject>> children;
-	//GameObject* parent; //TODO: move it to Panel
+	//std::vector<std::shared_ptr<GameObject>> children; //TODO: move it to Panel
 	//mouse states
 	bool hovered, focused;
 	bool held[MOUSE_KEY_NUM];
+
+	//the scene that this object is in
 	Scene* scene;
 	friend Scene;
 
 protected:
 	Vec2 pos;
-	Vec2 vel;
+	Vec2 vel; //velocity
 	Vec2 size;
 
 public:
@@ -51,22 +52,36 @@ public:
 	Scene* getScene(){ return this->scene; }
 	void setScene(Scene* scene){ this->scene = scene; }
 
-	//event handllers
+	//event handllers, to be overridden by subclasses.
 	virtual void onMouseMove(Vec2){} //triggered when mouse is moved, regardless of states
 	virtual void onMouseDown(MouseButton, Vec2){} //triggered when mouse key is down AND the object is hovered
 	virtual void onMouseUp(MouseButton, Vec2){} //triggered when ( the object is held AND ( mouse key is up OR the mouse leaves ) )
 	virtual void onClick(MouseButton, Vec2){}  //triggered when ( the object is held AND mouse key is up )
 	virtual void onMouseIn(Vec2){} //triggered when the object is just hovered
 	virtual void onMouseOut(Vec2){} //triggered when the object is just unhovered
+	/**	onKeyDown(char key), onKeyUp(char key)
+		Note: char key is the key pressed in UPPER CASE. lower case keys are used to represent non-alphanumeric keys as shown in the table below:
+		virtual key		real key
+		\b				backspace
+		\t				tab
+		\n				enter
+		^				up
+		v				down
+		<				left
+		>				right
+	*/
 	virtual void onKeyDown(char key){} //triggered when a keyboard key is pressed, regardless of states
 	virtual void onKeyUp(char key){} //triggered when a keyboard key is released, regardless of states
-	virtual void onFocus(){}
-	virtual void onBlur(){}
-	virtual void update();
+	virtual void onFocus(){} //triggered when the object is clicked
+	virtual void onBlur(){} //triggered when mouse is clicked and is not on the object.
+	virtual void onCollide(const GameObject&){} //triggered when this object collides with another object.
 
-	virtual void onStep(){} //triggered by GameObject::update()
+	virtual void onStep(){} //triggered by GameObject::update(), to be overridden by the client
 	virtual void onSceneAdded(){} //triggered by Scene::add()
 	virtual void onSceneRemoved(){} //triggered by Scene::remove()
+
+	virtual void updateHook(){} //triggered by GameObject::update(), to be overridden by the library
+	void update(); //triggered by SceneRunner::run, NOT overridable.
 
 	//mouse-related state functions
 	bool isHovered() const{ return this->hovered; }

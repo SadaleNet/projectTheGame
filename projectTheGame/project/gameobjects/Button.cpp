@@ -9,7 +9,7 @@ Button::Button(Vec2 pos, Vec2 size, std::string text, Color fontColor, Color fil
 	fillColor(fillColor){
 }
 
-void Button::onStep(){
+void Button::updateHook(){
 	this->textObj.setPos(this->pos);
 	this->rectObj.setPos(this->pos);
 	this->textObj.setSize(this->size);

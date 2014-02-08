@@ -28,7 +28,7 @@ public:
 
 	virtual void render() const override;
 
-	virtual void onStep() override;
+	virtual void updateHook() override;
 	virtual void onSceneAdded() override;
 	virtual void onSceneRemoved() override;
 	virtual void onClick(MouseButton button, Vec2) override;
@@ -40,7 +40,7 @@ public:
 	Button& setBorderSize(double borderSize){ rectObj.setBorderSize(borderSize); return *this; }
 	Button& setBorderColor(Color borderColor){ rectObj.setBorderColor(borderColor); return *this; }
 	
-	std::function<void()> getAction(std::function<void()> action){ return action; }
+	std::function<void()> getAction(){ return action; }
 	Color getFontColor() const{ return textObj.getFontColor(); }
 	Color getFillColor() const{ return fillColor; }
 	double getBorderSize() const{ return rectObj.getBorderSize(); }

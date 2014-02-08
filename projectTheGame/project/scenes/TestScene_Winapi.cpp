@@ -9,22 +9,32 @@
 #include "../gameobjects/SpriteObject.h"
 #include "../gameobjects/Text.h"
 #include "../gameobjects/Button.h"
+#include "../gameobjects/TextBox.h"
 #include "../utils/Vec2.h"
 
 TestScene::TestScene(const SceneRunner* sceneRunner)
 	:Scene(sceneRunner){
+
 	GameObject* rect = new Rect(Vec2(100, 100), Vec2(50, 50), Color(0.5, 1.0, 0.5, 1.0), 5, Color(1.0, 0.5, 0.5, 1.0));
 	rect->addVel(Vec2(5, 5));
 	this->add(rect);
+
 	SpriteObject* spriteObject = new SpriteObject(Vec2(200, 200), Vec2(50, 50), "./images/test.png", Vec2(5, 5), Vec2(10, 10));
 	spriteObject->addVel(Vec2(20, 0));
 	this->add(spriteObject);
+
 	Text* text = new Text(Vec2(30, 30), Vec2(200, 200), "Hi!", 20);
 	text->addVel(Vec2(0, 30));
 	this->add(text);
+
 	Button* button = new Button(Vec2(400, 400), Vec2(100, 30), "Button", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
+	button->setAction([=](){ button->addVel(Vec2(0, 10)); });
 	button->addVel(Vec2(0, -30));
 	this->add(button);
+
+	TextBox* textBox = new TextBox(Vec2(100, 400), Vec2(400, 30), Color(1,1,0,1), Color(0.7,0.7,0.5,1));
+	textBox->setButton(button);
+	this->add(textBox);
 }
 
 /*void TestScene::render(){

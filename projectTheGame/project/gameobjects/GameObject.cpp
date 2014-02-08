@@ -6,13 +6,15 @@ GameObject::GameObject(Vec2 pos, Vec2 size)
 	:pos(pos),
 	size(size),
 	scene(nullptr),
-	hovered(false){
+	hovered(false),
+	focused(false){
 	for(int i=0; i<MOUSE_KEY_NUM; i++)
 		this->held[i] = false;
 }
 
 void GameObject::update(){
 	this->pos += this->vel*this->scene->getDeltaSec();
+	this->updateHook();
 	this->onStep();
 }
 

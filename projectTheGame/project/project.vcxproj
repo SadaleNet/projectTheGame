@@ -82,6 +82,7 @@
     <ClInclude Include="gameobjects\Rect.h" />
     <ClInclude Include="gameobjects\SpriteObject.h" />
     <ClInclude Include="gameobjects\Text.h" />
+    <ClInclude Include="gameobjects\TextBox.h" />
     <ClInclude Include="project.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="scenes\EventData.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="gameobjects\Rect.cpp" />
     <ClCompile Include="gameobjects\SpriteObject.cpp" />
     <ClCompile Include="gameobjects\Text.cpp" />
+    <ClCompile Include="gameobjects\TextBox.cpp" />
     <ClCompile Include="project.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="scenes\SceneRunner.cpp" />

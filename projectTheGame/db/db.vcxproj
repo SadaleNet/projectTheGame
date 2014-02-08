@@ -11,20 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CCA6565C-708B-43B5-9E81-EE833FE6F3FF}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>project</RootNamespace>
+    <ProjectGuid>{F78C1221-EBF7-43D4-ABCE-6C1882B369F4}</ProjectGuid>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>db</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -45,88 +47,53 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="project.ico" />
-    <None Include="ReadMe.txt" />
-    <None Include="small.ico" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="db\FileDb.h" />
-    <ClInclude Include="db\RemoteDb.h" />
-    <ClInclude Include="db\UserDb.h" />
-    <ClInclude Include="gameobjects\Button.h" />
-    <ClInclude Include="gameobjects\GameObject.h" />
-    <ClInclude Include="gameobjects\Panel.h" />
-    <ClInclude Include="gameobjects\Rect.h" />
-    <ClInclude Include="gameobjects\SpriteObject.h" />
-    <ClInclude Include="gameobjects\Text.h" />
-    <ClInclude Include="gameobjects\TextBox.h" />
-    <ClInclude Include="project.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="scenes\EventData.h" />
-    <ClInclude Include="scenes\Scene.h" />
-    <ClInclude Include="scenes\SceneRunner.h" />
-    <ClInclude Include="scenes\SceneRunner_Winapi.h" />
-    <ClInclude Include="scenes\TestScene.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="testCases.h" />
-    <ClInclude Include="utils\Mat33.h" />
-    <ClInclude Include="utils\utils.h" />
-    <ClInclude Include="utils\Vec2.h" />
+    <ClInclude Include="db.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="db\FileDb.cpp" />
-    <ClCompile Include="gameobjects\Button.cpp" />
-    <ClCompile Include="gameobjects\GameObject.cpp" />
-    <ClCompile Include="gameobjects\objectRender_Winapi.cpp" />
-    <ClCompile Include="gameobjects\Panel.cpp" />
-    <ClCompile Include="gameobjects\Rect.cpp" />
-    <ClCompile Include="gameobjects\SpriteObject.cpp" />
-    <ClCompile Include="gameobjects\Text.cpp" />
-    <ClCompile Include="gameobjects\TextBox.cpp" />
-    <ClCompile Include="project.cpp" />
-    <ClCompile Include="scenes\Scene.cpp" />
-    <ClCompile Include="scenes\SceneRunner.cpp" />
-    <ClCompile Include="scenes\SceneRunner_Winapi.cpp" />
-    <ClCompile Include="scenes\scene_Winapi.cpp" />
-    <ClCompile Include="scenes\TestScene_Winapi.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="db.cpp" />
+    <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="utils\Color.h" />
-    <ClCompile Include="utils\Mat33.cpp" />
-    <ClCompile Include="utils\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="project.rc" />
+    <None Include="app.ico" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,6 +24,9 @@
     <Filter Include="Game Objects">
       <UniqueIdentifier>{7aca302a-6776-4d12-b91c-d3872797b1ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Database">
+      <UniqueIdentifier>{1a750c6a-bd39-494d-b2e5-3d5bd038f48d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -95,6 +98,15 @@
     <ClInclude Include="gameobjects\Panel.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="db\UserDb.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="db\FileDb.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="db\RemoteDb.h">
+      <Filter>Database</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -150,6 +162,9 @@
     </ClCompile>
     <ClCompile Include="gameobjects\Panel.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="db\FileDb.cpp">
+      <Filter>Database</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

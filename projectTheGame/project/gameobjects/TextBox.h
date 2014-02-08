@@ -18,7 +18,7 @@ Text::fontSize	80% of height
 */
 class TextBox: public GameObject{
 private:
-	Button* button;
+	Button* button; ///button->action() is executed when enter is pressed while this textbox is focused.
 protected:
 	Text textObj;
 	Rect rectObj;
@@ -29,12 +29,17 @@ public:
 
 	virtual void render() const override;
 
+	///update pos and vel of textObj and rectObj; change color if focused; simuilate blank cursor
 	virtual void updateHook() override;
+	///set scene of textObj and rectObj to the current scene
 	virtual void onSceneAdded() override;
+	///set scene of textObj and rectObj to nullptr
 	virtual void onSceneRemoved() override;
+	///change the content of the textbox
 	virtual void onKeyUp(char key) override;
 
 	//setters and getters
+	///button->action() is executed when enter is pressed while this textbox is focused.
 	TextBox& setButton(Button* button){ this->button = button; return *this; }
 	TextBox& setFontColor(Color fontColor){ textObj.setFontColor(fontColor); return *this; }
 	TextBox& setFillColor(Color fillColor){ this->fillColor = fillColor; return *this; }

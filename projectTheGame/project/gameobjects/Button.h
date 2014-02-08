@@ -18,7 +18,7 @@ press color		70% brightness of original
 */
 class Button: public GameObject{
 private:
-	std::function<void()> action;
+	std::function<void()> action; ///action() is executed when the button is clicked.
 protected:
 	Text textObj;
 	Rect rectObj;
@@ -28,12 +28,16 @@ public:
 
 	virtual void render() const override;
 
+
 	virtual void updateHook() override;
+	///set scene of textObj and rectObj to nullptr
 	virtual void onSceneAdded() override;
+	///set scene of textObj and rectObj to nullptr
 	virtual void onSceneRemoved() override;
 	virtual void onClick(MouseButton button, Vec2) override;
 
 	//setters and getters
+	///action() is executed when the button is clicked.
 	Button& setAction(std::function<void()> action){ this->action = action; return *this; }
 	Button& setFontColor(Color fontColor){ textObj.setFontColor(fontColor); return *this; }
 	Button& setFillColor(Color fillColor){ this->fillColor = fillColor; return *this; }

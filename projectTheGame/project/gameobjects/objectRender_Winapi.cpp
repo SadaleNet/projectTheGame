@@ -25,17 +25,21 @@ Gdiplus::Color GdiPlusColor(::Color c){
 #define RENDER_BUFFER dynamic_cast<const SceneRunner_Winapi*>(this->getScene()->getSceneRunner())->getBuffer()
 
 void ::Rect::render() const{
+	Vec2 pos = this->getAbsPos();
+
 	//fill rect
 	Gdiplus::SolidBrush brush(GdiPlusColor(this->fillColor));
-	RENDER_BUFFER.FillRectangle(&brush, int(this->pos.x), int(this->pos.y), int(this->size.x), int(this->size.y));
+	RENDER_BUFFER.FillRectangle(&brush, int(pos.x), int(pos.y), int(this->size.x), int(this->size.y));
 
 	//draw border
 	Gdiplus::Pen borderPen(GdiPlusColor(this->borderColor), (REAL)this->borderSize);
 	borderPen.SetAlignment(Gdiplus::PenAlignmentInset);
-	RENDER_BUFFER.DrawRectangle(&borderPen, REAL(this->pos.x), REAL(this->pos.y), REAL(this->size.x), REAL(this->size.y));
+	RENDER_BUFFER.DrawRectangle(&borderPen, REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
 }
 
 void SpriteObject::render() const{
+	Vec2 pos = this->getAbsPos();
+
 	//NB: Strange. If this line is used, the program caches when the program is closed. Maybe there is some GC in GDI+ ?
 	//static std::map<std::string, std::unique_ptr<Image>> imageCache;
 	static std::map<std::string, Image*> imageCache;
@@ -48,9 +52,9 @@ void SpriteObject::render() const{
 			Image* pImage = imageCache.at(this->imagePath);
 			//render it
 			if(this->showWholeImage){
-				RENDER_BUFFER.DrawImage(pImage, REAL(this->pos.x), REAL(this->pos.y), REAL(this->size.x), REAL(this->size.y));
+				RENDER_BUFFER.DrawImage(pImage, REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
 			}else{
-				Gdiplus::RectF rect(REAL(this->pos.x), REAL(this->pos.y), REAL(this->size.x), REAL(this->size.y));
+				Gdiplus::RectF rect(REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
 				RENDER_BUFFER.DrawImage(pImage, rect, REAL(this->tilePos.x), REAL(this->tilePos.y),
 										REAL(this->tileSize.x), REAL(this->tileSize.y),
 										Gdiplus::UnitPixel, NULL, NULL, NULL);
@@ -70,9 +74,11 @@ void SpriteObject::render() const{
 
 
 void ::Text::render() const{
+	Vec2 pos = this->getAbsPos();
+
 	Gdiplus::FontFamily	fontFamily(L"Arial");
 	Gdiplus::Font		font(&fontFamily, REAL(this->fontSize), Gdiplus::FontStyleBold, Gdiplus::UnitPixel);
-	Gdiplus::RectF		bounds(REAL(this->pos.x), REAL(this->pos.y), REAL(this->size.x), REAL(this->size.y));
+	Gdiplus::RectF		bounds(REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
 	Gdiplus::SolidBrush	brush(GdiPlusColor(this->fontColor));
 	Gdiplus::StringFormat format;
 	switch(this->align){

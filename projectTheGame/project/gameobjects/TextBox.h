@@ -29,12 +29,8 @@ public:
 
 	virtual void render() const override;
 
-	///update pos and vel of textObj and rectObj; change color if focused; simuilate blank cursor
+	///change color if focused; simuilate blank cursor
 	virtual void updateHook() override;
-	///set scene of textObj and rectObj to the current scene
-	virtual void onSceneAdded() override;
-	///set scene of textObj and rectObj to nullptr
-	virtual void onSceneRemoved() override;
 	///change the content of the textbox
 	virtual void onKeyUp(char key) override;
 

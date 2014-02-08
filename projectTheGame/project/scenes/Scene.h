@@ -36,7 +36,6 @@ private:
 protected:
 	Scene(const SceneRunner* sceneRunner);
 
-	typedef std::vector<std::shared_ptr<GameObject>>::iterator GameObjectIt;
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
 	Vec2 mousePos;
 

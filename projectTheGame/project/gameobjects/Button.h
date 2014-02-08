@@ -28,12 +28,8 @@ public:
 
 	virtual void render() const override;
 
-
+	//change the color according to the states(hover, held)
 	virtual void updateHook() override;
-	///set scene of textObj and rectObj to nullptr
-	virtual void onSceneAdded() override;
-	///set scene of textObj and rectObj to nullptr
-	virtual void onSceneRemoved() override;
 	virtual void onClick(MouseButton button, Vec2) override;
 
 	//setters and getters

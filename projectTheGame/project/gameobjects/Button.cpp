@@ -4,17 +4,14 @@
 Button::Button(Vec2 pos, Vec2 size, std::string text, Color fontColor, Color fillColor, double borderSize, Color borderColor)
 	:GameObject(pos, size),
 	action(nullptr),
-	textObj(pos, size, text, int(size.y*0.8), fontColor, Text::CENTER),
-	rectObj(pos, size, fillColor, borderSize, borderColor),
+	textObj(Vec2(0,0), size, text, int(size.y*0.8), fontColor, Text::CENTER),
+	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),
 	fillColor(fillColor){
+	textObj.setParent(this);
+	rectObj.setParent(this);
 }
 
 void Button::updateHook(){
-	this->textObj.setPos(this->pos);
-	this->rectObj.setPos(this->pos);
-	this->textObj.setSize(this->size);
-	this->rectObj.setSize(this->size);
-
 	if(this->isHeld(::LEFT)){
 		this->rectObj.setFillColor(Color( this->fillColor.r*0.7, this->fillColor.g*0.7, this->fillColor.b*0.7, this->fillColor.a ));
 	}else if(this->isHovered()){
@@ -27,16 +24,6 @@ void Button::updateHook(){
 	}else{
 		this->rectObj.setFillColor(this->fillColor);
 	}
-}
-
-void Button::onSceneAdded(){
-	this->textObj.setScene(this->getScene());
-	this->rectObj.setScene(this->getScene());
-}
-
-void Button::onSceneRemoved(){
-	this->textObj.setScene(nullptr);
-	this->rectObj.setScene(nullptr);
 }
 
 void Button::render() const{

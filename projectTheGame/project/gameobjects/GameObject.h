@@ -13,13 +13,16 @@ class GameObject;
 #include <functional>
 #include <cassert>
 
+typedef std::vector<std::shared_ptr<GameObject>>::iterator GameObjectIt;
+typedef std::vector<std::shared_ptr<GameObject>>::const_iterator GameObjectConstIt;
+
 /// class GameObject - Problems: a) Assumes rectangular objects b) strongly coupled with Scene
 class GameObject{
 private:
-	//std::vector<std::shared_ptr<GameObject>> children; //TODO: move it to Panel
 	//mouse states
 	bool hovered, focused;
 	bool held[MOUSE_KEY_NUM];
+	const GameObject* parent;
 
 	//the scene that this object is in
 	Scene* scene;
@@ -43,14 +46,19 @@ public:
 	GameObject& setVel(const Vec2& vel){ this->vel = vel; return *this; }
 	GameObject& addVel(const Vec2& vel){ this->vel += vel; return *this; }
 	GameObject& setSize(const Vec2& size){ this->size = size; return *this; }
-
+	GameObject& setParent(const GameObject* parent){ this->parent = parent; return *this; }
+	GameObject& setScene(Scene* scene){ this->scene = scene; return *this; }
+	
 	Vec2 getPos() const{ return this->pos; }
 	Vec2 getVel() const{ return this->vel; }
+	//absolution pos/vel : position/velocity that considers the position of the parent.
+	Vec2 getAbsPos() const{ return (parent==nullptr?this->pos:(this->pos+parent->getAbsPos())); }
+	Vec2 getAbsVel() const{ return (parent==nullptr?this->vel:(this->vel+parent->getAbsVel())); }
 	Vec2 getSize() const{ return this->size; }
+	const GameObject* getParent() const{ return this->parent; }
 
-	const Scene* getScene() const{ return this->scene; }
-	Scene* getScene(){ return this->scene; }
-	void setScene(Scene* scene){ this->scene = scene; }
+	const Scene* getScene() const{ return (parent==nullptr?this->scene:parent->getScene()); }
+	Scene* getSceneVariable() const{ return (parent==nullptr?this->scene:parent->getSceneVariable()); }
 
 	//event handllers, to be overridden by subclasses.
 	virtual void onMouseMove(Vec2){} //triggered when mouse is moved, regardless of states
@@ -87,12 +95,6 @@ public:
 	bool isHovered() const{ return this->hovered; }
 	bool isHeld(MouseButton button) const{ return this->held[button]; }
 	bool isFocused() const{ return this->focused; }
-
-	//children manipulation functions, TODO: move them to Panel
-	/*GameObject& add(GameObject* child);
-	GameObject& remove(GameObject* child);
-	std::vector<std::shared_ptr<GameObject>>::iterator begin(GameObject* child);
-	std::vector<std::shared_ptr<GameObject>>::iterator end(GameObject* child);*/
 	
 };
 

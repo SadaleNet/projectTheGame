@@ -6,17 +6,14 @@
 TextBox::TextBox(Vec2 pos, Vec2 size, Color fontColor, Color fillColor, double borderSize, Color borderColor)
 	:GameObject(pos, size),
 	button(nullptr),
-	textObj(pos, size, "", int(size.y*0.8), fontColor, Text::LEFT),
-	rectObj(pos, size, fillColor, borderSize, borderColor),
+	textObj(Vec2(0,0), size, "", int(size.y*0.8), fontColor, Text::LEFT),
+	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),
 	fillColor(fillColor){
+	textObj.setParent(this);
+	rectObj.setParent(this);
 }
 
 void TextBox::updateHook(){
-	this->textObj.setPos(this->pos);
-	this->rectObj.setPos(this->pos);
-	this->textObj.setSize(this->size);
-	this->rectObj.setSize(this->size);
-
 	if(this->isFocused()){
 		this->rectObj.setFillColor(Color(
 								MIN(1.0, this->fillColor.r*1.3),
@@ -33,16 +30,6 @@ void TextBox::updateHook(){
 		this->textObj.setText(this->text+'_');
 	else
 		this->textObj.setText(this->text);
-}
-
-void TextBox::onSceneAdded(){
-	this->textObj.setScene(this->getScene());
-	this->rectObj.setScene(this->getScene());
-}
-
-void TextBox::onSceneRemoved(){
-	this->textObj.setScene(nullptr);
-	this->rectObj.setScene(nullptr);
 }
 
 void TextBox::render() const{

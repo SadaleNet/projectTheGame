@@ -6,6 +6,7 @@ GameObject::GameObject(Vec2 pos, Vec2 size)
 	:pos(pos),
 	size(size),
 	scene(nullptr),
+	parent(nullptr),
 	hovered(false),
 	focused(false){
 	for(int i=0; i<MOUSE_KEY_NUM; i++)
@@ -13,17 +14,18 @@ GameObject::GameObject(Vec2 pos, Vec2 size)
 }
 
 void GameObject::update(){
-	this->pos += this->vel*this->scene->getDeltaSec();
+	assert( this->getScene() != nullptr );
+	this->pos += this->getAbsVel()*this->getScene()->getDeltaSec();
 	this->updateHook();
 	this->onStep();
 }
 
 bool GameObject::isCollide(const GameObject& b) const{
-	return (b.pos.x+b.size.x > this->pos.x && b.pos.x < this->pos.x+this->size.x)
-		&& (b.pos.y+b.size.y > this->pos.y && b.pos.y < this->pos.y+this->size.y);
+	return (b.getAbsPos().x+b.size.x > this->getAbsPos().x && b.getAbsPos().x < this->getAbsPos().x+this->getAbsPos().x)
+		&& (b.getAbsPos().y+b.size.y > this->getAbsPos().y && b.getAbsPos().y < this->getAbsPos().y+this->getAbsPos().y);
 }
 
 bool GameObject::isCollide(const Vec2& p) const{
-	return (p.x > this->pos.x && p.x < this->pos.x+this->size.x)
-		&& (p.y > this->pos.y && p.y < this->pos.y+this->size.y);
+	return (p.x > this->getAbsPos().x && p.x < this->getAbsPos().x+this->size.x)
+		&& (p.y > this->getAbsPos().y && p.y < this->getAbsPos().y+this->size.y);
 }

@@ -172,6 +172,9 @@
     <ClCompile Include="db\remoteDb_Winapi.cpp">
       <Filter>Database</Filter>
     </ClCompile>
+    <ClCompile Include="db\UserDb.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="project.rc">

@@ -32,6 +32,7 @@ Usage:
 	-To access the database, just make HTTP requests(either GET or POST) to the corresponding pages along with query string, WITHOUT User-Agent header.
 	-Except init.php, shared.php and manage.php, all .php files are intented to be used by the client.
 	-Operations:
+		[F]Test connection:	http://.../test.php
 		[F]Create account:	http://.../register.php?username=whatever&password=passwd
 		[F]Remove account:	http://.../deregister.php?username=whatever&password=passwd
 		Validate Login:		http://.../login.php?username=whatever&password=passwd

@@ -1,12 +1,15 @@
 #include "RemoteDb.h"
 #include <cstdlib>
 #include <cassert>
+#include <stdexcept>
 
 #define SEND_REQUEST(_page, _suffix, _response) \
 	HttpGetRequest(this->urlBase+_page"?username="+urlEncode(username)+"&password="+urlEncode(password)+_suffix, _response)
 
 RemoteDb::RemoteDb(const std::string& urlBase)
 	:urlBase(urlBase){
+	if( SEND_REQUEST("test.php", "", this->status)!=200 && this->status!="It's working!\n" )
+		throw std::runtime_error("Error: server side error.");
 }
 
 bool RemoteDb::registerAcc(const std::string& username, const std::string& password){
@@ -83,7 +86,7 @@ std::string RemoteDb::urlEncode(const std::string& data) const{
 }
 
 void RemoteDb::test(){
-	RemoteDb db("192.168.0.1/gamedb/");
+	RemoteDb db(REMOTE_SERVER);
 	db.registerAcc("alpha", "password");
 	db.registerAcc("beta", "meowie");
 

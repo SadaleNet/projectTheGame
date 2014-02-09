@@ -13,7 +13,7 @@ void Scene::handleExtraEvents(){
 }
 
 void Scene::update(){
-	EACH_GAME_OBJECT(i)
+	EACH_GAME_OBJECT_INCLUDES_HIDDEN(i)
 		i->update();
 	END_EACH
 }
@@ -32,9 +32,16 @@ Scene& Scene::add(GameObject* obj){
 }
 
 Scene& Scene::remove(GameObject* obj){
-	assert( std::remove(this->gameObjects.begin(), this->gameObjects.end(), std::shared_ptr<GameObject>(obj)) == this->gameObjects.end() );
 	obj->scene = nullptr;
 	obj->onSceneRemoved();
+	assert( this->gameObjects.end() ==
+				this->gameObjects.erase(
+					std::remove_if(this->gameObjects.begin(), this->gameObjects.end(),
+					[=](const std::shared_ptr<GameObject>& a){ 
+						return (a.get() == obj);
+					})
+				)
+			);
 	return *this;
 }
 

@@ -11,7 +11,7 @@ class Panel;
 */
 class Panel: public GameObject{
 private:
-	std::vector<std::shared_ptr<GameObject>> children;
+	std::vector<GameObject*> children;
 protected:
 	Rect rectObj;
 public:
@@ -39,8 +39,8 @@ public:
 	Panel& add(GameObject* child);
 	Panel& remove(GameObject* child);
 	//forwards to children
-	std::vector<std::shared_ptr<GameObject>>::iterator begin(GameObject* child);
-	std::vector<std::shared_ptr<GameObject>>::iterator end(GameObject* child);
+	std::vector<GameObject*>::iterator begin(GameObject* child);
+	std::vector<GameObject*>::iterator end(GameObject* child);
 };
 
 #endif

@@ -22,7 +22,15 @@ private:
 	//mouse states
 	bool hovered, focused;
 	bool held[MOUSE_KEY_NUM];
-	const GameObject* parent;
+	GameObject* parent;
+
+	//Parent	Chilren		Result
+	//true		true		both hidden
+	//true		false		both hidden
+	//false		true		hidden children, visible parent.
+	//false		false		both visible
+	//hidden object are not rendered and does NOT handle event, except update() and onStep().
+	bool hidden;
 
 	//the scene that this object is in
 	Scene* scene;
@@ -46,7 +54,7 @@ public:
 	GameObject& setVel(const Vec2& vel){ this->vel = vel; return *this; }
 	GameObject& addVel(const Vec2& vel){ this->vel += vel; return *this; }
 	GameObject& setSize(const Vec2& size){ this->size = size; return *this; }
-	GameObject& setParent(const GameObject* parent){ this->parent = parent; return *this; }
+	GameObject& setParent(GameObject* parent){ this->parent = parent; return *this; }
 	GameObject& setScene(Scene* scene){ this->scene = scene; return *this; }
 	
 	Vec2 getPos() const{ return this->pos; }
@@ -59,6 +67,12 @@ public:
 
 	const Scene* getScene() const{ return (parent==nullptr?this->scene:parent->getScene()); }
 	Scene* getSceneVariable() const{ return (parent==nullptr?this->scene:parent->getSceneVariable()); }
+	
+	GameObject& hide(){ this->hidden = true; return *this; }
+	GameObject& show(){ this->hidden = false; return *this; }
+	bool isHidden() const{ return ((parent==nullptr||this->hidden)?this->hidden:parent->isHidden()); }
+
+	void destroy();
 
 	//event handllers, to be overridden by subclasses.
 	virtual void onMouseMove(Vec2){} //triggered when mouse is moved, regardless of states

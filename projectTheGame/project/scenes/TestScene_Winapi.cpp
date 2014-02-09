@@ -45,6 +45,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	panel->add(button);
 	panel->add(textBox);
 	this->add(panel);
+
 }
 
 /*void TestScene::render(){

@@ -1,3 +1,5 @@
+#define REMOTE_SERVER "192.168.0.1/gamedb/"
+
 class UserDb;
 
 #ifndef USER_DB_H
@@ -5,6 +7,7 @@ class UserDb;
 
 #include <map>
 #include <string>
+#include <memory>
 
 /**	@brief	A interface for accessing database.
 			Currently, FileDb and RemoteDb inherits from this class.
@@ -33,6 +36,12 @@ public:
 	virtual std::string getHighScoreBoard() const = 0;
 
 	std::string getStatus() const{ return status; }
+
+	/**	@brief	Attempt to connect to RemoveDb. If fails, connect to a FileDb instead.
+		@return	the successfully connected database.
+	*/
+	static std::unique_ptr<UserDb> instantiate();
+
 };
 
 #endif

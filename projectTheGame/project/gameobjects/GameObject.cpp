@@ -1,4 +1,5 @@
 ﻿#include "GameObject.h"
+#include "Panel.h"
 #include <stdexcept>
 #include <cassert>
 
@@ -8,7 +9,8 @@ GameObject::GameObject(Vec2 pos, Vec2 size)
 	scene(nullptr),
 	parent(nullptr),
 	hovered(false),
-	focused(false){
+	focused(false),
+	hidden(false){
 	for(int i=0; i<MOUSE_KEY_NUM; i++)
 		this->held[i] = false;
 }
@@ -28,4 +30,13 @@ bool GameObject::isCollide(const GameObject& b) const{
 bool GameObject::isCollide(const Vec2& p) const{
 	return (p.x > this->getAbsPos().x && p.x < this->getAbsPos().x+this->size.x)
 		&& (p.y > this->getAbsPos().y && p.y < this->getAbsPos().y+this->size.y);
+}
+
+//since this->scene holds the ownership of this, by deregistering this from this->scene, the object is destroyed.
+void GameObject::destroy(){
+	if(this->parent==nullptr){
+		this->scene->remove(this);
+	}else{
+		dynamic_cast<Panel*>(this->parent)->remove(this);
+	}
 }

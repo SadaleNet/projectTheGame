@@ -1,7 +1,9 @@
-#include "RemoteDb.h"
 #include <windows.h>
 #include <wininet.h>
 #pragma comment (lib,"Wininet.lib")
+
+#include "RemoteDb.h"
+#include <stdexcept>
 
 int RemoteDb::HttpGetRequest(const std::string& url, std::string& responseBody) const{
 	//initialize request

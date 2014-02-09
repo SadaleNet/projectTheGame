@@ -6,13 +6,14 @@
 SceneRunner_Winapi::SceneRunner_Winapi(int fps):SceneRunner(fps),graphicsBuffer(nullptr){
 	QueryPerformanceFrequency(&this->tickFreq);
 	QueryPerformanceCounter(&this->startTick);
-	lastUpdateSec = 0.0;
 }
 
 
 void SceneRunner_Winapi::run(){
 	//TODO: make use of http://gameprogrammingpatterns.com/game-loop.html
 	MSG msg;
+	this->lastUpdateSec = this->getSec();
+	double lastDisplayUpdateSec = this->getSec();
 	while(!this->getTerminated()){
 		while(PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)!=0){
 			if(GetMessage(&msg, NULL, 0, 0)==-1)
@@ -24,13 +25,17 @@ void SceneRunner_Winapi::run(){
 		}
 		this->handleEvents();
 		this->updateScene();
-		//wait a while
-		Sleep(static_cast<DWORD>(1000.0/this->getFps()));
 
 		//for getDeltaSec()
-		lastUpdateSec = this->getSec();
-		//update display
-		InvalidateRgn(hWnd, NULL, FALSE);
+		this->lastUpdateSec = this->getSec();
+
+		//update display(frame-limited)
+		if( this->getSec()-lastDisplayUpdateSec > 1.0/this->getFps() ){
+			lastDisplayUpdateSec = this->getSec();
+			InvalidateRgn(hWnd, NULL, FALSE);
+		}
+
+		Sleep(1); //sleep for a millsecond to reduce the CPU load. Comment this line for smoother gameplay.
 	}
 	/// Runs Scene methods repeatively until teminate() is called by the scene.
 }

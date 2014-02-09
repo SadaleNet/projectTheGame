@@ -6,6 +6,13 @@ class Scene;
 #define EACH_GAME_OBJECT(_identifier) \
 	GameObjectIt it_##_identifier = gameObjects.begin();\
 	for( ; it_##_identifier != gameObjects.end(); it_##_identifier++ ){\
+		GameObject* _identifier = (*it_##_identifier).get();\
+		if(_identifier->isHidden())\
+			continue;\
+
+#define EACH_GAME_OBJECT_INCLUDES_HIDDEN(_identifier) \
+	GameObjectIt it_##_identifier = gameObjects.begin();\
+	for( ; it_##_identifier != gameObjects.end(); it_##_identifier++ ){\
 		GameObject* _identifier = (*it_##_identifier).get();
 
 #define END_EACH }

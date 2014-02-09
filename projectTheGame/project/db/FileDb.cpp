@@ -52,12 +52,14 @@ bool FileDb::registerAcc(const std::string& username, const std::string& passwor
 	try{
 		//check whether the user exists. If it does not exists, throws an exception to be catched.
 		this->dataTable.at(username);
+		this->status = "Error: Username already exist.";
 		return false;
 	}catch(std::out_of_range&){
 		//the user does not exist. Let's create one
 		this->dataTable[username] = UserData( hash(password), 0, "" );
 		this->save();
 	}
+	this->status = "Registered successfully.";
 	return true;
 }
 
@@ -65,22 +67,27 @@ bool FileDb::deregisterAcc(const std::string& username, const std::string& passw
 	if(hash(password)==this->dataTable.at(username).password){
 		this->dataTable.erase(username);
 		this->save();
+		this->status = "Deregistered successfully.";
 		return true;
 	}
+	this->status = "Error: Cannot deregister. Ensure that the username and password you have typed were correct.";
 	return false;
 }
 
 bool FileDb::login(const std::string& username, const std::string& password){
 	if(hash(password)==this->dataTable.at(username).password){
 		this->username = username;
+		this->status = "Login success.";
 		return true;
 	}
+	this->status = "Error: Login failure.";
 	return false;
 }
 
 bool FileDb::logout(){
 	this->username.clear();
 	this->save();
+	this->status = "Logout success.";
 	return true;
 }
 

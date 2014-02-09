@@ -21,11 +21,15 @@ struct UserData{
 				For each user:
 				<username>\t<hashedPassword>\t<highScore>\t<serializedData>\n,
 				where <hashedPassword> is a FNV-1 hashed password.
+			In UserDb: registerAcc(), deregisterAcc(), login() and logout() set status message.
 */
 class FileDb: public UserDb{
 private:
 	std::string filePath;
 	std::string username;
+	
+public:
+	FileDb(const std::string& filePath);
 
 	std::map<std::string, UserData> dataTable; //key: username
 	void save() const;
@@ -42,8 +46,6 @@ private:
 	virtual std::string getData() const override;
 	virtual int getHighScore() const override;
 	virtual std::string getHighScoreBoard() const override;
-public:
-	FileDb(const std::string& filePath);
 
 	static void test();
 };

@@ -4,6 +4,7 @@ class UserDb;
 #define USER_DB_H
 
 #include <map>
+#include <string>
 
 /**	@brief	A interface for accessing database.
 			Currently, FileDb and RemoteDb inherits from this class.
@@ -13,6 +14,8 @@ class UserDb;
 			For example, if putData() is called before login(), an exception is thrown.
 */
 class UserDb{
+protected:
+	std::string status;
 public:
 	virtual bool registerAcc(const std::string& username, const std::string& password) = 0;
 	virtual bool deregisterAcc(const std::string& username, const std::string& password) = 0;
@@ -29,6 +32,7 @@ public:
 	virtual int getHighScore() const = 0;
 	virtual std::string getHighScoreBoard() const = 0;
 
+	std::string getStatus() const{ return status; }
 };
 
 #endif

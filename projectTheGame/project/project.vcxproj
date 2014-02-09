@@ -103,6 +103,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="db\FileDb.cpp" />
+    <ClCompile Include="db\RemoteDb.cpp" />
+    <ClCompile Include="db\remoteDb_Winapi.cpp" />
     <ClCompile Include="gameobjects\Button.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="gameobjects\objectRender_Winapi.cpp" />

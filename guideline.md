@@ -17,7 +17,7 @@ File Naming Convention
 * All directories are named in lowercase.
 * Files that defines/implements a class are named as CamelCase
 * Files that does not defines/implements a class are named as camelCase
-* Files of definition of platform-specific files shall have a _Implementation suffix.
+* Files of definition of platform-specific files shall have a \_Implementation suffix.
 This rules applies to all rules above.
 Example: scene_Winapi.cpp
 
@@ -38,31 +38,38 @@ Coding Convention
 * Use inline brace:
 
 @code
+```
 	if(condition){
 		thereAre = manyLine();
 		ofCode(HERE);
 	}
+```
 @endcode
 
 * Braces may be ignored for single statement:
 
 @code
+```
 	if(condition)
 		this->is = only(one, statement);
+```
 @endcode
 
 * Do **not** document obvious code. It's counter-construtive. Do **not** document something like this:
 
 @code
+```
 	///@brief get the value field of this class.
 	int getValue() const{
 		return this->value;
 	}
+```
 @endcode
 
 * Use doxygen for documentation. Details: http://www.stack.nl/~dimitri/doxygen/ ; Example:
 
 @code
+```
 	/**	@brief	Link this object to b.
 				When the attribute of b is updated,
 				the attribute of this object is set to that of b.
@@ -77,5 +84,6 @@ Coding Convention
 			b->link(*this);
 		return *this;
 	}
+```
 @endcode
 

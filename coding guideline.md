@@ -1,3 +1,6 @@
+Coding Style Guideline
+==========
+
 Definition
 ==========
 * camelCase: naming with camelCase starting with lowerCase character. Example: utils.h, buttonSize
@@ -33,26 +36,33 @@ Coding Convention
 * Use tab indentation.
 * Explicitly use `this->` to access class field and method. Example: `this->memberField` and `this->method()`
 * Use inline brace:
-```
+
+@code
 	if(condition){
 		thereAre = manyLine();
 		ofCode(HERE);
 	}
-```
+@endcode
+
 * Braces may be ignored for single statement:
-```
+
+@code
 	if(condition)
 		this->is = only(one, statement);
-```
+@endcode
+
 * Do **not** document obvious code. It's counter-construtive. Do **not** document something like this:
-```
+
+@code
 	///@brief get the value field of this class.
 	int getValue() const{
 		return this->value;
 	}
-```
+@endcode
+
 * Use doxygen for documentation. Details: http://www.stack.nl/~dimitri/doxygen/ ; Example:
-```
+
+@code
 	/**	@brief	Link this object to b.
 				When the attribute of b is updated,
 				the attribute of this object is set to that of b.
@@ -67,5 +77,5 @@ Coding Convention
 			b->link(*this);
 		return *this;
 	}
-```
+@endcode
 

@@ -3,12 +3,12 @@ Coding Style Guideline
 
 Definition
 ==========
-* `camelCase`: naming with camelCase starting with lowerCase character. Example: `utils.h`, `buttonSize`
-* `CamelCase`: naming with camelCase starting with lowerCase character. Example: `Scene.cpp`, `GameObject.h`, `FileDb`
+* `camelCase`: naming with camelCase starting with `lowerCase` character. Example: `utils.h`, `buttonSize`
+* `CamelCase`: naming with camelCase starting with `UpperCase` character. Example: `Scene.cpp`, `GameObject.h`, `FileDb`
 * Abbreviation rules: for abbreviation, the letters are NOT captalized. Example: `playerId`, `cpuUsage`, `getUrl()`
 	Unless otherwise specified, abbreviation rules applies to `camelCase` and `CamelCase`.
-* `BLOCK_UNDERSCORE`: naming with ALL_CAPITAL_LETTER, SEPERATED_BY_UNDERSCORE. Example: `POPULATION_LIMIT`, `EACH_GAME_OBJECT`
-* `lowercase`: naming with all lower case, notseperatedbywhitespace. Example: `gameobjects`, `scenes`
+* `BLOCK_UNDERSCORE`: naming with `ALL_CAPITAL_LETTER`, `SEPERATED_BY_UNDERSCORE`. Example: `POPULATION_LIMIT`, `EACH_GAME_OBJECT`
+* `lowercase`: naming with all lower case, `notseperatedbywhitespace`. Example: `gameobjects`, `scenes`
 	
 
 File Naming Convention

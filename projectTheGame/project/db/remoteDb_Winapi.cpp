@@ -25,11 +25,19 @@ int RemoteDb::HttpGetRequest(const std::string& url, std::string& responseBody) 
 		formData = url.substr(url.find('?')+1); //Query string of GET request
 	}
 
-	//send the request
+	//initialize the request
 	HINTERNET hSession = InternetOpen(L"", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
 	HINTERNET hConnect = InternetConnectA(hSession, resourceLocation.data(), INTERNET_DEFAULT_HTTP_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1 );
 	HINTERNET hRequest = HttpOpenRequestA(hConnect, "POST", resourceName.data(), NULL, NULL, accept, 0, 1);
 
+	//set the timeout
+	DWORD TIMEOUT = 5000; //5 seconds timeout.
+	if( InternetSetOption(hRequest, INTERNET_OPTION_CONNECT_TIMEOUT, &TIMEOUT, sizeof(TIMEOUT) ) != TRUE ){
+		responseBody = "Error on setting timeout: "+std::to_string((long long)GetLastError());
+		throw std::runtime_error(responseBody);
+	}
+
+	//send the request
 	if( HttpSendRequestA(hRequest, strHeaders, strlen(strHeaders), (formData.size()==0?NULL:&formData[0]), formData.size()) != TRUE ){
 		responseBody = "Error on sending request: "+std::to_string((long long)GetLastError());
 		throw std::runtime_error(responseBody);

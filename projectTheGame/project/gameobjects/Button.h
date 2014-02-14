@@ -17,13 +17,17 @@ hover color		130% brightness of original
 press color		70% brightness of original
 */
 class Button: public GameObject{
-private:
-	std::function<void()> action; ///action() is executed when the button is clicked.
 protected:
 	Text textObj;
 	Rect rectObj;
-	Color fillColor;
 public:
+	Color fillColor;
+	Color& fontColor; //refers to textObj
+	double& borderSize; //refers to rectObj
+	Color& borderColor; //refers to rectObj
+
+	std::function<void()> action; ///action() is executed when the button is clicked.
+
 	Button(Vec2 pos, Vec2 size, std::string text, Color fontColor, Color fillColor, double borderSize=3, Color borderColor=Color(0,0,0,1));
 
 	virtual void render() const override;
@@ -34,17 +38,13 @@ public:
 
 	//setters and getters
 	///action() is executed when the button is clicked.
-	Button& setAction(std::function<void()> action){ this->action = action; return *this; }
-	Button& setFontColor(Color fontColor){ textObj.setFontColor(fontColor); return *this; }
-	Button& setFillColor(Color fillColor){ this->fillColor = fillColor; return *this; }
-	Button& setBorderSize(double borderSize){ rectObj.setBorderSize(borderSize); return *this; }
-	Button& setBorderColor(Color borderColor){ rectObj.setBorderColor(borderColor); return *this; }
-	
-	std::function<void()> getAction(){ return this->action; }
-	Color getFontColor() const{ return textObj.getFontColor(); }
-	Color getFillColor() const{ return this->fillColor; }
-	double getBorderSize() const{ return rectObj.getBorderSize(); }
-	Color getBorderColor() const{ return rectObj.getBorderColor(); }
+	Button& setFontColor(Color fontColor){ textObj.fontColor = fontColor; return *this; }
+	Button& setBorderSize(double borderSize){ rectObj.borderSize = borderSize; return *this; }
+	Button& setBorderColor(Color borderColor){ rectObj.borderColor = borderColor; return *this; }
+
+	Color getFontColor() const{ return textObj.fontColor; }
+	double getBorderSize() const{ return rectObj.borderSize; }
+	Color getBorderColor() const{ return rectObj.borderColor; }
 
 };
 

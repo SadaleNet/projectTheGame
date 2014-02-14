@@ -17,15 +17,19 @@ Text::align		LEFT
 Text::fontSize	80% of height
 */
 class TextBox: public GameObject{
-private:
-	Button* button; ///button->action() is executed when enter is pressed while this textbox is focused.
 protected:
 	Text textObj;
 	Rect rectObj;
+public:
+	Button* button; ///button->action() is executed when enter is pressed while this textbox is focused.
 	Color fillColor;
 	std::string text;
 	bool secret;
-public:
+	Color& fontColor; //refers to textObj
+	double& borderSize; //refers to rectObj
+	Color& borderColor; //refers to rectObj
+	 
+
 	TextBox(Vec2 pos, Vec2 size, Color fontColor, Color fillColor, double borderSize=3, Color borderColor=Color(0,0,0,1));
 
 	virtual void render() const override;
@@ -38,18 +42,14 @@ public:
 	//setters and getters
 	///button->action() is executed when enter is pressed while this textbox is focused.
 	TextBox& setButton(Button* button){ this->button = button; return *this; }
-	TextBox& setFontColor(Color fontColor){ textObj.setFontColor(fontColor); return *this; }
-	TextBox& setFillColor(Color fillColor){ this->fillColor = fillColor; return *this; }
-	TextBox& setBorderSize(double borderSize){ rectObj.setBorderSize(borderSize); return *this; }
-	TextBox& setBorderColor(Color borderColor){ rectObj.setBorderColor(borderColor); return *this; }
-	TextBox& setSecret(bool secret=true){ this->secret = secret; return *this; }
+	TextBox& setFontColor(Color fontColor){ textObj.fontColor = fontColor; return *this; }
+	TextBox& setBorderSize(double borderSize){ rectObj.borderSize = borderSize; return *this; }
+	TextBox& setBorderColor(Color borderColor){ rectObj.borderColor = borderColor; return *this; }
 	
 	Button* getButton(){ return this->button; }
-	Color getFontColor() const{ return textObj.getFontColor(); }
-	Color getFillColor() const{ return this->fillColor; }
-	double getBorderSize() const{ return rectObj.getBorderSize(); }
-	Color getBorderColor() const{ return rectObj.getBorderColor(); }
-	bool isSecret() const{ return this->secret; }
+	Color getFontColor() const{ return textObj.fontColor; }
+	double getBorderSize() const{ return rectObj.borderSize; }
+	Color getBorderColor() const{ return rectObj.borderColor; }
 
 };
 

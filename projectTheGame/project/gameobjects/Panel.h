@@ -26,13 +26,13 @@ public:
 	virtual void onSceneRemoved() override;
 
 	//setters and getters
-	Panel& setFillColor(Color fillColor){ rectObj.setFillColor(fillColor); return *this; }
-	Panel& setBorderSize(double borderSize){ rectObj.setBorderSize(borderSize); return *this; }
-	Panel& setBorderColor(Color borderColor){ rectObj.setBorderColor(borderColor); return *this; }
+	Panel& setFillColor(Color fillColor){ rectObj.fillColor = fillColor; return *this; }
+	Panel& setBorderSize(double borderSize){ rectObj.borderSize = borderSize; return *this; }
+	Panel& setBorderColor(Color borderColor){ rectObj.borderColor = borderColor; return *this; }
 	
-	Color getFillColor() const{ return rectObj.getFillColor(); }
-	double getBorderSize() const{ return rectObj.getBorderSize(); }
-	Color getBorderColor() const{ return rectObj.getBorderColor(); }
+	Color getFillColor() const{ return rectObj.fillColor; }
+	double getBorderSize() const{ return rectObj.borderSize; }
+	Color getBorderColor() const{ return rectObj.borderColor; }
 
 	//children manipulation functions
 

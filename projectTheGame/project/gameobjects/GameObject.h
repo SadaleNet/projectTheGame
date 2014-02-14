@@ -37,11 +37,12 @@ private:
 	friend Scene;
 
 protected:
+
+public:
 	Vec2 pos;
 	Vec2 vel; //velocity
 	Vec2 size;
 
-public:
 	GameObject(Vec2 pos, Vec2 size);
 
 	virtual void render() const = 0;
@@ -50,19 +51,12 @@ public:
 	bool isCollide(const Vec2& p) const;
 
 	//setters and getters
-	GameObject& setPos(const Vec2& pos){ this->pos = pos; return *this; }
-	GameObject& setVel(const Vec2& vel){ this->vel = vel; return *this; }
-	GameObject& addVel(const Vec2& vel){ this->vel += vel; return *this; }
-	GameObject& setSize(const Vec2& size){ this->size = size; return *this; }
 	GameObject& setParent(GameObject* parent){ this->parent = parent; return *this; }
 	GameObject& setScene(Scene* scene){ this->scene = scene; return *this; }
-	
-	Vec2 getPos() const{ return this->pos; }
-	Vec2 getVel() const{ return this->vel; }
+
 	//absolution pos/vel : position/velocity that considers the position of the parent.
 	Vec2 getAbsPos() const{ return (parent==nullptr?this->pos:(this->pos+parent->getAbsPos())); }
 	Vec2 getAbsVel() const{ return (parent==nullptr?this->vel:(this->vel+parent->getAbsVel())); }
-	Vec2 getSize() const{ return this->size; }
 	const GameObject* getParent() const{ return this->parent; }
 
 	const Scene* getScene() const{ return (parent==nullptr?this->scene:parent->getScene()); }

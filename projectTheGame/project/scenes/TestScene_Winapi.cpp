@@ -24,7 +24,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	//this->add(text);
 
 	Button* button = new Button(Vec2(400, 400), Vec2(100, 30), "Button", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
-	button->setAction([=](){ button->vel -= Vec2(0, -10); playSfx("./assets/coin.wav"); });
+	button->action = [=](){ button->vel -= Vec2(0, -10); playSfx("./assets/coin.wav"); };
 	button->vel += Vec2(0, -30);
 	//this->add(button);
 
@@ -41,7 +41,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	panel->add(textBox);
 	this->add(panel);
 
-	Timer* timer = new Timer([=](){ text->setText("haha!"); }, 1.5);
+	Timer* timer = new Timer([=](){ text->text = "haha!"; }, 1.5);
 	this->add(timer);
 
 	GameObject* animatedRect = new Rect(Vec2(100, 300), Vec2(25, 25), Color(1.0, 0.8, 0.5, 1.0), 5, Color(1.0, 1.0, 0.5, 1.0));

@@ -5,13 +5,8 @@
 #include <string>
 #pragma comment (lib,"Gdiplus.lib")
 
-#include "../gameobjects/Rect.h"
-#include "../gameobjects/SpriteObject.h"
-#include "../gameobjects/Text.h"
-#include "../gameobjects/Button.h"
-#include "../gameobjects/TextBox.h"
-#include "../gameobjects/Panel.h"
-#include "../utils/Vec2.h"
+#include "../gameobjects/include.h"
+#include "../misc/soundPlayer.h"
 
 TestScene::TestScene(const SceneRunner* sceneRunner)
 	:Scene(sceneRunner){
@@ -20,7 +15,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	rect->addVel(Vec2(5, 5));
 	//this->add(rect);
 
-	SpriteObject* spriteObject = new SpriteObject(Vec2(200, 200), Vec2(50, 50), "./images/test.png", Vec2(5, 5), Vec2(10, 10));
+	SpriteObject* spriteObject = new SpriteObject(Vec2(200, 200), Vec2(50, 50), "./assets/test.png", Vec2(5, 5), Vec2(10, 10));
 	spriteObject->addVel(Vec2(20, 0));
 	//this->add(spriteObject);
 
@@ -29,7 +24,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	//this->add(text);
 
 	Button* button = new Button(Vec2(400, 400), Vec2(100, 30), "Button", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
-	button->setAction([=](){ button->addVel(Vec2(0, 10)); });
+	button->setAction([=](){ playSfx("./assets/coin.wav"); });
 	button->addVel(Vec2(0, -30));
 	//this->add(button);
 
@@ -46,6 +41,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	panel->add(textBox);
 	this->add(panel);
 
+	playBgm("./assets/testBgm.wav");
 }
 
 /*void TestScene::render(){

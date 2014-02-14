@@ -27,6 +27,9 @@
     <Filter Include="Database">
       <UniqueIdentifier>{1a750c6a-bd39-494d-b2e5-3d5bd038f48d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Super Game Objects">
+      <UniqueIdentifier>{b01be89f-000d-49bc-b8c3-bcbd75502aa9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -38,9 +41,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="testCases.h">
-      <Filter>Misc</Filter>
-    </ClInclude>
     <ClInclude Include="scenes\EventData.h">
       <Filter>Misc</Filter>
     </ClInclude>
@@ -106,6 +106,15 @@
     </ClInclude>
     <ClInclude Include="db\RemoteDb.h">
       <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobjects\include.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\soundPlayer.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\testCases.h">
+      <Filter>Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="db\UserDb.cpp">
       <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\soundPlayer_Winapi.cpp">
+      <Filter>Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

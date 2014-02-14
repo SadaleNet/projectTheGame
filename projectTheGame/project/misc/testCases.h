@@ -1,7 +1,7 @@
-#include "./utils/Mat33.h"
-#include "./utils/Vec2.h"
-#include "./db/FileDb.h"
-#include "./db/RemoteDb.h"
+#include "../utils/Mat33.h"
+#include "../utils/Vec2.h"
+#include "../db/FileDb.h"
+#include "../db/RemoteDb.h"
 #include <iostream>
 
 void testCases(){

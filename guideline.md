@@ -6,7 +6,7 @@ Definition
 * `camelCase`: naming with camelCase starting with `lowerCase` character. Example: `utils.h`, `buttonSize`
 * `CamelCase`: naming with camelCase starting with `UpperCase` character. Example: `Scene.cpp`, `GameObject.h`, `FileDb`
 * Abbreviation rules: for abbreviation, the letters are NOT captalized. Example: `playerId`, `cpuUsage`, `getUrl()`
-	Unless otherwise specified, abbreviation rules applies to `camelCase` and `CamelCase`.
+	Unless otherwise specified, abbreviation rules apply to `camelCase` and `CamelCase`.
 * `BLOCK_UNDERSCORE`: naming with `ALL_CAPITAL_LETTER`, `SEPERATED_BY_UNDERSCORE`. Example: `POPULATION_LIMIT`, `EACH_GAME_OBJECT`
 * `lowercase`: naming with all lower case, `notseperatedbywhitespace`. Example: `gameobjects`, `scenes`
 	
@@ -19,7 +19,7 @@ File Naming Convention
 * Files that does not defines/implements a class are named as `camelCase`
 * Files of definition of platform-specific files shall have a `_Implementation` suffix.
 This rules applies to all rules above.
-Example: scene_Winapi.cpp
+Example: `scene_Winapi.cpp`
 
 
 Identifier Naming Convention
@@ -44,7 +44,7 @@ Coding Convention
 	}
 ```
 
-* Braces may be ignored for single statement:
+* Braces may be omitted for single statement:
 
 ```
 	if(condition)

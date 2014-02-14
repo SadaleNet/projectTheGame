@@ -1,5 +1,5 @@
 #include "SceneRunner.h"
-#include "../testCases.h"
+#include "../misc/testCases.h"
 #include <iostream>
 
 void SceneRunner::handleEvents(){

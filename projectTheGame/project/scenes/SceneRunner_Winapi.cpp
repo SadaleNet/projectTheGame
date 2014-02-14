@@ -35,7 +35,7 @@ void SceneRunner_Winapi::run(){
 			InvalidateRgn(hWnd, NULL, FALSE);
 		}
 
-		Sleep(1); //sleep for a millsecond to reduce the CPU load. Comment this line for smoother gameplay.
+		//Sleep(1); //sleep for a millsecond to reduce the CPU load. Comment this line for smoother gameplay.
 	}
 	/// Runs Scene methods repeatively until teminate() is called by the scene.
 }

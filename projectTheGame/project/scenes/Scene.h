@@ -3,16 +3,19 @@ class Scene;
 #ifndef SCENE_H
 #define SCENE_H
 
+//create a clone before iterating so that the iterator will work even a gameobject get deleted during the iteration.
 #define EACH_GAME_OBJECT(_identifier) \
-	GameObjectIt it_##_identifier = gameObjects.begin();\
-	for( ; it_##_identifier != gameObjects.end(); it_##_identifier++ ){\
+	std::vector<std::shared_ptr<GameObject>> gameObjectsClone_##_identifier = gameObjects;\
+	GameObjectIt it_##_identifier = gameObjectsClone_##_identifier.begin();\
+	for( ; it_##_identifier != gameObjectsClone_##_identifier.end(); it_##_identifier++ ){\
 		GameObject* _identifier = (*it_##_identifier).get();\
 		if(_identifier->isHidden())\
 			continue;\
 
 #define EACH_GAME_OBJECT_INCLUDES_HIDDEN(_identifier) \
-	GameObjectIt it_##_identifier = gameObjects.begin();\
-	for( ; it_##_identifier != gameObjects.end(); it_##_identifier++ ){\
+	std::vector<std::shared_ptr<GameObject>> gameObjectsClone_##_identifier = gameObjects;\
+	GameObjectIt it_##_identifier = gameObjectsClone_##_identifier.begin();\
+	for( ; it_##_identifier != gameObjectsClone_##_identifier.end(); it_##_identifier++ ){\
 		GameObject* _identifier = (*it_##_identifier).get();
 
 #define END_EACH }

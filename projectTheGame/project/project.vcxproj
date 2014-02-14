@@ -86,6 +86,7 @@
     <ClInclude Include="gameobjects\Panel.h" />
     <ClInclude Include="gameobjects\Rect.h" />
     <ClInclude Include="gameobjects\SpriteObject.h" />
+    <ClInclude Include="gameobjects\super\Animator.h" />
     <ClInclude Include="gameobjects\super\Timer.h" />
     <ClInclude Include="gameobjects\Text.h" />
     <ClInclude Include="gameobjects\TextBox.h" />

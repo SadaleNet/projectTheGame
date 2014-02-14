@@ -37,6 +37,7 @@ void GameObject::destroy(){
 	if(this->parent==nullptr){
 		this->scene->remove(this);
 	}else{
+		//TODO: generalize Panel to Container, and have Panel inherit from it.
 		dynamic_cast<Panel*>(this->parent)->remove(this);
 	}
 }

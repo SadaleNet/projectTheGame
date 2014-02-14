@@ -49,7 +49,7 @@ void SceneRunner_Winapi::render(){
 	this->graphicsBuffer = &graphicsBuffer;
 
 	//second buffer ready. Clear the buffer and let the scene draw something on it.
-	graphicsBuffer.Clear(Color(255, 255, 255, 255));
+	graphicsBuffer.Clear(Gdiplus::Color(255, 255, 255, 255));
 	this->renderScene();
 
 	//copy stuff from the new buffer to the old one

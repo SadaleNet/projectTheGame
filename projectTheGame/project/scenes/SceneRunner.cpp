@@ -2,14 +2,14 @@
 #include "../misc/testCases.h"
 #include <iostream>
 
-void SceneRunner::handleEvents(){
-	return this->scene->handleEvents();
-}
-
 SceneRunner::SceneRunner(int fps){
 	testCases();
 	this->fps = fps;
 	this->terminated = false;
+}
+
+void SceneRunner::handleEvents(){
+	return this->scene->handleEvents();
 }
 
 void SceneRunner::renderScene(){

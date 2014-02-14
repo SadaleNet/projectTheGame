@@ -1,4 +1,7 @@
-#define REMOTE_SERVER "192.168.0.1/gamedb/"
+#include <ctype.h>
+extern char* foo(const char* bar); //解襪罔子, 肺是彼奇她仁體賭
+
+#define REMOTE_SERVER foo("iA`SOO-tQxuatAeF-adS+sMyQPn+") //url to the game database
 
 class UserDb;
 

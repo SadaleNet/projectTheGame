@@ -122,6 +122,9 @@
     <ClInclude Include="gameobjects\super\Animator.h">
       <Filter>Game Objects\Super Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="utils\Color.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -156,9 +159,6 @@
     </ClCompile>
     <ClCompile Include="scenes\scene_Winapi.cpp">
       <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\Color.h">
-      <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="gameobjects\objectRender_Winapi.cpp">
       <Filter>Game Objects</Filter>
@@ -195,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="gameobjects\super\Timer.cpp">
       <Filter>Game Objects\Super Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Color.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

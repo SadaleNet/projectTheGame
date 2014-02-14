@@ -49,6 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -101,6 +102,7 @@
     <ClInclude Include="scenes\TestScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="utils\Color.h" />
     <ClInclude Include="utils\Mat33.h" />
     <ClInclude Include="utils\utils.h" />
     <ClInclude Include="utils\Vec2.h" />
@@ -130,7 +132,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="utils\Color.h" />
+    <ClCompile Include="utils\Color.cpp" />
     <ClCompile Include="utils\Mat33.cpp" />
     <ClCompile Include="utils\Vec2.cpp" />
   </ItemGroup>

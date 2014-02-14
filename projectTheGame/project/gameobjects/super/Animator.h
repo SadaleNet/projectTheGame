@@ -19,7 +19,6 @@ protected:
 	bool absoluteTiming;
 
 protected:
-
 	/**	@brief	Calculates this->begin and this->end if this->absolute is false */
 	virtual void onSceneAdded() override{
 		if( !this->absoluteTiming ){
@@ -54,10 +53,24 @@ public:
 		absoluteTiming(absoluteTiming){
 	}
 	Animator(TargetType& target, double beginTime, TargetType begin, double endTime, TargetType end, bool absoluteTiming):
-		Animator(target, beginTime, begin, endTime, end, linear, absoluteTiming){
+		GameObject(Vec2(0,0), Vec2(0,0)),
+		target(target),
+		beginTime(beginTime),
+		begin(begin),
+		endTime(endTime),
+		end(end),
+		interpolate(linear),
+		absoluteTiming(absoluteTiming){
 	}
 	Animator(TargetType& target, double endTime, TargetType end):
-		Animator(target, 0.0, target, endTime, end, linear, false){
+		GameObject(Vec2(0,0), Vec2(0,0)),
+		target(target),
+		beginTime(0.0),
+		begin(target),
+		endTime(endTime),
+		end(end),
+		interpolate(linear),
+		absoluteTiming(false){
 	}
 
 };

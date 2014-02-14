@@ -24,11 +24,16 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	//this->add(text);
 
 	Button* button = new Button(Vec2(400, 400), Vec2(100, 30), "Button", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
-	button->action = [=](){ button->vel -= Vec2(0, -10); playSfx("./assets/coin.wav"); };
+	TextBox* textBox = new TextBox(Vec2(100, 400), Vec2(400, 30), Color(1,1,0,1), Color(0.7,0.7,0.5,1));
+
+	button->action = [=](){
+		button->vel -= Vec2(0, -10);
+		playSfx("./assets/coin.wav");
+		textBox->secret = !textBox->secret;
+	};
 	button->vel += Vec2(0, -30);
 	//this->add(button);
 
-	TextBox* textBox = new TextBox(Vec2(100, 400), Vec2(400, 30), Color(1,1,0,1), Color(0.7,0.7,0.5,1));
 	textBox->setButton(button);
 	//this->add(textBox);
 
@@ -44,9 +49,10 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	Timer* timer = new Timer([=](){ text->text = "haha!"; }, 1.5);
 	this->add(timer);
 
-	GameObject* animatedRect = new Rect(Vec2(100, 300), Vec2(25, 25), Color(1.0, 0.8, 0.5, 1.0), 5, Color(1.0, 1.0, 0.5, 1.0));
+	Rect* animatedRect = new Rect(Vec2(100, 300), Vec2(25, 25), Color(1.0, 0.8, 0.5, 1.0), 5, Color(1.0, 1.0, 0.5, 1.0));
 	this->add(animatedRect);
-	this->add( new Animator<Vec2>(animatedRect->pos, 2.0, Vec2(100,300), 5.0, Vec2(300,100)) );
+	this->add( new Animator<Vec2>(animatedRect->pos, 5.0, Vec2(300,100)) );
+	this->add( new Animator<Color>(animatedRect->fillColor, 4.0, animatedRect->fillColor, 6.0, Color(0.0, 0.0, 1.0, 1.0)) );
 
 	playBgm("./assets/testBgm.wav");
 }

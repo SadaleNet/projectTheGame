@@ -5,6 +5,7 @@ class GameObject;
 
 #include "../utils/Mat33.h"
 #include "../utils/Vec2.h"
+#include "../utils/Color.h"
 #include "../scenes/eventData.h"
 #include "../scenes/Scene.h"
 #include <map>

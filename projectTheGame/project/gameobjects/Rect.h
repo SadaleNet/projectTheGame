@@ -1,7 +1,6 @@
 #ifndef RECT_H
 #define RECT_H
 #include "GameObject.h"
-#include "../utils/Color.h"
 
 class Rect: public GameObject{
 public:

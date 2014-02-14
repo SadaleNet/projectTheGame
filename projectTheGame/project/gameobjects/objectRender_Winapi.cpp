@@ -2,7 +2,6 @@
 #include "Rect.h"
 #include "SpriteObject.h"
 #include "Text.h"
-#include "../utils/Color.h"
 #include "../utils/utils.h"
 #include "../scenes/SceneRunner_Winapi.h"
 

@@ -40,9 +40,9 @@ public:
 	Button& setBorderSize(double borderSize){ rectObj.setBorderSize(borderSize); return *this; }
 	Button& setBorderColor(Color borderColor){ rectObj.setBorderColor(borderColor); return *this; }
 	
-	std::function<void()> getAction(){ return action; }
+	std::function<void()> getAction(){ return this->action; }
 	Color getFontColor() const{ return textObj.getFontColor(); }
-	Color getFillColor() const{ return fillColor; }
+	Color getFillColor() const{ return this->fillColor; }
 	double getBorderSize() const{ return rectObj.getBorderSize(); }
 	Color getBorderColor() const{ return rectObj.getBorderColor(); }
 

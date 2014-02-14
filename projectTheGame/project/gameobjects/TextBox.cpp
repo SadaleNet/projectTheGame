@@ -8,7 +8,8 @@ TextBox::TextBox(Vec2 pos, Vec2 size, Color fontColor, Color fillColor, double b
 	button(nullptr),
 	textObj(Vec2(0,0), size, "", int(size.y*0.8), fontColor, Text::LEFT),
 	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),
-	fillColor(fillColor){
+	fillColor(fillColor),
+	secret(false){
 	textObj.setParent(this);
 	rectObj.setParent(this);
 }
@@ -25,11 +26,12 @@ void TextBox::updateHook(){
 		this->rectObj.setFillColor(this->fillColor);
 	}
 
+	std::string renderStr = this->secret?std::string(this->text.size(), '*'):this->text;
 	//simulate blanking cursor by appending '_' to the text sometimes.
 	if( this->isFocused() && fmod(this->getScene()->getSec(), 0.5) > 0.25 )
-		this->textObj.setText(this->text+'_');
+		this->textObj.setText(renderStr+'_');
 	else
-		this->textObj.setText(this->text);
+		this->textObj.setText(renderStr);
 }
 
 void TextBox::render() const{

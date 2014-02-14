@@ -86,6 +86,7 @@
     <ClInclude Include="gameobjects\Panel.h" />
     <ClInclude Include="gameobjects\Rect.h" />
     <ClInclude Include="gameobjects\SpriteObject.h" />
+    <ClInclude Include="gameobjects\super\Timer.h" />
     <ClInclude Include="gameobjects\Text.h" />
     <ClInclude Include="gameobjects\TextBox.h" />
     <ClInclude Include="misc\soundPlayer.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="gameobjects\Panel.cpp" />
     <ClCompile Include="gameobjects\Rect.cpp" />
     <ClCompile Include="gameobjects\SpriteObject.cpp" />
+    <ClCompile Include="gameobjects\super\Timer.cpp" />
     <ClCompile Include="gameobjects\Text.cpp" />
     <ClCompile Include="gameobjects\TextBox.cpp" />
     <ClCompile Include="misc\soundPlayer_Winapi.cpp" />

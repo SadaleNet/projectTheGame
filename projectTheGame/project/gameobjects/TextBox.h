@@ -24,6 +24,7 @@ protected:
 	Rect rectObj;
 	Color fillColor;
 	std::string text;
+	bool secret;
 public:
 	TextBox(Vec2 pos, Vec2 size, Color fontColor, Color fillColor, double borderSize=3, Color borderColor=Color(0,0,0,1));
 
@@ -41,12 +42,14 @@ public:
 	TextBox& setFillColor(Color fillColor){ this->fillColor = fillColor; return *this; }
 	TextBox& setBorderSize(double borderSize){ rectObj.setBorderSize(borderSize); return *this; }
 	TextBox& setBorderColor(Color borderColor){ rectObj.setBorderColor(borderColor); return *this; }
+	TextBox& setSecret(bool secret=true){ this->secret = secret; return *this; }
 	
 	Button* getButton(){ return this->button; }
 	Color getFontColor() const{ return textObj.getFontColor(); }
-	Color getFillColor() const{ return fillColor; }
+	Color getFillColor() const{ return this->fillColor; }
 	double getBorderSize() const{ return rectObj.getBorderSize(); }
 	Color getBorderColor() const{ return rectObj.getBorderColor(); }
+	bool isSecret() const{ return this->secret; }
 
 };
 

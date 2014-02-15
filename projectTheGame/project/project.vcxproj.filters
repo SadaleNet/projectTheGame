@@ -41,16 +41,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="scenes\EventData.h">
-      <Filter>Misc</Filter>
-    </ClInclude>
     <ClInclude Include="gameobjects\GameObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="utils\Vec2.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\Mat33.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="project.h">
@@ -125,6 +119,9 @@
     <ClInclude Include="utils\Color.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="misc\EventData.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -143,9 +140,6 @@
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="utils\Vec2.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\Mat33.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="project.cpp">

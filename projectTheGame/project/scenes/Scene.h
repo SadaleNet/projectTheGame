@@ -22,7 +22,7 @@ class Scene;
 
 #include "SceneRunner.h"
 #include "../gameobjects/GameObject.h"
-#include "EventData.h"
+#include "../misc/EventData.h"
 #include <vector>
 #include <memory>
 

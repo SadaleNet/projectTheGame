@@ -1,14 +1,12 @@
-#include "./utils/Mat33.h"
-#include "./utils/Vec2.h"
-#include "./db/FileDb.h"
-#include "./db/RemoteDb.h"
+#include "../utils/Vec2.h"
+#include "../db/FileDb.h"
+#include "../db/RemoteDb.h"
 #include <iostream>
 #include <stdexcept>
 
 void testCases(){
 	#ifndef NDEBUG
 	Vec2::test();
-	Mat33::test();
 	try{
 		FileDb::test();
 	}catch(std::runtime_error& e){

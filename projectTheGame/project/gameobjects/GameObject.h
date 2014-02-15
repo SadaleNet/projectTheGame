@@ -3,11 +3,10 @@ class GameObject;
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include "../utils/Mat33.h"
 #include "../utils/Vec2.h"
 #include "../utils/Color.h"
-#include "../scenes/eventData.h"
 #include "../scenes/Scene.h"
+#include "../misc/eventData.h"
 #include <map>
 #include <vector>
 #include <memory>

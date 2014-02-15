@@ -29,12 +29,13 @@ protected:
 
 	virtual void updateHook() override{
 		double time = this->getScene()->getSec();
+
 		if( time >= this->endTime ){
-			this->target = this->end;
+			this->target = this->interpolate(1.0)*(this->end-this->begin)+this->begin;
 			this->destroy();
 		}else if( time >= this->beginTime ){
-			this->target = this->interpolate( (time-this->beginTime)/(this->endTime-this->beginTime) ) //interpolates from 0.0 to 1.0
-						*(this->end-this->begin)+this->begin; //calculate the final value
+			double interpolated = this->interpolate( (time-this->beginTime)/(this->endTime-this->beginTime) ); //interpolates from 0.0 to 1.0;
+			this->target = interpolated*(this->end-this->begin)+this->begin; //calculate the final value
 		}
 	}
 

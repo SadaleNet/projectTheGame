@@ -25,6 +25,8 @@ Vec2 operator*(const double &a, const Vec2 &b){ return b*a; }
 void Vec2::test()
 {
 	Vec2 a(10, 20), b(30, 40);
+
+	//arithematic operators
 	assert( a+b == Vec2(40, 60) );
 	assert( a-b == Vec2(-20, -20) );
 	assert( a*b == 1100 );
@@ -36,6 +38,7 @@ void Vec2::test()
 	assert( b[0] == 30 );
 	assert( b[1] == 40 );
 
+	//assignment operators
 	a += b;
 	assert( a.x == 40 );
 	assert( a.y == 60 );
@@ -48,9 +51,12 @@ void Vec2::test()
 	assert( a.x == 4 );
 	assert( a.y == 6 );
 
+	//unary operators
 	assert( +a == Vec2(4, 6) );
 	assert( -a == Vec2(-4, -6) );
 
+	//comparison operators
 	assert( a == Vec2(4, 6) );
 	assert(a != b);
+
 }

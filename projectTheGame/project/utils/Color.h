@@ -29,6 +29,7 @@ public:
 	//Color operator-() const; //makes no sense.
 
 	//comparison operators
+	/// @return	if the value of this and c are close enough(5 decimal place precision), returns true, false else.
 	bool operator==(const Color &c) const;
 	bool operator!=(const Color &c) const;
 

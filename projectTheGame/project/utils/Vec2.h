@@ -32,6 +32,7 @@ public:
 	Vec2 operator-() const;
 
 	//comparison operators
+	///Note: This function does not consider the round-off error
 	bool operator==(const Vec2 &b) const;
 	bool operator!=(const Vec2 &b) const;
 

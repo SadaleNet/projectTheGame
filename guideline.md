@@ -5,7 +5,7 @@ Definition
 ==========
 * `camelCase`: naming with camelCase starting with `lowerCase` character. Example: `utils.h`, `buttonSize`
 * `CamelCase`: naming with camelCase starting with `UpperCase` character. Example: `Scene.cpp`, `GameObject.h`, `FileDb`
-* Abbreviation rules: for abbreviation, the letters are NOT captalized. Example: `playerId`, `cpuUsage`, `getUrl()`
+* Abbreviation rules: for abbreviation, the subsequence letters are NOT captalized. Example: `playerId`, `cpuUsage`, `getUrl()`.
 	Unless otherwise specified, abbreviation rules apply to `camelCase` and `CamelCase`.
 * `BLOCK_UNDERSCORE`: naming with `ALL_CAPITAL_LETTER`, `SEPERATED_BY_UNDERSCORE`. Example: `POPULATION_LIMIT`, `EACH_GAME_OBJECT`
 * `lowercase`: naming with all lower case, `notseperatedbywhitespace`. Example: `gameobjects`, `scenes`
@@ -15,25 +15,24 @@ File Naming Convention
 ==========
 
 * All directories are named in `lowercase`.
-* Files that defines/implements a class are named as `CamelCase`
-* Files that does not defines/implements a class are named as `camelCase`
-* Files of definition of platform-specific files shall have a `_Implementation` suffix.
-This rules applies to all rules above.
-Example: `scene_Winapi.cpp`
+* Files that defines/implements a class are named as `CamelCase`. Example: `Vec2.cpp`
+* Files that does not defines/implements a class are named as `camelCase`. Example: `utils.h`
+* Files of definition of platform-specific function/class/macro/whatever shall have a `_Implementation` suffix.
+	This rules applies to all rules above. Example: `scene_Winapi.cpp`
 
 
 Identifier Naming Convention
 ==========
-* All classes are named as CamelCase
+* All classes are named as `CamelCase`
 * ^Except platform-specific classes, they are named with `CamelCase_Implementation`. Example: `SceneRunner_Winapi`
 * All variables, functions and method are named as `camalCase`
-* All constant and macro are named as `BLOCK_UNDERSCORE`
+* All constants and macros are named as `BLOCK_UNDERSCORE`
 
 
 Coding Convention
 ==========
 
-* Use `tab` indentation.
+* Use `tab` for indentation.
 * Explicitly use `this->` to access class field and method. Example: `this->memberField` and `this->method()`
 * Use inline brace:
 

@@ -1,5 +1,12 @@
 // project.cpp : Defines the entry point for the application.
-//
+
+//defines configuration of the program
+#define APPLICATION_TITLE _T("Application Title")
+#define INITIAL_SCENE TestScene
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
+
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -125,12 +132,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	freopen("conout$","w",stderr);
 
 	//initialize global variables
-	sceneRunner = std::shared_ptr<SceneRunner_Winapi>( SceneRunner::instantiate<SceneRunner_Winapi, TestScene>() );
+	sceneRunner = std::shared_ptr<SceneRunner_Winapi>( SceneRunner::instantiate<SceneRunner_Winapi, INITIAL_SCENE>() );
 
 	hInst = hInstance; // Store instance handle in our global variable
 
-	hWnd = CreateWindow(szWindowClass, szTitle, WS_TILED|WS_SYSMENU,
-	   CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(szWindowClass, APPLICATION_TITLE, WS_TILED|WS_SYSMENU,
+	   CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, NULL, hInstance, NULL);
 
 	if (!hWnd)
 	{

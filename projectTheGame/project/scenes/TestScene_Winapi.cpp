@@ -15,9 +15,15 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	rect->vel += Vec2(5, 5);
 	//this->add(rect);
 
-	SpriteObject* spriteObject = new SpriteObject(Vec2(200, 200), Vec2(50, 50), "./assets/test.png", Vec2(5, 5), Vec2(10, 10));
+	SpriteObject* spriteObject = new SpriteObject(Vec2(200, 200), Vec2(50, 50), "./assets/test.png", Vec2(1, 0), Vec2(10, 10));
 	spriteObject->vel += Vec2(20, 0);
 	//this->add(spriteObject);
+
+	AnimatedSprite* animatedSprite
+		= new AnimatedSprite(Vec2(400, 200), Vec2(50, 50), "./assets/animation.png", Vec2(50, 50), 0.025, 4);
+	//this->add(animatedSprite);
+	Timer* changeAnimationTimer = new Timer([=](){ animatedSprite->tileIndex.y = 1; }, 5.0);
+	this->add(changeAnimationTimer);
 
 	Text* text = new Text(Vec2(30, 30), Vec2(200, 200), "Hi!", 20);
 	text->vel += Vec2(0, 30);
@@ -41,6 +47,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	panel->vel += Vec2(-10, -10);
 	panel->add(rect);
 	panel->add(spriteObject);
+	panel->add(animatedSprite);
 	panel->add(text);
 	panel->add(button);
 	panel->add(textBox);

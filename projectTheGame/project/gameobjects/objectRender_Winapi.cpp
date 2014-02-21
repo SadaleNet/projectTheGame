@@ -50,11 +50,12 @@ void SpriteObject::render() const{
 			//load image from cache
 			Image* pImage = imageCache.at(this->imagePath);
 			//render it
-			if(this->showWholeImage){
+			if(this->tileSize==Vec2(0,0)){
 				RENDER_BUFFER.DrawImage(pImage, REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
 			}else{
 				Gdiplus::RectF rect(REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
-				RENDER_BUFFER.DrawImage(pImage, rect, REAL(this->tilePos.x), REAL(this->tilePos.y),
+				RENDER_BUFFER.DrawImage(pImage, rect,
+										REAL(this->tileIndex.x*this->tileSize.x), REAL(this->tileIndex.y*this->tileSize.y),
 										REAL(this->tileSize.x), REAL(this->tileSize.y),
 										Gdiplus::UnitPixel, NULL, NULL, NULL);
 			}

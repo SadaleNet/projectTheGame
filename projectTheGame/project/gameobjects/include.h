@@ -1,5 +1,6 @@
 #include "../gameobjects/Rect.h"
 #include "../gameobjects/SpriteObject.h"
+#include "../gameobjects/AnimatedSprite.h"
 #include "../gameobjects/Text.h"
 #include "../gameobjects/Button.h"
 #include "../gameobjects/TextBox.h"

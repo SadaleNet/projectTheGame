@@ -22,7 +22,7 @@ using namespace Gdiplus;
 
 #include "project.h"
 #include "scenes/SceneRunner_Winapi.h"
-#include "scenes/testScene.h"
+#include "client/testscene/TestScene.h"
 #include <iostream>
 #include <string>
 

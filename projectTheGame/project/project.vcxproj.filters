@@ -30,6 +30,12 @@
     <Filter Include="Game Objects\Super Game Objects">
       <UniqueIdentifier>{b01be89f-000d-49bc-b8c3-bcbd75502aa9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{553fdb9d-2706-4862-944f-427e13cbce77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client\Test Scene">
+      <UniqueIdentifier>{452c2272-4eec-46ae-bedd-2bda8a307c57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -60,9 +66,6 @@
       <Filter>Entry point</Filter>
     </ClInclude>
     <ClInclude Include="scenes\Scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="scenes\TestScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="scenes\SceneRunner.h">
@@ -125,15 +128,15 @@
     <ClInclude Include="gameobjects\AnimatedSprite.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="client\testscene\TestScene.h">
+      <Filter>client\Test Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="scenes\SceneRunner_Winapi.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="scenes\TestScene_Winapi.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="scenes\Scene.cpp">
@@ -198,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="gameobjects\AnimatedSprite.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="client\testscene\TestScene.cpp">
+      <Filter>client\Test Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

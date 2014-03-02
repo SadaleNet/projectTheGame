@@ -12,11 +12,17 @@ SceneRunner_Winapi::SceneRunner_Winapi(int fps):
 
 
 void SceneRunner_Winapi::run(){
-	//TODO: make use of http://gameprogrammingpatterns.com/game-loop.html
 	MSG msg;
-	this->lastUpdateSec = this->getSec();
 	double lastDisplayUpdateSec = this->getSec();
 	while(!this->getTerminated()){
+		//If the scene is changed, re-initialize stuffs.
+		if(this->newScene!=nullptr){
+			this->scene = this->newScene;
+			this->newScene = nullptr;
+			this->lastUpdateSec = this->getSec();
+		}
+
+		//handle system events.
 		while(PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)!=0){
 			if(GetMessage(&msg, NULL, 0, 0)==-1)
 				throw std::runtime_error("Fatal error: fail to GetMessage() :'(");
@@ -39,7 +45,7 @@ void SceneRunner_Winapi::run(){
 			InvalidateRgn(hWnd, NULL, FALSE);
 		}
 
-		//Sleep(1); //sleep for a millsecond to reduce the CPU load. Comment this line for smoother gameplay.
+		//Sleep(1); //sleep for a millsecond to reduce the CPU load. Comment out this line for smoother gameplay.
 	}
 	/// Runs Scene methods repeatively until teminate() is called by the scene.
 }

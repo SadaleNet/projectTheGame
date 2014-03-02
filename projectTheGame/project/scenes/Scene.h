@@ -25,12 +25,12 @@ private:
 	virtual void handleExtraEvents();
 
 	double timeInitialized; ///store the time that the first update() is called.
-	const SceneRunner* sceneRunner;
+	SceneRunner* const sceneRunner;
 
 	friend SceneRunner;
 
 protected:
-	Scene(const SceneRunner* sceneRunner);
+	Scene(SceneRunner* const sceneRunner);
 
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
 	Vec2 mousePos;
@@ -46,7 +46,7 @@ public:
 	///@brief	get seconds spent on the previous frame.
 	double getDeltaSec() const;
 	const SceneRunner* getSceneRunner() const{ return sceneRunner; }
-
+	SceneRunner* getSceneRunner(){ return sceneRunner; }
 };
 
 //define convenient macros

@@ -16,12 +16,14 @@ class SceneRunner;
 */
 class SceneRunner{
 private:
-	std::shared_ptr<Scene> scene; ///The scene that is currently being used
 	double second; ///seconds elasped since the SceneRunner is constructed
 	int fps; ///Display refresh per second. **NOT** frame per second. This game runs in as high fps as possible. Naming it fps is due to legacy issue.
 	bool terminated; ///If true, this sceneRunner is terminated and will exit soon.
 
 protected:
+	std::shared_ptr<Scene> scene; ///The scene that is currently being used
+	std::shared_ptr<Scene> newScene; ///If != nullptr, this is the scene to be switched in next frame.
+
 	///@param	fps	Display refresh per second. **NOT** frame per second.
 	SceneRunner(int fps);
 
@@ -34,7 +36,7 @@ public:
 	///@brief	change the current scene
 	template <class SceneType>
 	void setScene(){
-		this->scene = std::shared_ptr<Scene>(new SceneType(this));
+		this->newScene = std::shared_ptr<Scene>(new SceneType(this));
 	}
 
 	template <class SceneRunnerType, class SceneType>

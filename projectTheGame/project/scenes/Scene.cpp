@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cassert>
 
-Scene::Scene(const SceneRunner* sceneRunner):
+Scene::Scene(SceneRunner* const sceneRunner):
 	sceneRunner(sceneRunner),
 	timeInitialized(-1.0){
 }

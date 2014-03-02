@@ -4,19 +4,26 @@
 
 SceneRunner::SceneRunner(int fps){
 	testCases();
+	this->newScene = nullptr;
 	this->fps = fps;
 	this->terminated = false;
 }
 
 void SceneRunner::handleEvents(){
+	if(this->scene==nullptr)
+		return;
 	return this->scene->handleEvents();
 }
 
 void SceneRunner::renderScene(){
+	if(this->scene==nullptr)
+		return;
 	this->scene->render();
 }
 
 void SceneRunner::updateScene(){
+	if(this->scene==nullptr)
+		return;
 	this->scene->update();
 }
 

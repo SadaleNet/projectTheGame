@@ -78,6 +78,7 @@
     <None Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="client\testscene\TestScene.h" />
     <ClInclude Include="db\FileDb.h" />
     <ClInclude Include="db\RemoteDb.h" />
     <ClInclude Include="db\UserDb.h" />
@@ -100,7 +101,6 @@
     <ClInclude Include="scenes\Scene.h" />
     <ClInclude Include="scenes\SceneRunner.h" />
     <ClInclude Include="scenes\SceneRunner_Winapi.h" />
-    <ClInclude Include="scenes\TestScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utils\Color.h" />
@@ -108,6 +108,7 @@
     <ClInclude Include="utils\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="client\testscene\TestScene.cpp" />
     <ClCompile Include="db\FileDb.cpp" />
     <ClCompile Include="db\RemoteDb.cpp" />
     <ClCompile Include="db\remoteDb_Winapi.cpp" />
@@ -128,7 +129,6 @@
     <ClCompile Include="scenes\SceneRunner.cpp" />
     <ClCompile Include="scenes\SceneRunner_Winapi.cpp" />
     <ClCompile Include="scenes\scene_Winapi.cpp" />
-    <ClCompile Include="scenes\TestScene_Winapi.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

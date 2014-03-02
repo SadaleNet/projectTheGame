@@ -4,7 +4,10 @@
 
 Panel::Panel(Vec2 pos, Vec2 size, Color fillColor, double borderSize, Color borderColor)
 	:GameObject(pos, size),
-	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor){
+	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),
+	fillColor(rectObj.fillColor),
+	borderSize(rectObj.borderSize),
+	borderColor(rectObj.borderColor){
 	rectObj.setParent(this);
 }
 
@@ -50,9 +53,9 @@ Panel& Panel::remove(GameObject* child){
 	return *this;
 }
 
-std::vector<GameObject*>::iterator Panel::begin(GameObject* child){
+std::vector<GameObject*>::iterator Panel::begin(){
 	return this->children.begin();
 }
-std::vector<GameObject*>::iterator Panel::end(GameObject* child){
+std::vector<GameObject*>::iterator Panel::end(){
 	return this->children.end();
 }

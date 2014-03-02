@@ -5,23 +5,33 @@ class SceneRunner;
 #include "Scene.h"
 #include <memory>
 
+/** 
+	@brief	Contain a Scene. Use to control the game like performing scene-switching, runs the game and terminate the game.<br>
+			This is an abstract class to be overridden by library-specific classes.
+	@note	1. handleEvents, renderScene and updateScene forwards to scene.<br>
+			Since these methods are private in Scene, and only SceneRunner is a friend of Scene,<br>
+			subclasses of SceneRunner need these forwarding methods to access the methods in Scene.
+
+			2. The relationship between SceneRunner and Scene is a state pattern in GoF design pattern.
+*/
 class SceneRunner{
 private:
-	std::shared_ptr<Scene> scene;
-	double second;
-	int fps;
-	bool terminated;
+	std::shared_ptr<Scene> scene; ///The scene that is currently being used
+	double second; ///seconds elasped since the SceneRunner is constructed
+	int fps; ///Display refresh per second. **NOT** frame per second. This game runs in as high fps as possible. Naming it fps is due to legacy issue.
+	bool terminated; ///If true, this sceneRunner is terminated and will exit soon.
 
 protected:
+	///@param	fps	Display refresh per second. **NOT** frame per second.
 	SceneRunner(int fps);
-	//forwards to scene. Since these methods are private in Scene, and only SceneRunner is a friend of Scene,
-	//subclasses of SceneRunner need these forwarding methods to access the methods in Scene.
+
 	void handleEvents();
 
 	void renderScene();
 	void updateScene();
 
 public:
+	///@brief	change the current scene
 	template <class SceneType>
 	void setScene(){
 		this->scene = std::shared_ptr<Scene>(new SceneType(this));
@@ -34,8 +44,14 @@ public:
 		return ret;
 	}
 
+	/**@brief	A blocking function that runs the scene.<br>
+				Similar to main loop in procedurel programming.<br>
+				Runs until terminate() is called.
+	*/
 	virtual void run() = 0;
-	void terminate();
+	void terminate(); //terminate the rnu()
+
+	//setter and getters
 	void setFps(int fps);
 	virtual double getSec() const = 0;
 	virtual double getDeltaSec() const = 0;

@@ -13,9 +13,6 @@ void Timer::updateHook(){
 	}
 }
 
-void Timer::render() const{
-}
-
 void Timer::onSceneAdded(){
 	this->timeout = this->absolute?this->timeout:this->getScene()->getSec()+this->timeout;
 	if( this->getScene()->getSec() > this->timeout ){

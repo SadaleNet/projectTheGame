@@ -3,6 +3,9 @@ class Color;
 #ifndef COLOR_H
 #define COLOR_H
 
+/**	@brief	A data structure for storing RGBA color. Supports operators.<br>
+			For each color component, 0.0 is the lowest, 1.0 is the highest.
+*/
 class Color{
 public:
 	static bool calAlpha; //if false, the resultant alpha value of any operation is 1.0

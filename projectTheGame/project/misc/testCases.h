@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 
+///@brief	Runs all unit tests
 void testCases(){
 	#ifndef NDEBUG
 	Vec2::test();
@@ -13,7 +14,7 @@ void testCases(){
 		std::cerr <<"Unable to test LocalDb: \n" <<e.what() <<std::endl;
 	}
 	try{
-		//RemoteDb::test(); ////TODO: to reduce the use of brandwidth, this line is commented. Please uncomment this line to test the db.
+		//RemoteDb::test(); ////TODO: to reduce the use of brandwidth, this line is commented. Uncomment this line to test the RemoteDb.
 	}catch(std::runtime_error& e){
 		std::cerr <<"Unable to test RemoteDb: \n" <<e.what() <<std::endl;
 	}

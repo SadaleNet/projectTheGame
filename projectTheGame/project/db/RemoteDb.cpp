@@ -35,8 +35,10 @@ bool RemoteDb::putData(const std::string& data){
 }
 
 bool RemoteDb::setHighScore(int score){
-	if(score<=this->getHighScore())
+	if(score<=this->getHighScore()){
+		this->status = "The score provided is lower than the highscore";
 		return false;
+	}
 	return (SEND_REQUEST("store.php", std::string("&score=1&content=")+std::to_string((long long)score), this->status) == 200);
 }
 

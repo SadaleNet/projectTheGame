@@ -16,7 +16,11 @@ class GameObject;
 typedef std::vector<std::shared_ptr<GameObject>>::iterator GameObjectIt;
 typedef std::vector<std::shared_ptr<GameObject>>::const_iterator GameObjectConstIt;
 
-/// class GameObject - Problems: a) Assumes rectangular objects b) strongly coupled with Scene
+/**	@brief	An abstract class of all objects in game.<br>
+			Defines basic properties like position, velocity and size.<br>
+			Defines basic methods like even handling methods, render() and collision detection methods
+	@note	Issue with this class: a) Assumes rectangular objects b) strongly coupled with Scene
+*/
 class GameObject{
 private:
 	//mouse states
@@ -24,37 +28,45 @@ private:
 	bool held[MOUSE_KEY_NUM];
 	GameObject* parent;
 
-	//Parent	Chilren		Result
-	//true		true		both hidden
-	//true		false		both hidden
-	//false		true		hidden children, visible parent.
-	//false		false		both visible
-	//hidden object are not rendered and does NOT handle event, except update() and onStep().
+	
+	/**	@brief	Decide whether hide the object or not:<br>
+		<table>
+		<tr><td>Parent</td>	<td>Chilren</td>	<td>Result</td></tr>
+		<tr><td>true</td>	<td>true</td>		<td>both hidden</td></tr>
+		<tr><td>true</td>	<td>false</td>		<td>both hidden</td></tr>
+		<tr><td>false</td>	<td>true</td>		<td>hidden children, visible parent</td></tr>
+		<tr><td>false</td>	<td>false</td>		<td>both visible</td></tr>
+		</table>
+		hidden object are not rendered and does NOT handle event, except update() and onStep().
+		@note	To avoid confusion, this variable is private. Always use hide(), show() and isHidden() to access this variable.
+	*/
 	bool hidden;
 
-	//the scene that this object is in
+	///the scene that this object is in
 	Scene* scene;
 	friend Scene;
 
-protected:
-
 public:
-	Vec2 pos;
-	Vec2 vel; //velocity
+	Vec2 pos; ///position. If parent!=nullptr, then this is the relative position to the parent
+	Vec2 vel; ///velocity. If parent!=nullptr, then this is the relative velocity to the parent
 	Vec2 size;
 
 	GameObject(Vec2 pos, Vec2 size);
 
-	virtual void render() const = 0;
+	virtual void render() const{};
 
 	bool isCollide(const GameObject& b) const;
 	bool isCollide(const Vec2& p) const;
 
-	//setters and getters
+	/**********************
+	**setters and getters**
+	***********************/
 	GameObject& setParent(GameObject* parent){ this->parent = parent; return *this; }
 	GameObject& setScene(Scene* scene){ this->scene = scene; return *this; }
 
-	//absolution pos/vel : position/velocity that considers the position of the parent.
+	/** getAbsPos, getAbsVel
+		@return	position/velocity relative to the scene.
+	*/
 	Vec2 getAbsPos() const{ return (parent==nullptr?this->pos:(this->pos+parent->getAbsPos())); }
 	Vec2 getAbsVel() const{ return (parent==nullptr?this->vel:(this->vel+parent->getAbsVel())); }
 	const GameObject* getParent() const{ return this->parent; }
@@ -68,23 +80,27 @@ public:
 
 	void destroy();
 
-	//event handllers, to be overridden by subclasses.
+	/**************************************************
+	**event handllers, to be overridden by subclasses**
+	**************************************************/
 	virtual void onMouseMove(Vec2){} //triggered when mouse is moved, regardless of states
 	virtual void onMouseDown(MouseButton, Vec2){} //triggered when mouse key is down AND the object is hovered
 	virtual void onMouseUp(MouseButton, Vec2){} //triggered when ( the object is held AND ( mouse key is up OR the mouse leaves ) )
 	virtual void onClick(MouseButton, Vec2){}  //triggered when ( the object is held AND mouse key is up )
 	virtual void onMouseIn(Vec2){} //triggered when the object is just hovered
 	virtual void onMouseOut(Vec2){} //triggered when the object is just unhovered
-	/**	onKeyDown(char key), onKeyUp(char key)
-		Note: char key is the key pressed in UPPER CASE. lower case keys are used to represent non-alphanumeric keys as shown in the table below:
-		virtual key		real key
-		\b				backspace
-		\t				tab
-		\n				enter
-		^				up
-		v				down
-		<				left
-		>				right
+	/**	onKeyDown(char key), onKeyUp(char key)<br>
+		@param key the key pressed in UPPER CASE. lower case keys are used to represent non-alphanumeric keys as shown in the table below:<br>
+		<table>
+		<tr><td>virtual key	</td>	<td>real key	</td></tr>
+		<tr><td>	\\b		</td>	<td>backspace	</td></tr>
+		<tr><td>	\\t		</td>	<td>tab			</td></tr>
+		<tr><td>	\\n		</td>	<td>enter		</td></tr>
+		<tr><td>	^		</td>	<td>up			</td></tr>
+		<tr><td>	v		</td>	<td>down		</td></tr>
+		<tr><td>	\<		</td>	<td>left		</td></tr>
+		<tr><td>	\>		</td>	<td>right		</td></tr>
+		</table>
 	*/
 	virtual void onKeyDown(char key){} //triggered when a keyboard key is pressed, regardless of states
 	virtual void onKeyUp(char key){} //triggered when a keyboard key is released, regardless of states
@@ -99,7 +115,9 @@ public:
 	virtual void updateHook(){} //triggered by GameObject::update(), to be overridden by the library
 	void update(); //triggered by SceneRunner::run, NOT overridable.
 
-	//mouse-related state functions
+	/********************************
+	**mouse-related state functions**
+	********************************/
 	bool isHovered() const{ return this->hovered; }
 	bool isHeld(MouseButton button) const{ return this->held[button]; }
 	bool isFocused() const{ return this->focused; }

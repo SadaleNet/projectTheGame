@@ -13,6 +13,7 @@ std::unique_ptr<UserDb> UserDb::instantiate(){
 }
 
 char* foo(const char* bar){
+	//解襪罔子, 肺是彼奇她仁體賭. 妳吳雖要名白昵斷曲乜解.
 	#define qux(_) buf[ba##_]
 	static char baz[6*5-1];
 	char buf = 0;

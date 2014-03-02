@@ -4,22 +4,31 @@
 #include "UserDb.h"
 #include <string>
 
-/**	@brief	UserDb implementation by using a remote database, communicating using Simple Game Database protocol over HTTP.
-			For the use of the protocal, README-remoteGameDb in this directory.
-
-			In UserDb,	registerAcc(), deregisterAcc(), login() and logout() always set status message.
-			If there's an error on calling any method, status message is set.
+/**	@brief	UserDb implementation by using a remote database, communicating using Simple Game Database protocol over HTTP.<br>
+			For the use of the protocal, please refer to README-remoteGameDb in this directory.
 */
-
 class RemoteDb: public UserDb{
 private:
-	std::string urlBase;
-	std::string username;
-	std::string password;
+	std::string urlBase; //URL to the game database server. Example: example.com/gamedb/
+	std::string username; //username of the current logged in user
+	std::string password; //password of the current logged in user
+
+protected:
+	/**	@brief	Send HTTP request and store the response. Timeout: 5 seconds
+		@param	url	The request url
+		@param[out]	responseBody	The response body
+		@throw	std::runtime_error if there is a connection problem
+		@return	HTTP status code
+	*/
+	int HttpGetRequest(const std::string& url, std::string& responseBody) const;
+	/// @brief Implements rawurlencode() as in PHP
+	std::string urlEncode(const std::string& data) const;
 
 public:
-	///@param	the location of the resource. example: www.example.com/gamedb . Do NOT use http:// prefix
+	///@throw	std::runtime_error if unable to connect to server
 	RemoteDb(const std::string& urlBase);
+
+	//Note: All methods below invoke a connection to server. Expect a delay when calling methods in this class.
 
 	virtual bool registerAcc(const std::string& username, const std::string& password) override;
 	virtual bool deregisterAcc(const std::string& username, const std::string& password) override;
@@ -34,15 +43,7 @@ public:
 	virtual int getHighScore() const override;
 	virtual std::string getHighScoreBoard() const override;
 
-	/**	@brief	Send HTTP request and store the response
-		@param	The request url
-		@param	The response body
-		@return	HTTP status code
-	*/
-	int HttpGetRequest(const std::string& url, std::string& responseBody) const;
-	/// @brief Implements rawurlencode() in PHP
-	std::string urlEncode(const std::string& data) const;
-	
+	///Automatic testcases
 	static void test();
 };
 

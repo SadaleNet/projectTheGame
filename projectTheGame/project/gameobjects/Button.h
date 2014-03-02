@@ -7,24 +7,28 @@ class Button;
 #include "Rect.h"
 #include "Text.h"
 
-/**
-Button has a Rect and Text
-The following variables are automatically calculated, and cannot be changed:
-Variable		Value
-Text::align		CENTER
-Text::fontSize	80% of height
-hover color		130% brightness of original
-press color		70% brightness of original
+/**	@brief	A class for a clickable button. Optioanally with function executed on LMB clicked.
+
+@note
+Button has a Rect and Text<br>
+The following variables are automatically calculated/are fixed, and cannot be changed:<br>
+<table>
+<tr><td>Variable		</td><td>Value	</td></tr>
+<tr><td>Text::align		</td><td>CENTER	</td></tr>
+<tr><td>Text::fontSize	</td><td>80% of height	</td></tr>
+<tr><td>hover fillColor	</td><td>130% brightness of original fillColor</td></tr>
+<tr><td>press fillColor	</td><td>70% brightness of original	fillColor</td></tr>
+</table>
 */
 class Button: public GameObject{
 protected:
 	Text textObj;
 	Rect rectObj;
 public:
-	Color fillColor;
-	Color& fontColor; //refers to textObj
-	double& borderSize; //refers to rectObj
-	Color& borderColor; //refers to rectObj
+	Color fillColor; ///used to calculate rectObj.fillColor when this object is hovered, clicked, etc.
+	Color& fontColor; ///refers to textObj.fontColor
+	double& borderSize; ///refers to rectObj.borderSize
+	Color& borderColor; ///refers to rectObj.borderColor
 
 	std::function<void()> action; ///action() is executed when the button is clicked.
 
@@ -32,20 +36,10 @@ public:
 
 	virtual void render() const override;
 
-	//change the color according to the states(hover, held)
+	///changes the color according to the states(hover, held)
 	virtual void updateHook() override;
+	///Execute action() if the button is clicked by left mouse button
 	virtual void onClick(MouseButton button, Vec2) override;
-
-	//setters and getters
-	///action() is executed when the button is clicked.
-	Button& setFontColor(Color fontColor){ textObj.fontColor = fontColor; return *this; }
-	Button& setBorderSize(double borderSize){ rectObj.borderSize = borderSize; return *this; }
-	Button& setBorderColor(Color borderColor){ rectObj.borderColor = borderColor; return *this; }
-
-	Color getFontColor() const{ return textObj.fontColor; }
-	double getBorderSize() const{ return rectObj.borderSize; }
-	Color getBorderColor() const{ return rectObj.borderColor; }
-
 };
 
 #endif

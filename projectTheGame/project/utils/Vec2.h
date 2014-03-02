@@ -1,10 +1,13 @@
-/** A class for vector with 2 components.
-For the ease of implementation, this class is not generalized to have arbitrary dimensional components. I believe that it is also easier to use as you can access member with vec2.x and vec2.y
-*/
-
 class Vec2;
 #ifndef VEC2_H
 #define VEC2_H
+
+/**@brief
+A class for vector with 2 components. Support operators.
+
+@note
+For the ease of implementation, this class is not generalized to have arbitrary dimensional components. I believe that it is also easier to use as you can access member with vec2.x and vec2.y
+*/
 class Vec2{
 public:
 	double x, y;
@@ -14,9 +17,9 @@ public:
 	//arithmetic operators
 	Vec2 operator+(const Vec2& b) const;
 	Vec2 operator-(const Vec2& b) const;
-	/** Dot product */
+	///@brief Dot product
 	double operator*(const Vec2& b) const;
-	/** Scalar operator v*k */
+	///@brief Scalar operator v*k
 	Vec2 operator*(const double& k) const;
 
 	//access operator
@@ -32,12 +35,12 @@ public:
 	Vec2 operator-() const;
 
 	//comparison operators
-	///Note: This function does not consider the round-off error
+	///@note This function does **not** consider round-off error
 	bool operator==(const Vec2 &b) const;
 	bool operator!=(const Vec2 &b) const;
 
 	static void test();
 };
-/** Scalar operator k*v */
+///@brief Scalar operator k*v
 Vec2 operator*(const double &a, const Vec2 &b);
 #endif

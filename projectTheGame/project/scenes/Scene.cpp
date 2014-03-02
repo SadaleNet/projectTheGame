@@ -4,7 +4,7 @@
 
 Scene::Scene(const SceneRunner* sceneRunner):
 	sceneRunner(sceneRunner),
-	timeConstructed(sceneRunner->getSec()){
+	timeInitialized(-1.0){
 }
 
 
@@ -13,6 +13,9 @@ void Scene::handleExtraEvents(){
 }
 
 void Scene::update(){
+	if(this->timeInitialized==-1.0)
+		this->timeInitialized = sceneRunner->getSec();
+
 	EACH_GAME_OBJECT_INCLUDES_HIDDEN(i)
 		i->update();
 	END_EACH
@@ -34,6 +37,8 @@ Scene& Scene::add(GameObject* obj){
 Scene& Scene::remove(GameObject* obj){
 	obj->scene = nullptr;
 	obj->onSceneRemoved();
+
+	//remove the obj from this->gameObjects. assert() that obj is removed.
 	assert( this->gameObjects.end() ==
 				this->gameObjects.erase(
 					std::remove_if(this->gameObjects.begin(), this->gameObjects.end(),
@@ -47,7 +52,7 @@ Scene& Scene::remove(GameObject* obj){
 
 double Scene::getSec() const{
 	assert( this->sceneRunner != nullptr );
-	return this->sceneRunner->getSec()-this->timeConstructed;
+	return this->sceneRunner->getSec()-this->timeInitialized;
 }
 
 double Scene::getDeltaSec() const{

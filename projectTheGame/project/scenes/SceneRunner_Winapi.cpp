@@ -3,9 +3,11 @@
 #include <stdexcept>
 #include <iostream>
 
-SceneRunner_Winapi::SceneRunner_Winapi(int fps):SceneRunner(fps),graphicsBuffer(nullptr){
-	QueryPerformanceFrequency(&this->tickFreq);
-	QueryPerformanceCounter(&this->startTick);
+SceneRunner_Winapi::SceneRunner_Winapi(int fps):
+	SceneRunner(fps),
+	graphicsBuffer(nullptr){
+		QueryPerformanceFrequency(&this->tickFreq);
+		QueryPerformanceCounter(&this->startTick);
 }
 
 
@@ -23,11 +25,13 @@ void SceneRunner_Winapi::run(){
 				DispatchMessage(&msg);
 			}
 		}
+		//for getDeltaSec(). This is to ensure that event handlers of GameObject to receive getDeltaSec() uniformly in a frame.
+		this->secondsSpentOnPreviousFrame = this->getSec()-this->lastUpdateSec;
 		this->handleEvents();
 		this->updateScene();
 
-		//for getDeltaSec()
-		this->lastUpdateSec = this->getSec();
+		//for getDeltaSec() of the next frame.
+		this->lastUpdateSec += this->secondsSpentOnPreviousFrame;
 
 		//update display(frame-limited)
 		if( this->getSec()-lastDisplayUpdateSec > 1.0/this->getFps() ){
@@ -64,5 +68,5 @@ double SceneRunner_Winapi::getSec() const{
 	return static_cast<double>(currentTick.QuadPart-this->startTick.QuadPart)/this->tickFreq.QuadPart;
 }
 double SceneRunner_Winapi::getDeltaSec() const{
-	return this->getSec()-this->lastUpdateSec;
+	return this->secondsSpentOnPreviousFrame;
 }

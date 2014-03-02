@@ -46,7 +46,7 @@ void TextBox::onKeyUp(char key){
 	if(this->isFocused()){
 		switch(key){
 			case '\b':	if(this->text.size()>0){ this->text.pop_back(); }	break;
-			case '\n':	this->getButton()->action();						break;
+			case '\n':	this->button->action();								break;
 			case '<':	/*TODO: unimplemented*/								break;
 			case '>':	/*TODO: unimplemented*/								break;
 			default:

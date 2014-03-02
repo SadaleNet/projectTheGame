@@ -33,7 +33,8 @@ void ::Rect::render() const{
 	//draw border
 	Gdiplus::Pen borderPen(GdiPlusColor(this->borderColor), (REAL)this->borderSize);
 	borderPen.SetAlignment(Gdiplus::PenAlignmentInset);
-	RENDER_BUFFER.DrawRectangle(&borderPen, REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
+	//Somehow, without the -1s and +1s below, the border does not cover the edge of the rect.
+	RENDER_BUFFER.DrawRectangle(&borderPen, REAL(pos.x-1), REAL(pos.y-1), REAL(this->size.x+1), REAL(this->size.y+1));
 }
 
 void SpriteObject::render() const{

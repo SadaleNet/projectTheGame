@@ -40,7 +40,7 @@ TestScene::TestScene(const SceneRunner* sceneRunner)
 	button->vel += Vec2(0, -30);
 	//this->add(button);
 
-	textBox->setButton(button);
+	textBox->button = button;
 	//this->add(textBox);
 
 	Panel* panel = new Panel(Vec2(200, 200), Vec2(200, 200), Color(0.5,0.7,0.5,1));

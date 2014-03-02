@@ -2,6 +2,7 @@
 #define RECT_H
 #include "GameObject.h"
 
+///@brief	A class for rendering rectangle. Supported properties: fillColor, borderSize and borderColor
 class Rect: public GameObject{
 public:
 	Color fillColor;

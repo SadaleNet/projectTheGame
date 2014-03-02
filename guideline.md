@@ -63,11 +63,12 @@ Coding Convention
 
 ```
 	/**	@brief	Link this object to b.
+
 				When the attribute of b is updated,
 				the attribute of this object is set to that of b.
 				If bidirectional is true, the attribute of this object is also updated when b is updated.
-		@param	The object to be linked
-		@parem	If true, the update of attribute is bidirectional
+		@param	b	The object to be linked
+		@param	bidirectional	If true, the update of attribute is bidirectional
 		@return	this object.
 	*/
 	Object& link(Object& b, bool bidirectional=false){

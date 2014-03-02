@@ -7,6 +7,10 @@ class FileDb;
 #include <map>
 #include <stdint.h>
 
+/** @brief	A data struct for storing an entity of user data.<br>
+			Used by FileDb to save/load user list from file
+	@see	FileDb
+*/
 struct UserData{
 	uint64_t password; //hashed password.
 	int highScore;
@@ -17,22 +21,33 @@ struct UserData{
 };
 
 /**	@brief	UserDb implementation of storing data into a file.
-			File format:
-				For each user:
-				<username>\t<hashedPassword>\t<highScore>\t<serializedData>\n,
-				where <hashedPassword> is a FNV-1 hashed password.
+
+			File format:<br>
+				For each user:<br>
+				[username][tab][hashedPassword][tab][highScore][tab][serializedData][LF],<br>
+				where [hashedPassword] is a FNV-1 hashed password.<br>
 			In UserDb: registerAcc(), deregisterAcc(), login() and logout() set status message.
 */
 class FileDb: public UserDb{
 private:
 	std::string filePath;
 	std::string username;
-	
+protected:
+	/**
+		@brief	Save dataTable into a file<br>
+				This function is called whenever dataTable is updated.
+		@throw	std::runtime_error if fail saving dataTable into a file.
+	*/
+	void save() const;
+
 public:
+	///	@throw	std::runtime_error if fail opening the file
 	FileDb(const std::string& filePath);
 
-	std::map<std::string, UserData> dataTable; //key: username
-	void save() const;
+	///stores data of all users
+	std::map<std::string, UserData> dataTable;
+
+	//Note: Whenever dataTable is modified, this->save() is called by the methdos below.
 
 	virtual bool registerAcc(const std::string& username, const std::string& password) override;
 	virtual bool deregisterAcc(const std::string& username, const std::string& password) override;

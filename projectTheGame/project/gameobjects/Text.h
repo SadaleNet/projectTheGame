@@ -4,6 +4,7 @@ class Text;
 #define TEXT_H
 #include "GameObject.h"
 
+///@brief	A class for rendering text. Supported properties: text, align, fontSize and fontColor
 class Text: public GameObject{
 public:
 	enum Align{ LEFT, CENTER, RIGHT };

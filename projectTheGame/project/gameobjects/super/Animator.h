@@ -1,9 +1,10 @@
+#ifndef ANIMATOR_H
+#define ANIMATOR_H
+
 #include "../GameObject.h"
 #include <functional>
 
-double linear(double input){
-	return input;
-}
+extern double linear(double input);
 
 /**
 	@brief	A class for animating object with interpolation.
@@ -85,3 +86,5 @@ public:
 	}
 
 };
+
+#endif

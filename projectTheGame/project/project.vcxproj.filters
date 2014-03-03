@@ -30,11 +30,14 @@
     <Filter Include="Game Objects\Super Game Objects">
       <UniqueIdentifier>{b01be89f-000d-49bc-b8c3-bcbd75502aa9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="client">
+    <Filter Include="Client">
       <UniqueIdentifier>{553fdb9d-2706-4862-944f-427e13cbce77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="client\Test Scene">
+    <Filter Include="Client\Test Scene">
       <UniqueIdentifier>{452c2272-4eec-46ae-bedd-2bda8a307c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Empty Scene">
+      <UniqueIdentifier>{bb248d32-c801-4f46-92d0-fe48426879c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +132,10 @@
       <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="client\testscene\TestScene.h">
-      <Filter>client\Test Scene</Filter>
+      <Filter>Client\Test Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="client\emptyscene\EmptyScene.h">
+      <Filter>Client\Empty Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -203,7 +209,13 @@
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="client\testscene\TestScene.cpp">
-      <Filter>client\Test Scene</Filter>
+      <Filter>Client\Test Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="client\emptyscene\EmptyScene.cpp">
+      <Filter>Client\Empty Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\super\Animator.cpp">
+      <Filter>Game Objects\Super Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

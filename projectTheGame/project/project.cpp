@@ -2,7 +2,7 @@
 
 //defines configuration of the program
 #define APPLICATION_TITLE _T("Application Title")
-#define INITIAL_SCENE TestScene
+#define INITIAL_SCENE EmptyScene
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
@@ -22,7 +22,7 @@ using namespace Gdiplus;
 
 #include "project.h"
 #include "scenes/SceneRunner_Winapi.h"
-#include "client/testscene/TestScene.h"
+#include "client/emptyscene/EmptyScene.h"
 #include <iostream>
 #include <string>
 

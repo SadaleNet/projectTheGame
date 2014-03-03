@@ -1,9 +1,6 @@
 #include "TestScene.h"
 #include "../../project.h"
-#include <objidl.h>
-#include <gdiplus.h>
 #include <string>
-#pragma comment (lib,"Gdiplus.lib")
 
 #include "../../gameobjects/include.h"
 #include "../../misc/soundPlayer.h"

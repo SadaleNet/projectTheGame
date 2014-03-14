@@ -36,8 +36,6 @@ void SceneRunner_Winapi::run(){
 		this->secondsSpentOnPreviousFrame = this->getSec()-this->lastUpdateSec;
 		this->handleEvents();
 		this->updateScene();
-		if(rand()%10==0)
-			std::cout <<"fps:" << (1/this->secondsSpentOnPreviousFrame) <<std::endl;
 
 		//for getDeltaSec() of the next frame.
 		this->lastUpdateSec += this->secondsSpentOnPreviousFrame;

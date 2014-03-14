@@ -33,7 +33,7 @@ TestScene::TestScene(SceneRunner* const sceneRunner)
 		button->vel -= Vec2(0, -10);
 		playSfx("./assets/coin.wav");
 		textBox->secret = !textBox->secret;
-		this->getSceneRunner()->setScene<TestScene>();
+		this->getSceneRunner()->setScene(new TestScene(this->getSceneRunner()));
 	};
 	button->vel += Vec2(0, -30);
 	//this->add(button);

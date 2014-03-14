@@ -41,7 +41,7 @@ void Scene::handleEvents(){
 		gameObjectClone.erase(
 			std::remove_if(gameObjectClone.begin(), gameObjectClone.end(),
 				[](std::shared_ptr<GameObject>& a){ return !a->detectMouseEvents; }
-			)
+			), gameObjectClone.end()
 		);
 
 		//invoke GameObject::onMouseMove()
@@ -114,7 +114,7 @@ void Scene::handleEvents(){
 		gameObjectClone.erase(
 			std::remove_if(gameObjectClone.begin(), gameObjectClone.end(),
 				[](std::shared_ptr<GameObject>& a){ return !a->detectKeyEvents; }
-			)
+			), gameObjectClone.end()
 		);
 
 		//invoke GameObject::onKeyDown(), GameObject::onKeyUp()

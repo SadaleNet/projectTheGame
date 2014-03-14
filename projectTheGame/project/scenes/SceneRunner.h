@@ -34,15 +34,14 @@ protected:
 
 public:
 	///@brief	change the current scene
-	template <class SceneType>
-	void setScene(){
-		this->newScene = std::shared_ptr<Scene>(new SceneType(this));
+	void setScene(Scene* scene){
+		this->newScene = std::shared_ptr<Scene>(scene);
 	}
 
 	template <class SceneRunnerType, class SceneType>
 	static SceneRunnerType* instantiate(int fps=60){
 		SceneRunnerType* ret = new SceneRunnerType(fps);
-		ret->setScene<SceneType>();
+		ret->setScene(new SceneType(ret));
 		return ret;
 	}
 

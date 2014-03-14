@@ -69,6 +69,17 @@ even a gameobject get deleted during the iteration.*/
 		for( ; it_##_identifier != gameObjectsClone_##_identifier.end(); it_##_identifier++ ){\
 			GameObject* _identifier = (*it_##_identifier).get();
 
+//For the sake of performance, the client may want to have clones shared.
+//To do so, use EACH_GAME_OBJECT_USE_CLONE instead of EACH_GAME_OBJECT
+#define EACH_GAME_OBJECT_USE_CLONE(_identifier, _cloneName) \
+	{\
+		GameObjectIt it_##_identifier = _cloneName.begin();\
+		for( ; it_##_identifier != _cloneName.end(); it_##_identifier++ ){\
+			GameObject* _identifier = (*it_##_identifier).get();\
+			if(_identifier->isHidden())\
+				continue;\
+
+
 #define END_EACH }}
 
 #endif

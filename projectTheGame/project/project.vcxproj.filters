@@ -39,6 +39,9 @@
     <Filter Include="Client\Empty Scene">
       <UniqueIdentifier>{bb248d32-c801-4f46-92d0-fe48426879c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\Game Scene">
+      <UniqueIdentifier>{1f1ffb4e-bee3-4877-99a9-6434262d1d0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -137,6 +140,9 @@
     <ClInclude Include="client\emptyscene\EmptyScene.h">
       <Filter>Client\Empty Scene</Filter>
     </ClInclude>
+    <ClInclude Include="client\gamescene\GameScene.h">
+      <Filter>Client\Game Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -216,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="gameobjects\super\Animator.cpp">
       <Filter>Game Objects\Super Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="client\gamescene\GameScene.cpp">
+      <Filter>Client\Game Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

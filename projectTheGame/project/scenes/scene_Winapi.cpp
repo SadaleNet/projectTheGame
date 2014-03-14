@@ -3,6 +3,7 @@
 #include <windows.h>
 
 #include <ctype.h>
+#include <algorithm>
 
 namespace{
 	//Includes mouse key states and keyboard key states
@@ -33,15 +34,25 @@ void Scene::handleEvents(){
 	//find changes and trigger events
 
 	{ //process mouse events
+
+		//Initialize a clone of gameObject for processing mouse events
+		std::vector<std::shared_ptr<GameObject>> gameObjectClone = this->gameObjects;
+		//remove all objects without mouse event handling disbled.
+		gameObjectClone.erase(
+			std::remove_if(gameObjectClone.begin(), gameObjectClone.end(),
+				[](std::shared_ptr<GameObject>& a){ return !a->detectMouseEvents; }
+			)
+		);
+
 		//invoke GameObject::onMouseMove()
 		if( this->mousePos != oldMousePos ){
-			EACH_GAME_OBJECT(i)
+			EACH_GAME_OBJECT_USE_CLONE(i, gameObjectClone)
 				i->onMouseMove(this->mousePos);
 			END_EACH
 		}
 
 		//invoke GameObject::onMouseIn(), GameObject::onMouseOut(), GameObject::onMouseUp()
-		EACH_GAME_OBJECT(i)
+		EACH_GAME_OBJECT_USE_CLONE(i, gameObjectClone)
 			if(!i->hovered&&i->isCollide(this->mousePos)){
 				i->hovered = true;
 				i->onMouseIn(this->mousePos);
@@ -60,9 +71,9 @@ void Scene::handleEvents(){
 		//invoke GameObject::held, GameObject::onMouseDown(), GameObject::onMouseUp(), GameObject::onFocus(), GameObject::onBlur()
 		#define PROCESS_MOUSE_UP_DOWN(_winapiKey, _mouseButtonKey) \
 		if(keyStates[_winapiKey]!=oldKeyStates[_winapiKey]){\
-			EACH_GAME_OBJECT(i)\
+			EACH_GAME_OBJECT_USE_CLONE(i, gameObjectClone)\
 				if(!keyStates[_winapiKey]&&_mouseButtonKey==::LEFT){\
-					EACH_GAME_OBJECT(j)\
+					EACH_GAME_OBJECT_USE_CLONE(j, gameObjectClone)\
 						if(j->focused && !j->isCollide(this->mousePos)){\
 							j->onBlur();\
 							j->focused = false;\
@@ -96,10 +107,20 @@ void Scene::handleEvents(){
 	} //end processing mouse events
 
 	{ //process keyboard events
+		
+		//Initialize a clone of gameObject for processing keyboard events
+		std::vector<std::shared_ptr<GameObject>> gameObjectClone = this->gameObjects;
+		//remove all objects without mouse event handling disbled.
+		gameObjectClone.erase(
+			std::remove_if(gameObjectClone.begin(), gameObjectClone.end(),
+				[](std::shared_ptr<GameObject>& a){ return !a->detectKeyEvents; }
+			)
+		);
+
 		//invoke GameObject::onKeyDown(), GameObject::onKeyUp()
 		#define PROCESS_KEY_EVENT(_winapiKey, _oursKey)\
 			{\
-			EACH_GAME_OBJECT(i)\
+			EACH_GAME_OBJECT_USE_CLONE(i, gameObjectClone)\
 				if(keyStates[_winapiKey]!=oldKeyStates[_winapiKey]){\
 					if(keyStates[_winapiKey])\
 						i->onKeyDown(_oursKey);\
@@ -146,6 +167,8 @@ void Scene::handleEvents(){
 	//invoke collision events
 	for( GameObjectIt it = gameObjects.begin(); it != gameObjects.end(); it++ ){
 		GameObject* i = it->get();
+		if(!i->detectCollisionEvents)
+			continue;
 		for( GameObjectIt jt = it+1; jt != gameObjects.end(); jt++ ){
 			GameObject* j = jt->get();
 			if(i->isCollide(*j)){

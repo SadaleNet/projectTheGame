@@ -59,7 +59,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="client\emptyscene\EmptyScene.h" />
+    <ClInclude Include="client\gamescene\GameScene.h" />
     <ClInclude Include="client\testscene\TestScene.h" />
     <ClInclude Include="db\FileDb.h" />
     <ClInclude Include="db\RemoteDb.h" />
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client\emptyscene\EmptyScene.cpp" />
+    <ClCompile Include="client\gamescene\GameScene.cpp" />
     <ClCompile Include="client\testscene\TestScene.cpp" />
     <ClCompile Include="db\FileDb.cpp" />
     <ClCompile Include="db\RemoteDb.cpp" />

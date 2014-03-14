@@ -4,7 +4,7 @@
 #include <math.h>
 
 TextBox::TextBox(Vec2 pos, Vec2 size, Color fontColor, Color fillColor, double borderSize, Color borderColor)
-	:GameObject(pos, size),
+	:GameObject(pos, size, true, true, false),
 	button(nullptr),
 	textObj(Vec2(0,0), size, "", int(size.y*0.8), fontColor, Text::LEFT),
 	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),

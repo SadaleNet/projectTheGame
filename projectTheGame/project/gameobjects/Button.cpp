@@ -2,7 +2,7 @@
 #include "../utils/utils.h"
 
 Button::Button(Vec2 pos, Vec2 size, std::string text, Color fontColor, Color fillColor, double borderSize, Color borderColor)
-	:GameObject(pos, size),
+	:GameObject(pos, size, true, false, false),
 	action(nullptr),
 	textObj(Vec2(0,0), size, text, int(size.y*0.8), fontColor, Text::CENTER),
 	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),

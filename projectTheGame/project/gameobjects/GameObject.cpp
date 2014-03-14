@@ -3,14 +3,17 @@
 #include <stdexcept>
 #include <cassert>
 
-GameObject::GameObject(Vec2 pos, Vec2 size)
+GameObject::GameObject(Vec2 pos, Vec2 size, bool detectMouseEvents, bool detectKeyEvents, bool detectCollisionEvents)
 	:pos(pos),
 	size(size),
 	scene(nullptr),
 	parent(nullptr),
 	hovered(false),
 	focused(false),
-	hidden(false){
+	hidden(false),
+	detectMouseEvents(detectMouseEvents),
+	detectKeyEvents(detectKeyEvents),
+	detectCollisionEvents(detectCollisionEvents){
 	for(int i=0; i<MOUSE_KEY_NUM; i++)
 		this->held[i] = false;
 }

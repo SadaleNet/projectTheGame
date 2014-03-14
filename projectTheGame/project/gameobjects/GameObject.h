@@ -42,6 +42,12 @@ private:
 	*/
 	bool hidden;
 
+	//for optimization. defaults to false.
+	//If false, the event is ignored.
+	bool detectMouseEvents;
+	bool detectKeyEvents;
+	bool detectCollisionEvents;
+
 	///the scene that this object is in
 	Scene* scene;
 	friend Scene;
@@ -51,7 +57,7 @@ public:
 	Vec2 vel; ///velocity. If parent!=nullptr, then this is the relative velocity to the parent
 	Vec2 size;
 
-	GameObject(Vec2 pos, Vec2 size);
+	GameObject(Vec2 pos, Vec2 size, bool detectMouseEvents=false, bool detectKeyEvents=false, bool detectCollisionEvents=false);
 
 	virtual void render() const{};
 

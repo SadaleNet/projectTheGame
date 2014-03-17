@@ -13,9 +13,11 @@ SceneRunner_Winapi::SceneRunner_Winapi(int fps):
 	RECT clientRect;
 	GetClientRect(hWnd, &clientRect);
 	//Use PixelFormat32bppPARGB for performance. Source: http://www.gamedev.net/topic/467752-maximizing-gdi-speed/
-	this->internalGraphicsBuffer = std::shared_ptr<Bitmap>(
-		new Bitmap(clientRect.right, clientRect.bottom, PixelFormat32bppPARGB)
-	);
+	//Note: This memory leak is by design. Since SceneRunner_Winapi::render() is called from another thread, if
+	//this SceneRunner_Winapi get deleted while SceneRunner_Winapi::render() is being called, there would be a
+	//race condition. Therefore, we better not to delete it.
+	//This memory leak is OK the leaked memory does not grow from time-to-time.
+	this->internalGraphicsBuffer = new Bitmap(clientRect.right, clientRect.bottom, PixelFormat32bppPARGB);
 }
 
 
@@ -78,7 +80,7 @@ void SceneRunner_Winapi::render(){
 	graphics.DrawImage(&buffer, 0, 0);*/
 
 	//This version of double-buffering reduce the creation of Bitmap. Hence better performance.
-	Graphics graphicsBuffer(this->internalGraphicsBuffer.get());
+	Graphics graphicsBuffer(this->internalGraphicsBuffer);
 	this->graphicsBuffer = &graphicsBuffer;
 	this->graphicsBuffer->Clear(Gdiplus::Color(255, 255, 255, 255));
 	this->renderScene();
@@ -87,7 +89,7 @@ void SceneRunner_Winapi::render(){
 	Graphics graphics(hdc);
 	graphics.SetInterpolationMode(InterpolationModeNearestNeighbor);
 	//by specifying the width and height, the performance can be increased. Source: http://msdn.microsoft.com/en-us/library/1bttkazd%28v=vs.110%29.aspx
-	graphics.DrawImage(this->internalGraphicsBuffer.get(), 0, 0, 
+	graphics.DrawImage(this->internalGraphicsBuffer, 0, 0,
 		this->internalGraphicsBuffer->GetWidth(), this->internalGraphicsBuffer->GetHeight());
 }
 

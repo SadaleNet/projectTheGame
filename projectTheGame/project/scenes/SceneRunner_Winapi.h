@@ -22,7 +22,7 @@ private:
 	Graphics* graphicsBuffer;
 
 	//for double buffering
-	std::shared_ptr<Bitmap> internalGraphicsBuffer;
+	Bitmap* internalGraphicsBuffer;
 public:
 	SceneRunner_Winapi(int fps=60);
 	

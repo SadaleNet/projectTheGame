@@ -132,8 +132,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	freopen("conout$","w",stderr);
 
 	//initialize global variables
-	sceneRunner = std::shared_ptr<SceneRunner_Winapi>( SceneRunner::instantiate<SceneRunner_Winapi, INITIAL_SCENE>() );
-
 	hInst = hInstance; // Store instance handle in our global variable
 
 	hWnd = CreateWindow(szWindowClass, APPLICATION_TITLE, WS_TILED|WS_SYSMENU,
@@ -144,8 +142,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	   return FALSE;
 	}
 
+	//initialize sceneRunner
+	sceneRunner = std::shared_ptr<SceneRunner_Winapi>( SceneRunner::instantiate<SceneRunner_Winapi, INITIAL_SCENE>() );
+
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
+
 
 	return TRUE;
 }
@@ -187,11 +189,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 		hdc = BeginPaint(hWnd, &ps);
 		sceneRunner->render();
-			/*{
-				Graphics graphics(hdc);
-				Pen      pen(Color(255, 0, 0, 255));
-				graphics.DrawLine(&pen, 0, 0, 200, 100);
-			}*/
 		EndPaint(hWnd, &ps);
 		break;
 		}

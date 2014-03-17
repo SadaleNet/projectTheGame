@@ -8,6 +8,7 @@ class SceneRunner_Winapi;
 #include <windows.h>
 #include <objidl.h>
 #include <gdiplus.h>
+#include <memory>
 using namespace Gdiplus;
 #pragma comment (lib,"Gdiplus.lib")
 
@@ -19,6 +20,9 @@ private:
 	LARGE_INTEGER tickFreq, startTick; ///used by getSec() and getDeltaSec()
 	double secondsSpentOnPreviousFrame, lastUpdateSec; ///used by getDeltaSec()
 	Graphics* graphicsBuffer;
+
+	//for double buffering
+	std::shared_ptr<Bitmap> internalGraphicsBuffer;
 public:
 	SceneRunner_Winapi(int fps=60);
 	

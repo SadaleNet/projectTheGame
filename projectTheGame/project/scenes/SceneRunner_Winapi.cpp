@@ -7,8 +7,15 @@
 SceneRunner_Winapi::SceneRunner_Winapi(int fps):
 	SceneRunner(fps),
 	graphicsBuffer(nullptr){
-		QueryPerformanceFrequency(&this->tickFreq);
-		QueryPerformanceCounter(&this->startTick);
+	QueryPerformanceFrequency(&this->tickFreq);
+	QueryPerformanceCounter(&this->startTick);
+	//for double-buffering
+	RECT clientRect;
+	GetClientRect(hWnd, &clientRect);
+	//Use PixelFormat32bppPARGB for performance. Source: http://www.gamedev.net/topic/467752-maximizing-gdi-speed/
+	this->internalGraphicsBuffer = std::shared_ptr<Bitmap>(
+		new Bitmap(clientRect.right, clientRect.bottom, PixelFormat32bppPARGB)
+	);
 }
 
 
@@ -55,7 +62,7 @@ void SceneRunner_Winapi::run(){
 }
 
 void SceneRunner_Winapi::render(){
-	//initialize double buffering
+	/*//initialize double buffering
 	RECT clientRect;
 	GetClientRect(hWnd, &clientRect);
 	Bitmap buffer(clientRect.right, clientRect.bottom);
@@ -68,7 +75,20 @@ void SceneRunner_Winapi::render(){
 
 	//copy stuff from the new buffer to the old one
 	Graphics graphics(hdc);
-	graphics.DrawImage(&buffer, 0, 0);
+	graphics.DrawImage(&buffer, 0, 0);*/
+
+	//This version of double-buffering reduce the creation of Bitmap. Hence better performance.
+	Graphics graphicsBuffer(this->internalGraphicsBuffer.get());
+	this->graphicsBuffer = &graphicsBuffer;
+	this->graphicsBuffer->Clear(Gdiplus::Color(255, 255, 255, 255));
+	this->renderScene();
+
+	//copy stuff from the new buffer to the old one
+	Graphics graphics(hdc);
+	graphics.SetInterpolationMode(InterpolationModeNearestNeighbor);
+	//by specifying the width and height, the performance can be increased. Source: http://msdn.microsoft.com/en-us/library/1bttkazd%28v=vs.110%29.aspx
+	graphics.DrawImage(this->internalGraphicsBuffer.get(), 0, 0, 
+		this->internalGraphicsBuffer->GetWidth(), this->internalGraphicsBuffer->GetHeight());
 }
 
 /*Getter method(s)*/

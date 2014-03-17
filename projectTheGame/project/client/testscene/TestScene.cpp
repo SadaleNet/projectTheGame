@@ -19,7 +19,7 @@ TestScene::TestScene(SceneRunner* const sceneRunner)
 	AnimatedSprite* animatedSprite
 		= new AnimatedSprite(Vec2(400, 200), Vec2(50, 50), "./assets/animation.png", Vec2(50, 50), 0.025, 4);
 	//this->add(animatedSprite);
-	Timer* changeAnimationTimer = new Timer([=](){ animatedSprite->tileIndex.y = 1; }, 5.0);
+	Timer* changeAnimationTimer = new Timer([=](){ animatedSprite->tileIndex.y = 1; }, 5.0); //NOTE: this line is NOT working in release mode. Probably a bug of VC++
 	this->add(changeAnimationTimer);
 
 	Text* text = new Text(Vec2(30, 30), Vec2(200, 200), "Hi!", 20);
@@ -51,7 +51,7 @@ TestScene::TestScene(SceneRunner* const sceneRunner)
 	panel->add(textBox);
 	this->add(panel);
 
-	Timer* timer = new Timer([=](){ text->text = "haha!"; }, 1.5);
+	Timer* timer = new Timer([=](){ text->text = "haha!"; }, 1.5); //NOTE: this line is NOT working in release mode. Probably a bug of VC++
 	this->add(timer);
 
 	Rect* animatedRect = new Rect(Vec2(100, 300), Vec2(25, 25), Color(1.0, 0.8, 0.5, 1.0), 5, Color(1.0, 1.0, 0.5, 1.0));

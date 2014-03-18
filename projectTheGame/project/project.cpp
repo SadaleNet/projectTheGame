@@ -1,11 +1,11 @@
 // project.cpp : Defines the entry point for the application.
+#include "client/gamescene/GameScene.h"
+#define INITIAL_SCENE GameScene
 
 //defines configuration of the program
 #define APPLICATION_TITLE _T("Gophher It!")
-#define INITIAL_SCENE GameScene
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 650
-
 
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -22,7 +22,6 @@ using namespace Gdiplus;
 
 #include "project.h"
 #include "scenes/SceneRunner_Winapi.h"
-#include "client/gamescene/GameScene.h"
 #include <iostream>
 #include <string>
 

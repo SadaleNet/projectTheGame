@@ -42,6 +42,9 @@
     <Filter Include="Client\Game Scene">
       <UniqueIdentifier>{1f1ffb4e-bee3-4877-99a9-6434262d1d0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\Login Scene">
+      <UniqueIdentifier>{69eb4336-669a-4b91-861e-b9286dcfeb30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -143,6 +146,9 @@
     <ClInclude Include="client\gamescene\GameScene.h">
       <Filter>Client\Game Scene</Filter>
     </ClInclude>
+    <ClInclude Include="client\loginscene\LoginScene.h">
+      <Filter>Client\Login Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -225,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="client\gamescene\GameScene.cpp">
       <Filter>Client\Game Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="client\loginscene\LoginScene.cpp">
+      <Filter>Client\Login Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

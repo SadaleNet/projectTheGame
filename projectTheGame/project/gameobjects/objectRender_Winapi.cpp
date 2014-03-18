@@ -43,8 +43,40 @@ void SpriteObject::render() const{
 	//NB: Strange. If this line is used, the program caches when the program is closed. Maybe there is some GC in GDI+ ?
 	//static std::map<std::string, std::unique_ptr<Image>> imageCache;
 	static std::map<std::string, Image*> imageCache;
+	static std::map<std::string, TextureBrush*> textureBrushCache;
 
 	//Attempt to render the image from cache. If the image is not in the cache, load it to the cache and retry.
+	//TODO: What if the image is not loaded? Apparently, there is no error handling functions provided by GDI+
+	while(true){ //makes continue works.
+		try{
+			//load image from cache
+			TextureBrush* pTexture = textureBrushCache.at(this->imagePath);
+			//render it
+			pTexture->ResetTransform();
+			if(this->tileSize==Vec2(0,0)){
+				pTexture->TranslateTransform(REAL(pos.x), REAL(pos.y));
+				RENDER_BUFFER.FillRectangle(pTexture, REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
+			}else{
+				//NOTE: somehow, adding -ve sign makes tiling works. It is probably due to the strange coord. sys. of GDI+.
+				pTexture->TranslateTransform(REAL(pos.x)+REAL(-this->tileIndex.x*this->tileSize.x), REAL(pos.y)+REAL(-this->tileIndex.y*this->tileSize.y));
+				RENDER_BUFFER.FillRectangle(pTexture,
+										REAL(pos.x), REAL(pos.y),
+										REAL(this->size.x), REAL(this->size.y));
+			}
+			return; //rendered. Mission accomplished.
+		}catch(std::out_of_range&){
+			//Load the image to cache, then render it.
+
+			CHAR_TO_CONST_WCHAR_ARRAY(&this->imagePath[0], imagePathWchar);
+			
+			//cache the image
+			imageCache[this->imagePath] = new Image(imagePathWchar);
+			textureBrushCache[this->imagePath] = new TextureBrush(imageCache[this->imagePath], WrapModeTile, 0, 0, imageCache[this->imagePath]->GetWidth(), imageCache[this->imagePath]->GetHeight());
+			continue; //try again and render it
+		}
+	}
+
+	/*//Attempt to render the image from cache. If the image is not in the cache, load it to the cache and retry.
 	//TODO: What if the image is not loaded? Apparently, there is no error handling functions provided by GDI+
 	while(true){ //makes continue works.
 		try{
@@ -70,7 +102,8 @@ void SpriteObject::render() const{
 			imageCache[this->imagePath] = new Image(imagePathWchar);
 			continue; //try again and render it
 		}
-	}
+	}*/
+
 }
 
 

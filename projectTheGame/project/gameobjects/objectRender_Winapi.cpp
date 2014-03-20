@@ -57,8 +57,11 @@ void SpriteObject::render() const{
 				pTexture->TranslateTransform(REAL(pos.x), REAL(pos.y));
 				RENDER_BUFFER.FillRectangle(pTexture, REAL(pos.x), REAL(pos.y), REAL(this->size.x), REAL(this->size.y));
 			}else{
+				Vec2 scale = Vec2(REAL(this->size.x/this->tileSize.x), REAL(this->size.y/this->tileSize.y));
 				//NOTE: somehow, adding -ve sign makes tiling works. It is probably due to the strange coord. sys. of GDI+.
-				pTexture->TranslateTransform(REAL(pos.x)+REAL(-this->tileIndex.x*this->tileSize.x), REAL(pos.y)+REAL(-this->tileIndex.y*this->tileSize.y));
+				pTexture->TranslateTransform(REAL(pos.x)+REAL(-this->tileIndex.x*this->tileSize.x)*REAL(scale.x),
+					REAL(pos.y)+REAL(-this->tileIndex.y*this->tileSize.y)*REAL(scale.y));
+				pTexture->ScaleTransform(REAL(scale.x), REAL(scale.y));
 				RENDER_BUFFER.FillRectangle(pTexture,
 										REAL(pos.x), REAL(pos.y),
 										REAL(this->size.x), REAL(this->size.y));

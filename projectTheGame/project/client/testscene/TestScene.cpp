@@ -62,5 +62,13 @@ TestScene::TestScene(SceneRunner* const sceneRunner)
 	CheckBox* checkBox = new CheckBox(Vec2(50, 50), Vec2(100, 20), "Meow", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 	this->add( checkBox );
 
+	Panel* radioButtonPanel = new Panel(Vec2(100, 200), Vec2(200, 100), Color(0.5,0.8,0.8,0.6));
+	for(int i=0; i<4; i++){
+		RadioButton* radioButton = new RadioButton(Vec2(0, 20*i), Vec2(200, 20),
+			std::string("Radio Button ")+std::to_string((long long)i), Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+		radioButtonPanel->add(radioButton);
+	}
+	this->add(radioButtonPanel);
+
 	playBgm("./assets/testBgm.wav");
 }

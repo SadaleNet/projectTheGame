@@ -152,6 +152,9 @@
     <ClInclude Include="gameobjects\CheckBox.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="gameobjects\RadioButton.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -239,6 +242,9 @@
       <Filter>Client\Login Scene</Filter>
     </ClCompile>
     <ClCompile Include="gameobjects\CheckBox.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\RadioButton.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>

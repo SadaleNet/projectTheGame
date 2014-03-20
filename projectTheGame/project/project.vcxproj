@@ -93,6 +93,7 @@
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="gameobjects\include.h" />
     <ClInclude Include="gameobjects\Panel.h" />
+    <ClInclude Include="gameobjects\RadioButton.h" />
     <ClInclude Include="gameobjects\Rect.h" />
     <ClInclude Include="gameobjects\SpriteObject.h" />
     <ClInclude Include="gameobjects\super\Animator.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="gameobjects\objectRender_Winapi.cpp" />
     <ClCompile Include="gameobjects\Panel.cpp" />
+    <ClCompile Include="gameobjects\RadioButton.cpp" />
     <ClCompile Include="gameobjects\Rect.cpp" />
     <ClCompile Include="gameobjects\SpriteObject.cpp" />
     <ClCompile Include="gameobjects\super\Animator.cpp" />

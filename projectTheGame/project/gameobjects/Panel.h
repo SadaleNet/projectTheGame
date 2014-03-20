@@ -41,6 +41,11 @@ public:
 	std::vector<GameObject*>::iterator begin();
 	///@return end iterator of children
 	std::vector<GameObject*>::iterator end();
+
+	///@return begin iterator of children
+	std::vector<GameObject*>::const_iterator begin() const;
+	///@return end iterator of children
+	std::vector<GameObject*>::const_iterator end() const;
 };
 
 #endif

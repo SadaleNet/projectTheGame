@@ -59,3 +59,11 @@ std::vector<GameObject*>::iterator Panel::begin(){
 std::vector<GameObject*>::iterator Panel::end(){
 	return this->children.end();
 }
+
+std::vector<GameObject*>::const_iterator Panel::begin() const{
+	return this->children.begin();
+}
+
+std::vector<GameObject*>::const_iterator Panel::end() const{
+	return this->children.end();
+}

@@ -27,6 +27,7 @@ protected:
 public:
 	Color fillColor; ///used to calculate rectObj.fillColor when this object is hovered, clicked, etc.
 	Color& fontColor; ///refers to textObj.fontColor
+	std::string& text; ///refers to textObj.text
 	double& borderSize; ///refers to rectObj.borderSize
 	Color& borderColor; ///refers to rectObj.borderColor
 

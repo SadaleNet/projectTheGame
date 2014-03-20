@@ -89,6 +89,7 @@
     <ClInclude Include="db\UserDb.h" />
     <ClInclude Include="gameobjects\AnimatedSprite.h" />
     <ClInclude Include="gameobjects\Button.h" />
+    <ClInclude Include="gameobjects\CheckBox.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="gameobjects\include.h" />
     <ClInclude Include="gameobjects\Panel.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="db\UserDb.cpp" />
     <ClCompile Include="gameobjects\AnimatedSprite.cpp" />
     <ClCompile Include="gameobjects\Button.cpp" />
+    <ClCompile Include="gameobjects\CheckBox.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="gameobjects\objectRender_Winapi.cpp" />
     <ClCompile Include="gameobjects\Panel.cpp" />

@@ -4,6 +4,7 @@
 #include "../gameobjects/Text.h"
 #include "../gameobjects/Button.h"
 #include "../gameobjects/TextBox.h"
+#include "../gameobjects/CheckBox.h"
 #include "../gameobjects/Panel.h"
 #include "../gameobjects/super/Timer.h"
 #include "../gameobjects/super/Animator.h"

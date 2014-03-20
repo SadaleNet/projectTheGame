@@ -59,5 +59,8 @@ TestScene::TestScene(SceneRunner* const sceneRunner)
 	this->add( new Animator<Vec2>(animatedRect->pos, 5.0, Vec2(300,100)) );
 	this->add( new Animator<Color>(animatedRect->fillColor, 4.0, animatedRect->fillColor, 6.0, Color(0.0, 0.0, 1.0, 1.0)) );
 
+	CheckBox* checkBox = new CheckBox(Vec2(50, 50), Vec2(100, 20), "Meow", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+	this->add( checkBox );
+
 	playBgm("./assets/testBgm.wav");
 }

@@ -8,6 +8,7 @@ Button::Button(Vec2 pos, Vec2 size, std::string text, Color fontColor, Color fil
 	rectObj(Vec2(0,0), size, fillColor, borderSize, borderColor),
 	fillColor(fillColor),
 	fontColor(textObj.fontColor),
+	text(textObj.text),
 	borderSize(rectObj.borderSize),
 	borderColor(rectObj.borderColor){
 	textObj.setParent(this);

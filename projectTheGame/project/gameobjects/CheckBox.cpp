@@ -24,11 +24,11 @@ void CheckBox::updateHook(){
 		this->buttonObj.fillColor = Color( this->fillColor.r*0.7, this->fillColor.g*0.7, this->fillColor.b*0.7, this->fillColor.a );
 	}else if(this->isHovered()){
 		this->buttonObj.fillColor = Color(
-												MIN(1.0, this->fillColor.r*1.3),
-												MIN(1.0, this->fillColor.g*1.3),
-												MIN(1.0, this->fillColor.b*1.3),
-												this->fillColor.a
-											);
+										MIN(1.0, this->fillColor.r*1.3),
+										MIN(1.0, this->fillColor.g*1.3),
+										MIN(1.0, this->fillColor.b*1.3),
+										this->fillColor.a
+									);
 	}else{
 		this->buttonObj.fillColor = this->fillColor;
 	}

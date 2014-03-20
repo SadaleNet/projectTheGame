@@ -101,6 +101,7 @@
     <ClInclude Include="gameobjects\Text.h" />
     <ClInclude Include="gameobjects\TextBox.h" />
     <ClInclude Include="misc\EventData.h" />
+    <ClInclude Include="misc\messageBox.h" />
     <ClInclude Include="misc\soundPlayer.h" />
     <ClInclude Include="misc\testCases.h" />
     <ClInclude Include="project.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="gameobjects\super\Timer.cpp" />
     <ClCompile Include="gameobjects\Text.cpp" />
     <ClCompile Include="gameobjects\TextBox.cpp" />
+    <ClCompile Include="misc\messageBox_Winapi.cpp" />
     <ClCompile Include="misc\soundPlayer_Winapi.cpp" />
     <ClCompile Include="project.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />

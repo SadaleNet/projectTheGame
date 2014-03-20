@@ -4,6 +4,7 @@
 
 #include "../../gameobjects/include.h"
 #include "../../misc/soundPlayer.h"
+#include "../../misc/messageBox.h"
 #include "../../db/UserDb.h"
 
 EmptyScene::EmptyScene(SceneRunner* const sceneRunner)

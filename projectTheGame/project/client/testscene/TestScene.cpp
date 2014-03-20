@@ -4,6 +4,7 @@
 
 #include "../../gameobjects/include.h"
 #include "../../misc/soundPlayer.h"
+#include "../../misc/messageBox.h"
 
 TestScene::TestScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){
@@ -33,6 +34,7 @@ TestScene::TestScene(SceneRunner* const sceneRunner)
 		button->vel -= Vec2(0, -10);
 		playSfx("./assets/coin.wav");
 		textBox->secret = !textBox->secret;
+		showMessage("The scene is going to be changed", "Information");
 		this->getSceneRunner()->setScene(new TestScene(this->getSceneRunner()));
 	};
 	button->vel += Vec2(0, -30);

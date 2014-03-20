@@ -155,6 +155,9 @@
     <ClInclude Include="gameobjects\RadioButton.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="misc\messageBox.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -246,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="gameobjects\RadioButton.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\messageBox_Winapi.cpp">
+      <Filter>Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

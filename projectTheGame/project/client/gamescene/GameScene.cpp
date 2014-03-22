@@ -18,15 +18,15 @@ GameScene::GameScene(SceneRunner* const sceneRunner)
 	gameBoardPanel->add(gameBoard);
 
 	//add 2 cards
-	for(int i=0; i<2; i++){
+	for(int i=0; i<3; i++){
 		AnimatedSprite* card
 			= new AnimatedSprite(Vec2(50+i*120, 22), Vec2(100, 150), "./assets/gamescene/cards.png", Vec2(100, 150), 0.05, 3);
 		card->tileIndex.y = 5+i;
 		gameBoardPanel->add(card);
 	}
 	//add flip and collect buttons
-	Button* flipMoreButton = new Button(Vec2(50+2*120, 40), Vec2(100, 30), "More", Color(1,1,0,1), Color(0.5,0.5,0.6,1));
-	Button* collectCardsButton = new Button(Vec2(50+2*120, 110), Vec2(100, 30), "Collect", Color(1,1,0,1), Color(0.5,0.5,0.6,1));
+	Button* flipMoreButton = new Button(Vec2(50+3*120, 40), Vec2(100, 30), "More", Color(1,1,0,1), Color(0.5,0.5,0.6,1));
+	Button* collectCardsButton = new Button(Vec2(50+3*120, 110), Vec2(100, 30), "Collect", Color(1,1,0,1), Color(0.5,0.5,0.6,1));
 	gameBoardPanel->add(flipMoreButton);
 	gameBoardPanel->add(collectCardsButton);
 

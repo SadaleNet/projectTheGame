@@ -18,6 +18,7 @@ void testCases(){
 	}catch(std::runtime_error& e){
 		std::cerr <<"Unable to test RemoteDb: \n" <<e.what() <<std::endl;
 	}
+
 	std::cerr <<"Congratz! All test cases were passed successfully. :D" <<std::endl;
 	#endif
 }

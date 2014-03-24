@@ -6,9 +6,12 @@
 #include "../../misc/soundPlayer.h"
 #include "../../misc/messageBox.h"
 #include "../../db/UserDb.h"
+#include "Deck.h"
 
 GameScene::GameScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){
+
+	Deck::test();
 
 	//construct game board
 	Panel* gameBoardPanel = new Panel(Vec2(30, 205), Vec2(800, 270), Color(0, 0, 0, 0), 0, Color(0, 0, 0, 0));
@@ -17,7 +20,7 @@ GameScene::GameScene(SceneRunner* const sceneRunner)
 	SpriteObject* gameBoard = new SpriteObject(Vec2(-30, -35), Vec2(800, 270), "./assets/gamescene/board.png");
 	gameBoardPanel->add(gameBoard);
 
-	//add 2 cards
+	//add 3 cards
 	for(int i=0; i<3; i++){
 		AnimatedSprite* card
 			= new AnimatedSprite(Vec2(50+i*120, 22), Vec2(100, 150), "./assets/gamescene/cards.png", Vec2(100, 150), 0.05, 3);

@@ -87,6 +87,7 @@
     <ClInclude Include="db\FileDb.h" />
     <ClInclude Include="db\RemoteDb.h" />
     <ClInclude Include="db\UserDb.h" />
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="gameobjects\AnimatedSprite.h" />
     <ClInclude Include="gameobjects\Button.h" />
     <ClInclude Include="gameobjects\CheckBox.h" />
@@ -104,6 +105,7 @@
     <ClInclude Include="misc\messageBox.h" />
     <ClInclude Include="misc\soundPlayer.h" />
     <ClInclude Include="misc\testCases.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="project.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="scenes\Scene.h" />
@@ -124,6 +126,7 @@
     <ClCompile Include="db\RemoteDb.cpp" />
     <ClCompile Include="db\remoteDb_Winapi.cpp" />
     <ClCompile Include="db\UserDb.cpp" />
+    <ClCompile Include="Deck.cpp" />
     <ClCompile Include="gameobjects\AnimatedSprite.cpp" />
     <ClCompile Include="gameobjects\Button.cpp" />
     <ClCompile Include="gameobjects\CheckBox.cpp" />

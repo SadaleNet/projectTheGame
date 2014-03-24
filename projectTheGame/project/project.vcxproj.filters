@@ -158,6 +158,12 @@
     <ClInclude Include="misc\messageBox.h">
       <Filter>Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Deck.h">
+      <Filter>Client\Game Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Client\Game Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -252,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="misc\messageBox_Winapi.cpp">
       <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Deck.cpp">
+      <Filter>Client\Game Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

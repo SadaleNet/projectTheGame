@@ -21,10 +21,10 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner)
 	this->add(bannar);
 
 	//create a play panel
-	Panel* playPanel = new Panel(Vec2(200, 300), Vec2(410, 70), Color(0.9, 0.9, 0.9, 1.0), 1, Color(0.8, 0.8, 0.8, 1));
+	Panel* playPanel = new Panel(Vec2(200, 300), Vec2(410, 80), Color(0.9, 0.9, 0.9, 1.0), 1, Color(0.8, 0.8, 0.8, 1));
 	//add checkboxes to play panel
-	CheckBox* winOn4 = new CheckBox(Vec2(10, 10), Vec2(200, 20), "Win on 4 silver merits", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
-	CheckBox* reuseLost = new CheckBox(Vec2(10, 35), Vec2(200, 20), "Reuse lost cards", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+	CheckBox* winOn4 = new CheckBox(Vec2(10, 10), Vec2(210, 20), "Win on 4 silver merits", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+	CheckBox* reuseLost = new CheckBox(Vec2(10, 35), Vec2(210, 20), "Reuse lost cards", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 	playPanel->add(winOn4);
 	playPanel->add(reuseLost);
 	//add button to play panel

@@ -4,7 +4,7 @@
 
 Scene::Scene(SceneRunner* const sceneRunner):
 	sceneRunner(sceneRunner),
-	timeInitialized(-1.0){
+	timeInitialized(sceneRunner->getSec()){
 }
 
 
@@ -13,9 +13,6 @@ void Scene::handleExtraEvents(){
 }
 
 void Scene::update(){
-	if(this->timeInitialized==-1.0)
-		this->timeInitialized = sceneRunner->getSec();
-
 	EACH_GAME_OBJECT_INCLUDES_HIDDEN(i)
 		i->update();
 	END_EACH

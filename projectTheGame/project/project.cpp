@@ -1,6 +1,6 @@
 // project.cpp : Defines the entry point for the application.
-#include "client/gamescene/GameScene.h"
-#define INITIAL_SCENE GameScene
+#include "client/loginscene/LoginScene.h"
+#define INITIAL_SCENE LoginScene
 
 //defines configuration of the program
 #define APPLICATION_TITLE _T("Gopher It!")

@@ -29,7 +29,7 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner)
 	playPanel->add(reuseLost);
 	//add button to play panel
 	Button* playButton = new Button(Vec2(220, 10), Vec2(180, 40), "Play Now!", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
-	playButton->action = [=](){
+	playButton->action = [=](){ //event handler of playButton
 		this->getSceneRunner()->setScene(new GameScene(this->getSceneRunner()));
 	};
 	playPanel->add(playButton);

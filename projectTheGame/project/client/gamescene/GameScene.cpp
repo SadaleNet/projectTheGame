@@ -10,8 +10,10 @@
 
 GameScene::GameScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){
-
-	Deck::test();
+	//add background
+	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));
+	this->add( new Animator<double>(background->tileIndex.x, 1e10, 1e10/50) );
+	this->add(background);
 
 	//construct game board
 	Panel* gameBoardPanel = new Panel(Vec2(30, 205), Vec2(800, 270), Color(0, 0, 0, 0), 0, Color(0, 0, 0, 0));

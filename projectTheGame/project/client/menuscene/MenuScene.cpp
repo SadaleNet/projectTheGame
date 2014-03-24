@@ -10,6 +10,11 @@
 
 MenuScene::MenuScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){
+	//add background
+	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));
+	this->add( new Animator<double>(background->tileIndex.x, 1e10, 1e10/50) );
+	this->add(background);
+
 	//create a bannar
 	SpriteObject* bannar = new SpriteObject(Vec2(100, 50), Vec2(600, 150), "./assets/bannar.png");
 	this->add(bannar);

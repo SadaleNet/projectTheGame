@@ -7,6 +7,7 @@
 #include "../../misc/messageBox.h"
 #include "../../db/UserDb.h"
 #include "../../db/User.h"
+#include "../gamescene/GameScene.h"
 
 MenuScene::MenuScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){
@@ -28,9 +29,13 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner)
 	playPanel->add(reuseLost);
 	//add button to play panel
 	Button* playButton = new Button(Vec2(220, 10), Vec2(180, 40), "Play Now!", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
+	playButton->action = [=](){
+		this->getSceneRunner()->setScene(new GameScene(this->getSceneRunner()));
+	};
 	playPanel->add(playButton);
 	this->add(playPanel);
 
 	Button* highScoreButton = new Button(Vec2(300, 400), Vec2(200, 35), "High Score", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 	this->add(highScoreButton);
+
 }

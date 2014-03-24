@@ -45,6 +45,9 @@
     <Filter Include="Client\Login Scene">
       <UniqueIdentifier>{69eb4336-669a-4b91-861e-b9286dcfeb30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\Menu Scene">
+      <UniqueIdentifier>{ef31db44-4d93-45b2-95bf-72de67b3a8d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -167,6 +170,9 @@
     <ClInclude Include="db\User.h">
       <Filter>Database</Filter>
     </ClInclude>
+    <ClInclude Include="client\menuscene\MenuScene.h">
+      <Filter>Client\Menu Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -267,6 +273,9 @@
     </ClCompile>
     <ClCompile Include="client\gamescene\GameLogic.cpp">
       <Filter>Client\Game Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="client\menuscene\MenuScene.cpp">
+      <Filter>Client\Menu Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "../../misc/soundPlayer.h"
 #include "../../misc/messageBox.h"
 #include "../../db/UserDb.h"
+#include "../../db/User.h"
 
 EmptyScene::EmptyScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){

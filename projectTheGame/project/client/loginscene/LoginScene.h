@@ -9,6 +9,11 @@ class LoginScene;
 class LoginScene: public Scene{
 public:
 	LoginScene(SceneRunner* const sceneRunner);
+private:
+	void addPlayer(bool init);
+	void removePlayer();
+	void updateUIs(bool init);
+	void registerPlayer(std::string username, std::string password);
 };
 
 #endif

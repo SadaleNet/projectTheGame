@@ -1,12 +1,7 @@
 // project.cpp : Defines the entry point for the application.
 #include "client/loginscene/LoginScene.h"
 #define INITIAL_SCENE LoginScene
-
-//defines configuration of the program
-#define APPLICATION_TITLE _T("Gopher It!")
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 650
-
+#include "environment.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 

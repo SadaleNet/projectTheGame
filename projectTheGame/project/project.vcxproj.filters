@@ -173,6 +173,9 @@
     <ClInclude Include="client\menuscene\MenuScene.h">
       <Filter>Client\Menu Scene</Filter>
     </ClInclude>
+    <ClInclude Include="environment.h">
+      <Filter>Entry point</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">

@@ -5,12 +5,10 @@
 #include "../../gameobjects/include.h"
 #include "../../misc/soundPlayer.h"
 #include "../../misc/messageBox.h"
-#include "../../db/UserDb.h"
+#include "../GameDb.h"
 #include "../menuscene/MenuScene.h"
 #include "../../environment.h"
 
-#define MIN_PLAYER 2
-#define MAX_PLAYER 4
 #define PANEL_WIDTH 150
 
 namespace{

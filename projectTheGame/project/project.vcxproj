@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="client\emptyscene\EmptyScene.h" />
+    <ClInclude Include="client\GameDb.h" />
     <ClInclude Include="client\gamescene\Deck.h" />
     <ClInclude Include="client\gamescene\GameLogic.h" />
     <ClInclude Include="client\gamescene\GameScene.h" />
@@ -122,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client\emptyscene\EmptyScene.cpp" />
+    <ClCompile Include="client\GameDb.cpp" />
     <ClCompile Include="client\gamescene\Deck.cpp" />
     <ClCompile Include="client\gamescene\GameLogic.cpp" />
     <ClCompile Include="client\gamescene\GameScene.cpp" />

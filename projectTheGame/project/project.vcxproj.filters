@@ -176,6 +176,9 @@
     <ClInclude Include="environment.h">
       <Filter>Entry point</Filter>
     </ClInclude>
+    <ClInclude Include="client\GameDb.h">
+      <Filter>Client</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -279,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="client\menuscene\MenuScene.cpp">
       <Filter>Client\Menu Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="client\GameDb.cpp">
+      <Filter>Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

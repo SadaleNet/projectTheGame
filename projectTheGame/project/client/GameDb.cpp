@@ -58,6 +58,10 @@ std::string GameDb::getStatus() const{
 	return this->userDb->getStatus();
 }
 
+std::string GameDb::getHighScoreBoard() const{
+	return this->userDb->getHighScoreBoard();
+}
+
 std::string GameDb::getUserName(int index) const{
 	return this->players.at(index).username;
 }

@@ -53,6 +53,8 @@ public:
 
 	//@return the status of connection, including error message.
 	std::string getStatus() const;
+	//@return the string of the highscore board
+	std::string getHighScoreBoard() const;
 
 	///@return the user name of the player of the index given
 	std::string getUserName(int index) const;

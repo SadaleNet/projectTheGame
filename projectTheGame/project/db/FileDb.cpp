@@ -140,7 +140,7 @@ std::string FileDb::getHighScoreBoard() const{
 
 	//do the sorting
 	std::sort(dummy.begin(), dummy.end(),
-		[](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b){ return a.second >= b.second; } );
+		[](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b){ return a.second > b.second; } );
 
 	const int PADDING = 20;
 	std::string ret = "Username            Score\n";

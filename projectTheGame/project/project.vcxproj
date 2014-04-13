@@ -92,7 +92,6 @@
     <ClInclude Include="db\RemoteDb.h" />
     <ClInclude Include="db\User.h" />
     <ClInclude Include="db\UserDb.h" />
-    <ClInclude Include="environment.h" />
     <ClInclude Include="gameobjects\AnimatedSprite.h" />
     <ClInclude Include="gameobjects\Button.h" />
     <ClInclude Include="gameobjects\CheckBox.h" />
@@ -106,6 +105,7 @@
     <ClInclude Include="gameobjects\super\Timer.h" />
     <ClInclude Include="gameobjects\Text.h" />
     <ClInclude Include="gameobjects\TextBox.h" />
+    <ClInclude Include="misc\environment.h" />
     <ClInclude Include="misc\EventData.h" />
     <ClInclude Include="misc\messageBox.h" />
     <ClInclude Include="misc\soundPlayer.h" />

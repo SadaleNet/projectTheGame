@@ -7,7 +7,7 @@
 #include "../../misc/messageBox.h"
 #include "../GameDb.h"
 #include "../menuscene/MenuScene.h"
-#include "../../environment.h"
+#include "../../misc/environment.h"
 
 #define PANEL_WIDTH 150
 

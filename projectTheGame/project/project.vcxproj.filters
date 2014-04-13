@@ -173,11 +173,11 @@
     <ClInclude Include="client\menuscene\MenuScene.h">
       <Filter>Client\Menu Scene</Filter>
     </ClInclude>
-    <ClInclude Include="environment.h">
-      <Filter>Entry point</Filter>
-    </ClInclude>
     <ClInclude Include="client\GameDb.h">
       <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\environment.h">
+      <Filter>Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

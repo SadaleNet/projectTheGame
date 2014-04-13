@@ -1,7 +1,7 @@
 // project.cpp : Defines the entry point for the application.
 #include "client/loginscene/LoginScene.h"
 #define INITIAL_SCENE LoginScene
-#include "environment.h"
+#include "misc/environment.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 

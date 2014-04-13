@@ -84,7 +84,7 @@ void GameDb::addWins(int index){
 	Player player = this->players.at(index);
 	if(!player.ai){
 		assert(this->userDb->login(player.username, player.password));
-		this->userDb->setHighScore(player.wins);
+		this->userDb->setHighScore(++player.wins);
 		assert(this->userDb->logout());
 	}
 }

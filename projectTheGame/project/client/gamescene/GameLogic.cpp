@@ -29,10 +29,12 @@ Card GameLogic::drawCard(){
 		if(this->lostHook)
 			this->lostHook();
 		this->nextTurn();
-	}
+	}else if(this->deck.uncollectCardsNum()==MAX_CARD_UNCOLLECTED)
+		this->collectCards();
 
 	//all cards are drawn. Decide the winner.
 	if(this->deck.isEmpty()){
+		this->collectCards();
 		//calculate the most silver merit that a player owns
 		int bestSilverMerit = 0;
 		for(std::vector<Player>::iterator it=this->players.begin(); it!=players.end(); it++){
@@ -55,7 +57,7 @@ Card GameLogic::drawCard(){
 			}
 		}
 
-		//If someone won, add a score for him in the databate
+		//If someone won, add a score for him in the database
 		if(this->gameStatus==GAME_WON)
 			this->gameDb->addWins(this->winner);
 
@@ -90,8 +92,9 @@ std::vector<Card> GameLogic::collectCards(){
 				items[i] = 0;
 		}
 		if(items[it->type]>=TARGET_NUM){
+			if(items[it->type]==TARGET_NUM)
+				this->players[this->getCurrentPlayerIndex()].silverMeritNum++;
 			items[it->type] = 0;
-			this->players[this->getCurrentPlayerIndex()].silverMeritNum++;
 		}
 		if(this->collectCardHook)
 			this->collectCardHook(oldPlayerStates, *it);
@@ -100,12 +103,15 @@ std::vector<Card> GameLogic::collectCards(){
 	if(this->winOn4&&this->players[this->getCurrentPlayerIndex()].silverMeritNum==4){
 		this->gameStatus = GAME_WON;
 		this->winner = this->getCurrentPlayerIndex();
+		this->gameDb->addWins(this->winner);
 		if(this->gameEndHook)
 			this->gameEndHook();
 		return ret;
 	}
 
-	this->nextTurn();
+	if(!this->deck.isEmpty())
+		this->nextTurn();
+
 	return ret;
 }
 
@@ -125,6 +131,10 @@ int GameLogic::getWinner() const{
 	if(this->gameStatus==GAME_WON)
 		return this->winner;
 	return -1;
+}
+
+bool GameLogic::isDeckEmpty() const{
+	return this->deck.isEmpty();
 }
 
 bool GameLogic::isLost(){
@@ -204,7 +214,7 @@ void GameLogic::test(){
 		printCard(gameLogic.drawCard());
 		int cardsDrawn = 1;
 		//ask if the user want to draw more cards
-		while(cardsDrawn<4 && !lost){
+		while(cardsDrawn<MAX_CARD_UNCOLLECTED && !lost){
 			bool drawMore;
 			std::cerr <<"Draw More? [1/0]:";
 			std::cin >> drawMore;
@@ -214,10 +224,10 @@ void GameLogic::test(){
 			printCard(gameLogic.drawCard());
 			cardsDrawn++;
 		}
-		if(!lost)
-			gameLogic.collectCards();
-		else
+		if(lost)
 			std::cerr << "LOST!" <<std::endl;
+		else if(gameLogic.deck.uncollectCardsNum()<MAX_CARD_UNCOLLECTED)
+			gameLogic.collectCards();
 		std::cerr <<std::endl <<std::endl;
 	}
 	printPlayersStatus(&gameLogic, &gameDb);

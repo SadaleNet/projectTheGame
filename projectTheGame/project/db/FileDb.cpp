@@ -82,22 +82,26 @@ bool FileDb::registerAcc(const std::string& username, const std::string& passwor
 }
 
 bool FileDb::deregisterAcc(const std::string& username, const std::string& password){
-	if(hash(username+password)==this->dataTable.at(username).password){
-		this->dataTable.erase(username);
-		this->save();
-		this->status = "Deregistered successfully.";
-		return true;
-	}
+	try{
+		if(hash(username+password)==this->dataTable.at(username).password){
+			this->dataTable.erase(username);
+			this->save();
+			this->status = "Deregistered successfully.";
+			return true;
+		}
+	}catch(std::out_of_range&){}
 	this->status = "Error: Cannot deregister. Ensure that the username and password you have typed were correct.";
 	return false;
 }
 
 bool FileDb::login(const std::string& username, const std::string& password){
-	if(hash(username+password)==this->dataTable.at(username).password){
-		this->username = username;
-		this->status = "Login success.";
-		return true;
-	}
+	try{
+		if(hash(username+password)==this->dataTable.at(username).password){
+			this->username = username;
+			this->status = "Login success.";
+			return true;
+		}
+	}catch(std::out_of_range&){}
 	this->status = "Error: Login failure.";
 	return false;
 }

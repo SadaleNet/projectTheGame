@@ -5,6 +5,7 @@
 #define DECK_H
 
 #define CHARACTER_CARD_CHANCE 50 //The chance of having character card shown. 50 means 1 in 50, 100 means 1 in 100 and so on.
+#define MAX_CARD_UNCOLLECTED 4
 
 /** Define the type of cards */
 enum CardType{
@@ -50,6 +51,9 @@ public:
 		@reutrn	the cards drawn
 	*/
 	std::vector<Card> collectCards();
+
+	///@return number of uncollected cards
+	int uncollectCardsNum() const;
 
 	///@return true if the cards are lost(because of having the same kind of food in other uncollected cards), false else.
 	bool isLost();

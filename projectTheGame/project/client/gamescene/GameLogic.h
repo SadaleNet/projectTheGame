@@ -35,6 +35,8 @@ class GameLogic{
 	GameStatus gameStatus;
 	int winner;
 	void nextTurn(); //Go to next turn.
+	/// @return	returns true if uncollected cards are lost, false else.
+	bool isLost();
 public:
 	//hook functions, mostly for GUI.
 	std::function<void(Card)> drawCardHook;
@@ -54,9 +56,10 @@ public:
 	/// @brief	collect cards for the current player. Then start the turn of another player.
 	std::vector<Card> collectCards();
 
-	/** @return	If someone have won the game, return the index of the winner. Return -1 else. */
+	/// @return	If someone have won the game, return the index of the winner. Return -1 else.
 	int getWinner() const;
-	bool isLost();
+	/// @return	true if the deck is empty, false else.
+	bool isDeckEmpty() const;
 
 	//Trivial getters
 	int getCurrentPlayerIndex() const;

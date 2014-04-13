@@ -19,7 +19,7 @@ Deck::Deck(bool reuse):
 }
 
 Card Deck::drawCard(){
-	assert(this->drawnCards.size()<4); //ensure that the card already drawn is less than 4
+	assert(this->drawnCards.size()<MAX_CARD_UNCOLLECTED); //ensure that the card already drawn is less than MAX_CARD_UNCOLLECTED
 	assert(!this->lost);
 	assert(!this->isEmpty());
 
@@ -66,6 +66,10 @@ std::vector<Card> Deck::collectCards(){
 	std::vector<Card> ret = this->drawnCards;
 	this->drawnCards.clear();
 	return ret;
+}
+
+int Deck::uncollectCardsNum() const{
+	return this->drawnCards.size();
 }
 
 bool Deck::isLost(){

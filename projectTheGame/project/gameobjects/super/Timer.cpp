@@ -16,7 +16,7 @@ void Timer::updateHook(){
 void Timer::onSceneAdded(){
 	this->timeout = this->absolute?this->timeout:this->getScene()->getSec()+this->timeout;
 	if( this->getScene()->getSec() > this->timeout ){
-		this->destroy();
+		this->execute();
 	}
 }
 

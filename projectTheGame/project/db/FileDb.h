@@ -44,6 +44,9 @@ public:
 	///	@throw	std::runtime_error if fail opening the file
 	FileDb(const std::string& filePath);
 
+	///save the database on destruction.
+	~FileDb();
+
 	///stores data of all users
 	std::map<std::string, UserData> dataTable;
 

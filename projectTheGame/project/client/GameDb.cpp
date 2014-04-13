@@ -16,9 +16,18 @@ void GameDb::loginStart(){
 
 bool GameDb::loginNext(std::string username, std::string password){
 	assert(this->loggingIn);
+	//Search whether the player is already logged in. If so, return false.
+	for(std::vector<Player>::iterator it=this->players.begin(); it!=this->players.end(); it++){
+		if( it->username==username ){
+			this->loggingIn = false;
+			return false;
+		}
+	}
 	//Try login. If success, append the user to player list, otherwise, stop the login process.
 	if(this->userDb->login(username, password)){
 		Player player;
+		player.username = username;
+		player.password = password;
 		player.ai = false;
 		player.wins = this->userDb->getHighScore();
 		this->userDb->logout();
@@ -41,8 +50,24 @@ void GameDb::loginDone(){
 	this->loggingIn = false;
 }
 
+bool GameDb::registerAcc(std::string username, std::string password){
+	return this->userDb->registerAcc(username, password);
+}
+
+std::string GameDb::getStatus() const{
+	return this->userDb->getStatus();
+}
+
 std::string GameDb::getUserName(int index) const{
 	return this->players.at(index).username;
+}
+std::string GameDb::getUserNames() const{
+	std::string ret;
+	for(std::vector<Player>::const_iterator it=this->players.begin(); it!=this->players.end(); it++)
+		ret += it->username+", ";
+	//remove the tailing ", "
+	ret.pop_back(); ret.pop_back();
+	return ret;
 }
 bool GameDb::isAi(int index) const{
 	return this->players.at(index).ai;

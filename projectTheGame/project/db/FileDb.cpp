@@ -39,16 +39,34 @@ FileDb::FileDb(const std::string& filePath)
 		while(!file.eof()){
 			std::string username;
 			UserData userData;
-			file >> username >> userData.password >> userData.highScore >> userData.data;
+			std::getline(file, username);
+			file >> userData.password;
+			file >> userData.highScore;
+			file.get(); //remove the \n after the highscore so that the next std::getline works.
+			std::getline(file, userData.data);
 			if(file.eof())
 				break;
+			//error handling
+			if(!file.good()){
+				this->dataTable.clear();
+				throw std::runtime_error("Invalid file format");
+			}
+			//store the data
 			this->dataTable[username] = userData;
 		}
 		file.close();
 	}
 }
 
+FileDb::~FileDb(){
+	this->save();
+}
+
 bool FileDb::registerAcc(const std::string& username, const std::string& password){
+	if(username==""||password==""){
+		this->status = "Error: Username/password must not be empty.";
+		return false;
+	}
 	try{
 		//check whether the user exists. If it does not exists, throws an exception to be catched.
 		this->dataTable.at(username);
@@ -56,7 +74,7 @@ bool FileDb::registerAcc(const std::string& username, const std::string& passwor
 		return false;
 	}catch(std::out_of_range&){
 		//the user does not exist. Let's create one
-		this->dataTable[username] = UserData( hash(password), 0, "" );
+		this->dataTable[username] = UserData( hash(username+password), 0, "" );
 		this->save();
 	}
 	this->status = "Registered successfully.";
@@ -64,7 +82,7 @@ bool FileDb::registerAcc(const std::string& username, const std::string& passwor
 }
 
 bool FileDb::deregisterAcc(const std::string& username, const std::string& password){
-	if(hash(password)==this->dataTable.at(username).password){
+	if(hash(username+password)==this->dataTable.at(username).password){
 		this->dataTable.erase(username);
 		this->save();
 		this->status = "Deregistered successfully.";
@@ -75,7 +93,7 @@ bool FileDb::deregisterAcc(const std::string& username, const std::string& passw
 }
 
 bool FileDb::login(const std::string& username, const std::string& password){
-	if(hash(password)==this->dataTable.at(username).password){
+	if(hash(username+password)==this->dataTable.at(username).password){
 		this->username = username;
 		this->status = "Login success.";
 		return true;
@@ -144,9 +162,9 @@ void FileDb::save() const{
 	if(!saveFile)
 		throw std::runtime_error(std::string("Failed saving the file ")+filePath);
 	for(std::map<std::string, UserData>::const_iterator it= dataTable.begin(); it!=dataTable.end(); it++){
-		saveFile << it->first <<'\t'
-				<< it->second.password <<'\t'
-				<< it->second.highScore <<'\t'
+		saveFile << it->first <<'\n'
+				<< it->second.password <<'\n'
+				<< it->second.highScore <<'\n'
 				<< it->second.data << std::endl;
 	}
 	saveFile.close();
@@ -157,8 +175,15 @@ void FileDb::test(){
 	tmpnam(fileName);
 
 	FileDb db(fileName);
+	assert(db.registerAcc("pre-alpha", "woofie"));
 	assert(db.registerAcc("alpha", "password"));
 	assert(db.registerAcc("beta", "meowie"));
+	
+	assert( db.login("pre-alpha", "woofie") );
+	db.setHighScore(75);
+	//don't put any data in this account.
+	assert(db.getHighScore()==75);
+	db.logout();
 
 	assert( !db.login("alpha", "wrong password") );
 	assert( db.login("alpha", "password") );
@@ -178,12 +203,19 @@ void FileDb::test(){
 	assert(db.getHighScore()==30000);
 	db.logout();
 
+
+
 	FileDb db2(fileName);
 
 	//already registered. Should not fail here(hence return false)
+	assert(!db2.registerAcc("pre-alpha", "woofie"));
 	assert(!db2.registerAcc("alpha", "password"));
 	assert(!db2.registerAcc("beta", "meowie"));
-
+	
+	assert( db2.login("pre-alpha", "woofie") );
+	assert(db2.getData()=="");
+	assert(db2.getHighScore()==75);
+	db2.logout();
 	assert( db2.login("alpha", "password") );
 	assert(db2.getData()=="DATA");
 	assert(db2.getHighScore()==200);
@@ -195,6 +227,7 @@ void FileDb::test(){
 	assert(db2.getHighScoreBoard()==
 		"Username            Score\n"
 		"beta                30000\n"
-		"alpha               200\n");
+		"alpha               200\n"
+		"pre-alpha           75\n");
 	remove(fileName);
 }

@@ -14,6 +14,10 @@
 	if($count>0)
 		error('Error: Username not available. :(');
 
+	/*Check whether the username is empty*/
+	if($db->quote($_POST['username'])==''||$_POST['password']=='')
+		error('Error: Empty username/password detected.');
+
 	/*Register the user*/
 	try{
 		$db->exec('INSERT INTO userData (userName, password)

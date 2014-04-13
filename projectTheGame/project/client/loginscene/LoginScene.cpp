@@ -14,12 +14,20 @@
 namespace{
 	Button* addPlayerButton;
 	int playerPanelShownNum = 0;
-	Panel* playerPanelPtrs[4];
-	Button* removePlayerButtonPtrs[4];
+	Panel* playerPanelPtrs[MAX_PLAYER];
+	TextBox* playerNamePtr[MAX_PLAYER];
+	TextBox* passwordPtr[MAX_PLAYER];
+	Button* removePlayerButtonPtrs[MAX_PLAYER];
+	std::shared_ptr<GameDb> gameDb;
 }
 
 LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	:Scene(sceneRunner){
+	//connect to database
+	gameDb = std::shared_ptr<GameDb>(new GameDb);
+	if(!gameDb->isRemote())
+		showMessage("Unable to connect to remote server. Falling back to file database.", "Info");
+
 	//add background
 	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));
 	this->add( new Animator<double>(background->tileIndex.x, 1e10, 1e10/50) );
@@ -48,14 +56,14 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 		removePlayerButton->hide();
 		removePlayerButton->action = [=](){ this->removePlayer(); };
 		playerPanel->add(removePlayerButton);
-		//add radio buttons to play panel
-		RadioButton* human = new RadioButton(Vec2(10, 130), Vec2(110, 20), "Human", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+		//add radio buttons to play panel. TODO: unimplemented
+		/*RadioButton* human = new RadioButton(Vec2(10, 130), Vec2(110, 20), "Human", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 		RadioButton* computer = new RadioButton(Vec2(10, 160), Vec2(110, 20), "Computer", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 		playerPanel->add(human);
-		playerPanel->add(computer);
+		playerPanel->add(computer);*/
 		//add the register button
 		Button* registerButton = new Button(Vec2(10, 190), Vec2(120, 20), "Register", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
-		registerButton->action = [=](){ this->registerPlayer(playerText->text, passwordText->text); };
+		registerButton->action = [=](){ this->registerPlayer(playerName->text, password->text); };
 		playerPanel->add(registerButton);
 		//finally, add the playerPanel to the current scene
 		playerPanel->hide();
@@ -63,6 +71,8 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 		//and do assign some variables to some pointers for later manipulation purpose.
 		playerPanelPtrs[i] = playerPanel;
 		removePlayerButtonPtrs[i] = removePlayerButton;
+		playerNamePtr[i] = playerName;
+		passwordPtr[i] = password;
 	}
 
 	//add a button for adding new player(s)
@@ -77,18 +87,34 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	//add a login button
 	Button* loginButton = new Button(Vec2(300, 450), Vec2(180, 40), "Login", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 	loginButton->action = [=](){
-		std::shared_ptr<GameDb> gameDb(new GameDb);
-		if(!gameDb->isRemote())
-			showMessage("Unable to connect to remote server. Falling back to file database.", "Info");
-		//TODO: login and do login-check here
+		gameDb->loginStart();
+		for(int i=0; i<playerPanelShownNum; i++){
+			if(!gameDb->loginNext(playerNamePtr[i]->text, passwordPtr[i]->text)){
+				showMessage(std::string("Error: failed logging in Player ")+std::to_string((long long)i+1), "Login Failed");
+				return;
+			}
+		}
+		gameDb->loginDone();
 		this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
 	};
 	this->add(loginButton);
 
+	//add a lazy button for filling login info.
+	//TODO: remove this button in release
+	Button* fillUsernamePassword = new Button(Vec2(500, 450), Vec2(180, 40), "Fill", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
+	fillUsernamePassword->action = [=](){
+		playerNamePtr[0]->text = "ALPHA";
+		passwordPtr[0]->text = "ALPHA";
+		playerNamePtr[1]->text = "BETA";
+		passwordPtr[1]->text = "BETA";
+	};
+	this->add(fillUsernamePassword);
+
 	//add a help button
 	Button* helpButton = new Button(Vec2(350, 500), Vec2(80, 20), "Help", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 	helpButton->action = [=](){
-		//TODO: do click-event handler of helpButton here
+		//TODO: show the real help message
+		showMessage("TODO: Display help message here -- You are now helpless!", "Help");
 	};
 	this->add(helpButton);
 
@@ -148,5 +174,6 @@ void LoginScene::updateUIs(bool init){
 }
 
 void LoginScene::registerPlayer(std::string username, std::string password){
-	//TODO: unimplemented
+	bool success = gameDb->registerAcc(username, password);
+	showMessage(gameDb->getStatus(), (success?"Success":"Failed") );
 }

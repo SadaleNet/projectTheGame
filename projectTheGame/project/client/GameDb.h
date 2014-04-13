@@ -48,8 +48,16 @@ public:
 	///@see loginStart
 	void loginDone();
 
+	//@return true if success, false else.
+	bool registerAcc(std::string username, std::string password);
+
+	//@return the status of connection, including error message.
+	std::string getStatus() const;
+
 	///@return the user name of the player of the index given
 	std::string getUserName(int index) const;
+	///@return a list of logged in player names.
+	std::string getUserNames() const;
 	///@return true if the player of the given index is AI, false else.
 	bool isAi(int index) const;
 	///@brief Increase the scode(win count) by one in the database.

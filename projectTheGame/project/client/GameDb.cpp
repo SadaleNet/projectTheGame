@@ -73,6 +73,10 @@ std::string GameDb::getUserNames() const{
 	ret.pop_back(); ret.pop_back();
 	return ret;
 }
+unsigned int GameDb::getUserNum() const{
+	return this->players.size();
+}
+
 bool GameDb::isAi(int index) const{
 	return this->players.at(index).ai;
 }

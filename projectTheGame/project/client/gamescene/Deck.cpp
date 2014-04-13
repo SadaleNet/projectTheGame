@@ -35,7 +35,7 @@ Card Deck::drawCard(){
 		this->lostCards.erase(drawnCardIt); //remove the drawn card from the deck
 	}
 
-	//There is a chance the the card magically turned into a character card.
+	//There is a chance the the card magically turns into a character card.
 	if(rand()%50==0){
 		switch(rand()%3){
 			case 0:	drawnCard = Card(CARD_WLCHAN, 0);	break;

@@ -9,15 +9,12 @@
 struct Player{
 	int items[CARD_ITEM_TYPES_NUM];
 	int silverMeritNum;
-	User user;
 
 	//ctor
-	Player(User user):
-		silverMeritNum(silverMeritNum),
-		user(user){
-			for(int i=0;i<sizeof(items)/sizeof(*items);i++)
-				items[i] = 0;
-		}
+	Player():silverMeritNum(silverMeritNum){
+		for(int i=0;i<sizeof(items)/sizeof(*items);i++)
+			items[i] = 0;
+	}
 };
 
 enum GameStatus{
@@ -26,8 +23,11 @@ enum GameStatus{
 	GAME_WON
 };
 
+class GameDb; //forwad declaration
+
 class GameLogic{
 	Deck deck;
+	GameDb* gameDb;
 	std::vector<Player> players;
 	int turn;
 	int currentPlayerIndex;
@@ -48,7 +48,7 @@ public:
 		@param	winOn4		Win when 4 silver merit is obtained.
 		@param	reuse		Reuse card when there is not enough cards
 	*/
-	GameLogic(User* userList, int userNum, bool winOn4, bool reuse);
+	GameLogic(GameDb* gameDb, bool winOn4, bool reuse);
 
 	/// @brief	draw a card for the current player
 	Card drawCard();

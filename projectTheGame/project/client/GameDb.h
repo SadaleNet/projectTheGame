@@ -5,6 +5,8 @@
 #define MIN_PLAYER 2
 #define MAX_PLAYER 4
 
+#ifndef GAME_DB_H
+#define GAME_DB_H
 /** @brief A proxy class for accessing UserDb
 
 	Provides simplified interface for accessing data of multiple players.
@@ -59,3 +61,5 @@ public:
 	///@brief all test cases of this class goes here
 	static void test();
 };
+
+#endif

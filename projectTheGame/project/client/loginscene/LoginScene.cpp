@@ -77,8 +77,11 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	//add a login button
 	Button* loginButton = new Button(Vec2(300, 450), Vec2(180, 40), "Login", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 	loginButton->action = [=](){
-		//TODO: do login-check here
-		this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner()));
+		std::shared_ptr<GameDb> gameDb(new GameDb);
+		if(!gameDb->isRemote())
+			showMessage("Unable to connect to remote server. Falling back to file database.", "Info");
+		//TODO: login and do login-check here
+		this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
 	};
 	this->add(loginButton);
 

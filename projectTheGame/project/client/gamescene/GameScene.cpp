@@ -8,7 +8,7 @@
 #include "../../db/UserDb.h"
 #include "Deck.h"
 
-GameScene::GameScene(SceneRunner* const sceneRunner)
+GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gameDb, bool winOn4, bool reuseLost)
 	:Scene(sceneRunner){
 	//add background
 	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));

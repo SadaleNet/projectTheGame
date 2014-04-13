@@ -9,7 +9,7 @@
 #include "../../db/User.h"
 #include "../gamescene/GameScene.h"
 
-MenuScene::MenuScene(SceneRunner* const sceneRunner)
+MenuScene::MenuScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gameDb)
 	:Scene(sceneRunner){
 	//add background
 	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));
@@ -30,7 +30,7 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner)
 	//add button to play panel
 	Button* playButton = new Button(Vec2(220, 10), Vec2(180, 40), "Play Now!", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 	playButton->action = [=](){ //event handler of playButton
-		this->getSceneRunner()->setScene(new GameScene(this->getSceneRunner()));
+		this->getSceneRunner()->setScene(new GameScene(this->getSceneRunner(), gameDb, winOn4->checked, reuseLost->checked));
 	};
 	playPanel->add(playButton);
 	this->add(playPanel);

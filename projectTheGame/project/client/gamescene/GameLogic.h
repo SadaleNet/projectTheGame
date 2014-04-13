@@ -1,7 +1,6 @@
 #ifndef GAME_LOGIC_H
 #define GAME_LOGIC_H
 #include "Deck.h"
-#include "../../db/User.h"
 #include <functional>
 
 #define TARGET_NUM 12
@@ -11,7 +10,7 @@ struct Player{
 	int silverMeritNum;
 
 	//ctor
-	Player():silverMeritNum(silverMeritNum){
+	Player():silverMeritNum(0){
 		for(int i=0;i<sizeof(items)/sizeof(*items);i++)
 			items[i] = 0;
 	}
@@ -39,7 +38,7 @@ class GameLogic{
 public:
 	//hook functions, mostly for GUI.
 	std::function<void(Card)> drawCardHook;
-	std::function<void(Card)> collectCardHook; //called one-by-one.
+	std::function<void(std::vector<Player>, Card)> collectCardHook; //called one-by-one. Param: old state, collected cards
 
 	std::function<void()> lostHook, nextTurnHook, gameEndHook;
 

@@ -36,7 +36,7 @@ Card Deck::drawCard(){
 	}
 
 	//There is a chance the the card magically turns into a character card.
-	if(rand()%50==0){
+	if(rand()%CHARACTER_CARD_CHANCE==0){
 		switch(rand()%3){
 			case 0:	drawnCard = Card(CARD_WLCHAN, 0);	break;
 			case 1:	drawnCard = Card(CARD_NOBEL, 0);	break;
@@ -44,7 +44,7 @@ Card Deck::drawCard(){
 		}
 	}
 
-	//Check whether it is busted.
+	//Check whether it is lost(because of having the same kind of food in other uncollected cards)
 	for(std::vector<Card>::iterator it=this->drawnCards.begin(); it!=this->drawnCards.end(); it++){
 		//Busted! Push all values into this->bustedCards then return
 		if(drawnCard.type == it->type){

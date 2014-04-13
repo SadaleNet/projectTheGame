@@ -167,9 +167,6 @@
     <ClInclude Include="client\gamescene\GameLogic.h">
       <Filter>Client\Game Scene</Filter>
     </ClInclude>
-    <ClInclude Include="db\User.h">
-      <Filter>Database</Filter>
-    </ClInclude>
     <ClInclude Include="client\menuscene\MenuScene.h">
       <Filter>Client\Menu Scene</Filter>
     </ClInclude>

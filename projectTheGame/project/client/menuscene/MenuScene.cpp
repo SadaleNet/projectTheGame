@@ -7,7 +7,6 @@
 #include "../../misc/soundPlayer.h"
 #include "../../misc/messageBox.h"
 #include "../../db/UserDb.h"
-#include "../../db/User.h"
 #include "../gamescene/GameScene.h"
 
 namespace{

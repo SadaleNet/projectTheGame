@@ -2,6 +2,7 @@
 #include "../db/FileDb.h"
 #include "../db/RemoteDb.h"
 #include "../client/gamescene/Deck.h"
+#include "../client/GameDb.h"
 #include "../client/gamescene/GameLogic.h"
 
 #include <iostream>
@@ -11,6 +12,7 @@
 void testCases(){
 	#ifndef NDEBUG
 	Vec2::test();
+	GameDb::test();
 	try{
 		FileDb::test();
 	}catch(std::runtime_error& e){
@@ -24,7 +26,7 @@ void testCases(){
 
 	//manual test cases
 	//Deck::test();
-	GameLogic::test();
+	//GameLogic::test();
 
 	std::cerr <<"Congratz! All test cases were passed successfully. :D" <<std::endl;
 	#endif

@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 #include "../GameDb.h"
+#include <cassert>
 
 GameLogic::GameLogic(GameDb* gameDb, bool winOn4, bool reuse)
 	:deck(reuse),
@@ -24,8 +25,11 @@ Card GameLogic::drawCard(){
 	Card ret = this->deck.drawCard();
 	if(this->drawCardHook)
 		this->drawCardHook(ret);
-	if(this->deck.isLost()&&this->lostHook)
-		this->lostHook();
+	if(this->deck.isLost()){
+		if(this->lostHook)
+			this->lostHook();
+		this->nextTurn();
+	}
 
 	//all cards are drawn. Decide the winner.
 	if(this->deck.isEmpty()){
@@ -66,12 +70,17 @@ std::vector<Card> GameLogic::collectCards(){
 	std::vector<Card> ret = this->deck.collectCards();
 
 	for(std::vector<Card>::iterator it=ret.begin(); it!=ret.end(); it++){
+		std::vector<Player> oldPlayerStates = this->players;
 		int* items = this->players[this->getCurrentPlayerIndex()].items;
 
 		if(it->type<CARD_ITEM_TYPES_NUM){ //handle ordinary card
 			items[it->type] += it->quantity;
 		}else if(it->type==CARD_WLCHAN){
-			//WLChan: TODO
+			//WLChan: randomly add one item to each of the opponent
+			for(unsigned int i=0; i<gameDb->getUserNum(); i++){
+				if(i!=this->getCurrentPlayerIndex())
+					this->players[i].items[rand()%CARD_ITEM_TYPES_NUM]++;
+			}
 		}else if(it->type==CARD_NOBEL){
 			//Nobel: Add one silver merit
 			this->players[this->getCurrentPlayerIndex()].silverMeritNum++;
@@ -80,14 +89,20 @@ std::vector<Card> GameLogic::collectCards(){
 			for(int i=0; i<CARD_ITEM_TYPES_NUM; i++)
 				items[i] = 0;
 		}
-		items[it->type] = items[it->type]%TARGET_NUM;
+		if(items[it->type]>=TARGET_NUM){
+			items[it->type] = 0;
+			this->players[this->getCurrentPlayerIndex()].silverMeritNum++;
+		}
 		if(this->collectCardHook)
-			this->collectCardHook(*it);
+			this->collectCardHook(oldPlayerStates, *it);
 	}
 
 	if(this->winOn4&&this->players[this->getCurrentPlayerIndex()].silverMeritNum==4){
 		this->gameStatus = GAME_WON;
-		this->gameEndHook();
+		this->winner = this->getCurrentPlayerIndex();
+		if(this->gameEndHook)
+			this->gameEndHook();
+		return ret;
 	}
 
 	this->nextTurn();
@@ -120,6 +135,92 @@ GameStatus GameLogic::getGameStatus() const{
 	return this->gameStatus;
 }
 
+#include <iostream>
+namespace{
+	void printPlayersStatus(GameLogic* gameLogic, GameDb* gameDb){
+		std::cerr <<"===Current Player: "<< gameDb->getUserName(gameLogic->getCurrentPlayerIndex()) <<"===" <<std::endl;
+		std::vector<Player> players = gameLogic->getPlayers();
+		for(unsigned int i=0; i<players.size(); i++){
+			std::cerr << gameDb->getUserName(i) <<": ";
+			for(int j=0; j<CARD_ITEM_TYPES_NUM; j++)
+				std::cerr << players[i].items[j] <<", ";
+			std::cerr << "|  "<< players[i].silverMeritNum <<std::endl;
+		}
+		std::cerr <<"==========" <<std::endl;
+	}
+	void printCard(Card card){
+		std::cerr<< "You have drawn a ";
+		switch(card.type){
+			case CARD_APPLE:	std::cerr<< "Apple";	break;
+			case CARD_PEAR:		std::cerr<< "Pear";		break;
+			case CARD_CARROT:	std::cerr<< "Carrot";	break;
+			case CARD_NUT:		std::cerr<< "Nut";		break;
+			case CARD_WLCHAN:	std::cerr<< "WLChan";	break;
+			case CARD_NOBEL:	std::cerr<< "Nobel";	break;
+			case CARD_EINSTEIN:	std::cerr<< "Einstein";	break;
+		}
+		if((int)card.type<CARD_ITEM_TYPES_NUM)
+			std::cerr<< " " <<card.quantity;
+		std::cerr<< " card" <<std::endl;
+	}
+}
+
 void GameLogic::test(){
-	//TODO
+	GameDb gameDb;
+	gameDb.registerAcc("testPlayer1", "password");
+	gameDb.registerAcc("testPlayer2", "password");
+	gameDb.registerAcc("testPlayer3", "password");
+	gameDb.registerAcc("testPlayer4", "password");
+
+	bool winOn4, reuseLost;
+	int playerNum;
+	std::cerr<< "==Welcome to GameLogic Manual Testing Function==" <<std::endl;
+	std::cerr<< "Win on 4 silver merits? [1/0]:";
+	std::cin >> winOn4;
+	std::cerr<< "Reuse lost cards? [1/0]:";
+	std::cin >> reuseLost;
+	std::cerr<< "How many players? [2~4]:";
+	std::cin >> playerNum;
+
+	gameDb.loginStart();
+	assert(gameDb.loginNext("testPlayer1", "password"));
+	assert(gameDb.loginNext("testPlayer2", "password"));
+	if(playerNum>=3)
+		assert(gameDb.loginNext("testPlayer3", "password"));
+	if(playerNum>=4)
+		assert(gameDb.loginNext("testPlayer4", "password"));
+	gameDb.loginDone();
+
+	GameLogic gameLogic(&gameDb, winOn4, reuseLost);
+	std::cerr<< "====Game Begin!====" <<std::endl;
+	bool lost = false;
+	gameLogic.lostHook = [&](){ lost = true; };
+	//main loop
+	while(gameLogic.getGameStatus()==GAME_IN_PROCESS){
+		lost = false;
+		printPlayersStatus(&gameLogic, &gameDb);
+
+		//draw a card then print it
+		printCard(gameLogic.drawCard());
+		int cardsDrawn = 1;
+		//ask if the user want to draw more cards
+		while(cardsDrawn<4 && !lost){
+			bool drawMore;
+			std::cerr <<"Draw More? [1/0]:";
+			std::cin >> drawMore;
+			if(!drawMore){
+				break;
+			}
+			printCard(gameLogic.drawCard());
+			cardsDrawn++;
+		}
+		if(!lost)
+			gameLogic.collectCards();
+		else
+			std::cerr << "LOST!" <<std::endl;
+		std::cerr <<std::endl <<std::endl;
+	}
+	printPlayersStatus(&gameLogic, &gameDb);
+	std::cerr<< "====Winner: " <<gameLogic.getWinner() <<"====" <<std::endl;
+	std::cerr<< "====Game End!====" <<std::endl;
 }

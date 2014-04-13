@@ -4,6 +4,8 @@
 #ifndef DECK_H
 #define DECK_H
 
+#define CHARACTER_CARD_CHANCE 50 //The chance of having character card shown. 50 means 1 in 50, 100 means 1 in 100 and so on.
+
 /** Define the type of cards */
 enum CardType{
 	CARD_APPLE,
@@ -49,7 +51,10 @@ public:
 	*/
 	std::vector<Card> collectCards();
 
+	///@return true if the cards are lost(because of having the same kind of food in other uncollected cards), false else.
 	bool isLost();
+
+	///@return true if the card deck is empty, false else.
 	bool isEmpty() const;
 	
 	/**

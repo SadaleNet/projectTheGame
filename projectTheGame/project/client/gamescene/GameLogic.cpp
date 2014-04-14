@@ -23,18 +23,22 @@ void GameLogic::nextTurn(){
 
 Card GameLogic::drawCard(){
 	Card ret = this->deck.drawCard();
+	bool cardsCollected = false;
 	if(this->drawCardHook)
 		this->drawCardHook(ret);
 	if(this->deck.isLost()){
 		if(this->lostHook)
 			this->lostHook();
 		this->nextTurn();
-	}else if(this->deck.uncollectCardsNum()==MAX_CARD_UNCOLLECTED)
+	}else if(this->deck.uncollectCardsNum()==MAX_CARD_UNCOLLECTED){
 		this->collectCards();
+		cardsCollected = true;
+	}
 
 	//all cards are drawn. Decide the winner.
 	if(this->deck.isEmpty()){
-		this->collectCards();
+		if(!cardsCollected)
+			this->collectCards();
 		//calculate the most silver merit that a player owns
 		int bestSilverMerit = 0;
 		for(std::vector<Player>::iterator it=this->players.begin(); it!=players.end(); it++){

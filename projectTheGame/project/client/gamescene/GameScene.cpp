@@ -29,6 +29,9 @@ namespace{
 
 	int playerNum;
 	bool winOn4;
+	double nextTurnDelay;
+
+	bool hideButtons;
 
 	Panel* gameBoardPanel;
 	SpriteObject* cardDeckSprite;
@@ -42,6 +45,8 @@ GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 	//initialize variables
 	::gameDb = gameDb;
 	::winOn4 = winOn4;
+	for(int i=0; i<uncollectedCardsNum; i++)
+		uncolldectedCards[i] = nullptr;
 	gameLogic = std::shared_ptr<GameLogic>(new GameLogic(gameDb.get(), winOn4, reuseLost));
 	playerNum = gameLogic->getPlayers().size();
 
@@ -49,8 +54,14 @@ GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 	gameLogic->drawCardHook = [=](Card card){ this->drawCard(card); };
 	gameLogic->collectCardHook = [=](std::vector<Player> oldStates, Card card){ this->collectCard(oldStates, card); };
 	gameLogic->lostHook = [=](){ this->cardsLost(); };
-	gameLogic->nextTurnHook = [=](){ this->initTurn(); };
-	gameLogic->gameEndHook = [=](){ this->gameEnd(); };
+	gameLogic->nextTurnHook = [=](){
+		GameScene* DIS = this;
+		this->add(new Timer([=]{ DIS->initTurn(); }, nextTurnDelay));
+	};
+	gameLogic->gameEndHook = [=](){
+		GameScene* DIS = this;
+		this->add(new Timer([=]{ DIS->gameEnd(); }, nextTurnDelay));
+	};
 
 	//add background
 	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));
@@ -95,8 +106,11 @@ GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 
 void GameScene::initTurn(){
 	//reinitialize variables
+	this->removeCardsOnPanel();
 	uncollectedCardsNum = 0;
 	collectedCardNum = 0;
+	nextTurnDelay = 0.55;
+	hideButtons = false;
 
 	//set the color of the status plates appropiately.
 	for(int i=0; i<playerNum; i++)
@@ -109,8 +123,10 @@ void GameScene::initTurn(){
 }
 
 void GameScene::removeCardsOnPanel(){
-	for(int i=0; i<uncollectedCardsNum; i++)
-		this->remove(uncolldectedCards[i]);
+	for(int i=0; i<uncollectedCardsNum; i++){
+		if(uncolldectedCards[i]!=nullptr)
+			gameBoardPanel->remove(uncolldectedCards[i]);
+	}
 }
 
 void GameScene::collectCard(std::vector<Player> oldStates, Card card){
@@ -123,13 +139,30 @@ void GameScene::collectCard(std::vector<Player> oldStates, Card card){
 		this->showDeltaItem(i, CARD_ITEM_TYPES_NUM, oldStates[i].silverMeritNum, newStates[i].silverMeritNum);
 	}
 
-	this->remove(uncolldectedCards[collectedCardNum++]);
+	//hide the cards, with zoom out animation
+	uncolldectedCards[collectedCardNum]->pos = Vec2(50+collectedCardNum*120, cardDeckSprite->pos.y);
+	uncolldectedCards[collectedCardNum]->size = cardDeckSprite->size;
+	this->add(new Animator<Vec2>(uncolldectedCards[collectedCardNum]->size, 0.25*(collectedCardNum+1), uncolldectedCards[collectedCardNum]->size, 0.3+0.25*(collectedCardNum+1), Vec2(0, 0)));
+	this->add(new Animator<Vec2>(uncolldectedCards[collectedCardNum]->pos, 0.25*(collectedCardNum+1), uncolldectedCards[collectedCardNum]->pos, 0.3+0.25*(collectedCardNum+1), uncolldectedCards[collectedCardNum]->pos+uncolldectedCards[collectedCardNum]->size*0.5));
+	nextTurnDelay += 0.25;
+	collectedCardNum++;
+
+	//hide the buttons
+	flipMoreButton->hide();
+	collectCardsButton->hide();
+	hideButtons = true;
 }
 void GameScene::drawCard(Card card){
+	//hide the deck sprite, if it is empty.
+	if(gameLogic->isDeckEmpty())
+		cardDeckSprite->hide();
+
+	Vec2 targetPos = Vec2(50+uncollectedCardsNum*120, cardDeckSprite->pos.y);
+
 	//shows the card drawn
 	if((int)card.type<CARD_ITEM_TYPES_NUM){
 		uncolldectedCards[uncollectedCardsNum]
-			= new SpriteObject(Vec2(50+uncollectedCardsNum*120, 22), Vec2(100, 150), "./assets/gamescene/cards.png", Vec2(0, 0), Vec2(100, 150));
+			= new SpriteObject(cardDeckSprite->pos+Vec2(cardDeckSprite->size.x/2, 0), cardDeckSprite->size, "./assets/gamescene/cards.png", Vec2(0, 0), Vec2(100, 150));
 		uncolldectedCards[uncollectedCardsNum]->tileIndex.y = (int)card.type+1;
 		switch(card.quantity){
 			case 2: uncolldectedCards[uncollectedCardsNum]->tileIndex.x = 0; break;
@@ -140,40 +173,56 @@ void GameScene::drawCard(Card card){
 	}else{
 		//the card is a special character card.
 		uncolldectedCards[uncollectedCardsNum]
-			= new AnimatedSprite(Vec2(50+uncollectedCardsNum*120, 22), Vec2(100, 150), "./assets/gamescene/cards.png", Vec2(100, 150), 0.05, 3);
+			= new AnimatedSprite(cardDeckSprite->pos, cardDeckSprite->size, "./assets/gamescene/cards.png", Vec2(100, 150), 0.05, 3);
 		uncolldectedCards[uncollectedCardsNum]->tileIndex.y = (int)card.type+1;
 	}
 	gameBoardPanel->add(uncolldectedCards[uncollectedCardsNum]);
+	//show the flip in effect
+	this->add(new Animator<double>(uncolldectedCards[uncollectedCardsNum]->pos.x, 0.25, targetPos.x));
+	this->add(new Animator<double>(uncolldectedCards[uncollectedCardsNum]->size.x, 0.25, cardDeckSprite->size.x));
 
-	//adjust the position of flipMoreButton and collectCardsButton
+	//adjust the position of flipMoreButton and collectCardsButton, hide it until the card drawing animation is completed.
 	uncollectedCardsNum++;
-	flipMoreButton->pos.x = 50+uncollectedCardsNum*CARD_MARGIN;
-	collectCardsButton->pos.x = 50+uncollectedCardsNum*CARD_MARGIN;
+	flipMoreButton->hide();
+	collectCardsButton->hide();
+	if(uncollectedCardsNum>=MAX_CARD_UNCOLLECTED){
+		hideButtons = true;
+	}else{
+		flipMoreButton->pos.x = 50+uncollectedCardsNum*CARD_MARGIN;
+		collectCardsButton->pos.x = 50+uncollectedCardsNum*CARD_MARGIN;
+		this->add(
+			new Timer([=](){
+				if(!hideButtons){
+					flipMoreButton->show();
+					collectCardsButton->show();
+				}
+			}, 0.3)
+		);
+	}
 }
 
 void GameScene::cardsLost(){
-	this->removeCardsOnPanel();
+	//hide the all cards at the same time, with zoom out animation
+	for(int i=0; i<uncollectedCardsNum; i++){
+		assert(uncolldectedCards[i]!=nullptr);
+		this->add(new Animator<double>(uncolldectedCards[i]->size.y, 0.3, uncolldectedCards[i]->size.y, 0.5, 0));
+		this->add(new Animator<double>(uncolldectedCards[i]->pos.y, 0.3, uncolldectedCards[i]->pos.y, 0.5, uncolldectedCards[i]->pos.y+uncolldectedCards[i]->size.y*0.5));
+	}
+	nextTurnDelay += 0.5;
+	hideButtons = true;
 }
 
 void GameScene::gameEnd(){
-	//hide the deck sprite, if it is empty.
-	if(gameLogic->isDeckEmpty())
-		cardDeckSprite->hide();
-	this->getSceneRunner()->render();
+	//show winner message
+	if(gameLogic->getWinner()==-1){
+		showMessage("Tied! How sad. :(", "Game Over");
+	}else{
+		showMessage(std::string("The winner is ")+gameDb->getUserName(gameLogic->getWinner())
+			+std::string("\r\nCongratulation! This player gain 1 score in the highscore board(yes, 1 only)."), "Game Over");
+	}
 
-	//execute in next frame so that the new graphic is rendered before the message is shown.
-	this->add(new Timer([=](){
-		//show winner message
-		if(gameLogic->getWinner()==-1){
-			showMessage("Tied! How sad. :(", "Game Over");
-		}else{
-			showMessage(std::string("The winner is ")+gameDb->getUserName(gameLogic->getWinner())
-				+std::string("\r\nCongratulation! This player gain 1 score in the highscore board(yes, 1 only)."), "Game Over");
-		}
-
-		//back to MeunScene
-		this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
-	}, 0.05));
+	//back to MeunScene
+	this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
 }
 
 void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int newNum){
@@ -186,9 +235,19 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 			sp[playerIndex].item[itemType][i] = new SpriteObject(itemPos[itemType]+Vec2(i*30, 0), Vec2(30, 30),
 				"./assets/gamescene/items.png", Vec2(itemType, 0), Vec2(30, 30));
 			sp[playerIndex].statusPlate->add(sp[playerIndex].item[itemType][i]);
+			//zoom animation for items being shown
+			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->size, 0.25*collectedCardNum, Vec2(0, 0), 0.2+0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->size));
+			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->pos, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos+sp[playerIndex].item[itemType][i]->size*0.5, 0.2+0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos));
+			sp[playerIndex].item[itemType][i]->size = Vec2(0, 0);
 		}
 	}else{
-		for(int i=oldNum; i-->newNum; )
-			sp[playerIndex].statusPlate->remove(sp[playerIndex].item[itemType][i]);
+		for(int i=oldNum; i-->newNum; ){
+			//remove the items with zoom out effect
+			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->pos, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos, 0.2+0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos+sp[playerIndex].item[itemType][i]->size*0.5));
+			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->size, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->size, 0.2+0.25*collectedCardNum, Vec2(0, 0)));
+			this->add( new Timer([=](){
+				sp[playerIndex].statusPlate->remove(sp[playerIndex].item[itemType][i]);
+			}, 0.2+0.25*collectedCardNum));
+		}
 	}
 }

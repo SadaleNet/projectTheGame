@@ -99,8 +99,13 @@ std::vector<Card> GameLogic::collectCards(){
 		if(this->collectCardHook)
 			this->collectCardHook(oldPlayerStates, *it);
 	}
+	
+	int silverMeritsDistributed = 0;
+	for(unsigned int i=0; i<gameDb->getUserNum(); i++)
+		silverMeritsDistributed += this->players[i].silverMeritNum;
 
-	if(this->winOn4&&this->players[this->getCurrentPlayerIndex()].silverMeritNum==4){
+	if((this->winOn4&&this->players[this->getCurrentPlayerIndex()].silverMeritNum==4)
+		||(!this->winOn4&&silverMeritsDistributed>=11)){
 		this->gameStatus = GAME_WON;
 		this->winner = this->getCurrentPlayerIndex();
 		this->gameDb->addWins(this->winner);

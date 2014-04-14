@@ -156,18 +156,19 @@ void LoginScene::login(){
 		if(aiCheckBoxPtr[i]->checked){
 			if(!gameDb->loginAiNext(playerNamePtr[i]->text)){
 				showMessage(std::string("Error: Empty name on AI Player ")+std::to_string((long long)i+1), "Login Failed");
+				loggingIn = false;
 				return;
 			}
 		}else{
 			if(!gameDb->loginNext(playerNamePtr[i]->text, passwordPtr[i]->text)){
 				showMessage(std::string("Error: failed logging in Player ")+std::to_string((long long)i+1), "Login Failed");
+				loggingIn = false;
 				return;
 			}
 		}
 	}
 	gameDb->loginDone();
 	this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
-	loggingIn = false;
 }
 
 void LoginScene::addPlayer(bool init){

@@ -107,6 +107,10 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 		passwordPtr[0]->text = "ALPHA";
 		playerNamePtr[1]->text = "BETA";
 		passwordPtr[1]->text = "BETA";
+		playerNamePtr[2]->text = "GAMMA";
+		passwordPtr[2]->text = "GAMMA";
+		playerNamePtr[3]->text = "DELTA";
+		passwordPtr[3]->text = "DELTA";
 	};
 	this->add(fillUsernamePassword);
 

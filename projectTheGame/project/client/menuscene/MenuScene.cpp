@@ -33,7 +33,7 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 	this->add(bannar);
 
 	//create welcome message
-	welcomeMessage = new Text(Vec2(200, 250), Vec2(410, 30), std::string("Welcome! ")+gameDb->getUserNames(), 20, Color(0, 0, 0, 1), Text::CENTER);
+	welcomeMessage = new Text(Vec2(50, 250), Vec2(700, 30), std::string("Welcome! ")+gameDb->getUserNames(), 20, Color(0, 0, 0, 1), Text::CENTER);
 	this->add(welcomeMessage);
 	this->addWelcomeMessageColorAnimator();
 

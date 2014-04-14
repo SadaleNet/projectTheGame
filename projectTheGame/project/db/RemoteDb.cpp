@@ -27,7 +27,8 @@ bool RemoteDb::login(const std::string& username, const std::string& password){
 }
 
 bool RemoteDb::logout(){
-	return (SEND_REQUEST("logout.php", "", this->status) == 200);
+	//return (SEND_REQUEST("logout.php", "", this->status) == 200);
+	return true;
 }
 
 bool RemoteDb::putData(const std::string& data){

@@ -76,6 +76,9 @@ std::string GameDb::getUserNames() const{
 unsigned int GameDb::getUserNum() const{
 	return this->players.size();
 }
+int GameDb::getWins(int index) const{
+	return this->players.at(index).wins;
+}
 
 bool GameDb::isAi(int index) const{
 	return this->players.at(index).ai;

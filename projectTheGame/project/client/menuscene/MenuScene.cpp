@@ -8,6 +8,7 @@
 #include "../../misc/messageBox.h"
 #include "../../db/UserDb.h"
 #include "../gamescene/GameScene.h"
+#include "../loginscene/LoginScene.h"
 
 namespace{
 	Text* welcomeMessage;
@@ -52,10 +53,25 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 	playPanel->add(playButton);
 	this->add(playPanel);
 
-	Button* highScoreButton = new Button(Vec2(300, 400), Vec2(200, 35), "High Score", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+	Button* highScoreButton = new Button(Vec2(190, 400), Vec2(200, 35), "High Score", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 	highScoreButton->action = [=](){
 		showMessage(gameDb->getHighScoreBoard(), "High Score");
 	};
 	this->add(highScoreButton);
+
+	Button* logoutButton = new Button(Vec2(410, 400), Vec2(200, 35), "Logout", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+	logoutButton->action = [=](){
+		this->getSceneRunner()->setScene(new LoginScene(this->getSceneRunner()));
+	};
+	this->add(logoutButton);
+	
+	std::string scoreBoardStr = "Scores\n";
+	for(unsigned int i=0; i<gameDb->getUserNum(); i++)
+		scoreBoardStr += gameDb->getUserName(i)+std::string(": ")+std::to_string((long long)gameDb->getWins(i))+"\n";
+	Text* scoreBoard = new Text(Vec2(200, 450), Vec2(400, 150), scoreBoardStr, 20, Color(0, 0, 0, 1));
+	this->add(scoreBoard);
+
+	this->addWelcomeMessageColorAnimator();
+
 
 }

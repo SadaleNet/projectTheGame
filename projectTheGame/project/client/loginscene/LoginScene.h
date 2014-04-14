@@ -10,6 +10,8 @@ class LoginScene: public Scene{
 public:
 	LoginScene(SceneRunner* const sceneRunner);
 private:
+	bool loggingIn;
+	void login();
 	void addPlayer(bool init);
 	void removePlayer();
 	void updateUIs(bool init);

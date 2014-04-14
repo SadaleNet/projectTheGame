@@ -13,16 +13,19 @@
 
 namespace{
 	Button* addPlayerButton;
-	int playerPanelShownNum = 0;
+	int playerPanelShownNum ;
 	Panel* playerPanelPtrs[MAX_PLAYER];
 	TextBox* playerNamePtr[MAX_PLAYER];
 	TextBox* passwordPtr[MAX_PLAYER];
 	Button* removePlayerButtonPtrs[MAX_PLAYER];
 	std::shared_ptr<GameDb> gameDb;
+	Text* loggingInText;
 }
 
 LoginScene::LoginScene(SceneRunner* const sceneRunner)
-	:Scene(sceneRunner){
+	:Scene(sceneRunner),
+	loggingIn(false){
+	playerPanelShownNum = 0;
 	//connect to database
 	gameDb = std::shared_ptr<GameDb>(new GameDb);
 	if(!gameDb->isRemote())
@@ -32,6 +35,11 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	SpriteObject* background = new SpriteObject(Vec2(0, 0), Vec2(800, 650), "./assets/background.png", Vec2(0, 0), Vec2(800, 600));
 	this->add( new Animator<double>(background->tileIndex.x, 1e10, 1e10/50) );
 	this->add(background);
+
+	//add loggingin text
+	loggingInText = new Text(Vec2(50, 10), Vec2(780, 20), "Logging in to remote server. It may takes a while, or may not work if the server is down.", 16);
+	loggingInText->hide();
+	this->add( loggingInText );
 
 	//create a bannar
 	SpriteObject* bannar = new SpriteObject(Vec2(100, 50), Vec2(600, 150), "./assets/bannar.png");
@@ -83,25 +91,21 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	//pre-add player panels
 	for(int i=0; i<MIN_PLAYER; i++)
 		this->addPlayer(true);
-	
+
 	//add a login button
 	Button* loginButton = new Button(Vec2(300, 450), Vec2(180, 40), "Login", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 	loginButton->action = [=](){
-		gameDb->loginStart();
-		for(int i=0; i<playerPanelShownNum; i++){
-			if(!gameDb->loginNext(playerNamePtr[i]->text, passwordPtr[i]->text)){
-				showMessage(std::string("Error: failed logging in Player ")+std::to_string((long long)i+1), "Login Failed");
-				return;
-			}
-		}
-		gameDb->loginDone();
-		this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
+		if(gameDb->isRemote())
+			loggingInText->show();
+
+		LoginScene* DIS = this;
+		this->add(new Timer([=](){ DIS->login(); loggingInText->hide(); }, 0.05));
 	};
 	this->add(loginButton);
 
 	//add a lazy button for filling login info.
-	//TODO: remove this button in release
-	Button* fillUsernamePassword = new Button(Vec2(500, 450), Vec2(180, 40), "Fill", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
+	//TODO: remove this button in real release
+	Button* fillUsernamePassword = new Button(Vec2(10, 560), Vec2(180, 30), "Quick Login", Color(0,1,0,1), Color(0.5,0.2,0.5,1));
 	fillUsernamePassword->action = [=](){
 		playerNamePtr[0]->text = "ALPHA";
 		passwordPtr[0]->text = "ALPHA";
@@ -118,10 +122,46 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	Button* helpButton = new Button(Vec2(350, 500), Vec2(80, 20), "Help", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 	helpButton->action = [=](){
 		//TODO: show the real help message
-		showMessage("TODO: Display help message here -- You are now helpless!", "Help");
+		showMessage(
+			"Rules of the game\r\n"
+			"There are totally 52 supply cards. Each supply card shows the number of apple, pears, carrots or nuts. Each kind of food has 13 supply cards. The number on each card is either 2, 4, or 6. There are five cards of 2, four cards of 4 and four cards of 6.  The target number is 12.\r\n"
+			"\r\n"
+			"When the active player uncover the cards, if the same kind of food appear one after the other, the players loses all the cards uncovered in this turn. The player can choose the number of cards to uncover up to a maximum of 4 cards.\r\n"
+			"\r\n"
+			"After the player has uncovered the cards successfully without any loses, he can collect the cards according to the kinds of food.\r\n"
+			"\r\n"
+			"If the player has collected more than the target number of a certain kind of food, he will lose all he has collected so far for this kind of food.\r\n"
+			"\r\n"
+			"If the player has collected exactly the target number of food, the player receives silver merit in exchange for the food. The corresponding cards are discarded.\r\n"
+			"Any card lost will not return to the deck of covered cards by default.\r\n"
+			"Scoring: Marks will be given based on the number silver merits the player can get. There are totally 11 silver merits to be delivered to players. The game ends when all the supply cards are uncovered or all the silver merits are delivered.\r\n"
+			"You can select an option that the game will end when a player can get 4 silver merits.\r\n"
+			"The player can select an option that if there are not enough cards in the deck, the cards lost from the players before can be re-used.\r\n"
+			"\r\n"
+			"There are three special cards, namely, W.L.Chan card, Nobel card and Einstein card.\r\n"
+			"The features of these cards are listed below :\r\n"
+			"WL Chan card: Each opponent will be given one random fruit (i.e. carrot, apple, nuts or pears) .\r\n"
+			"obel card: you can get one extra silver merit.\r\n"
+			"Einstein card: All of your cards will be removed.", "Help");
 	};
 	this->add(helpButton);
 
+}
+
+void LoginScene::login(){
+	if(loggingIn)
+		return;
+	loggingIn = true;
+	gameDb->loginStart();
+	for(int i=0; i<playerPanelShownNum; i++){
+		if(!gameDb->loginNext(playerNamePtr[i]->text, passwordPtr[i]->text)){
+			showMessage(std::string("Error: failed logging in Player ")+std::to_string((long long)i+1), "Login Failed");
+			return;
+		}
+	}
+	gameDb->loginDone();
+	this->getSceneRunner()->setScene(new MenuScene(this->getSceneRunner(), gameDb));
+	loggingIn = false;
 }
 
 void LoginScene::addPlayer(bool init){

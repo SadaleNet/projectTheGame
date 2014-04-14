@@ -62,6 +62,8 @@ public:
 	std::string getUserNames() const;
 	///@return the number of logged in users
 	unsigned int getUserNum() const;
+	///@brief the number of win of the player with given index
+	int getWins(int index) const;
 	///@return true if the player of the given index is AI, false else.
 	bool isAi(int index) const;
 	///@brief Increase the scode(win count) by one in the database.

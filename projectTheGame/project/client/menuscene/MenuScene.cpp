@@ -73,5 +73,6 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 
 	this->addWelcomeMessageColorAnimator();
 
-
+	//Finally, play bgm.
+	playBgm("./assets/bgm.wav");
 }

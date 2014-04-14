@@ -37,7 +37,6 @@ namespace{
 	SpriteObject* cardDeckSprite;
 	Button *flipMoreButton, *collectCardsButton;
 	const int CARD_MARGIN = 120;
-
 }
 
 GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gameDb, bool winOn4, bool reuseLost)
@@ -101,6 +100,7 @@ GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 		this->add(sp[i].statusPlate);
 	}
 
+	stopBgm();
 	initTurn();
 }
 
@@ -162,7 +162,7 @@ void GameScene::drawCard(Card card){
 	//shows the card drawn
 	if((int)card.type<CARD_ITEM_TYPES_NUM){
 		uncolldectedCards[uncollectedCardsNum]
-			= new SpriteObject(cardDeckSprite->pos+Vec2(cardDeckSprite->size.x/2, 0), cardDeckSprite->size, "./assets/gamescene/cards.png", Vec2(0, 0), Vec2(100, 150));
+			= new SpriteObject(cardDeckSprite->pos+Vec2(cardDeckSprite->size.x/2, 0), Vec2(0, cardDeckSprite->size.y), "./assets/gamescene/cards.png", Vec2(0, 0), Vec2(100, 150));
 		uncolldectedCards[uncollectedCardsNum]->tileIndex.y = (int)card.type+1;
 		switch(card.quantity){
 			case 2: uncolldectedCards[uncollectedCardsNum]->tileIndex.x = 0; break;
@@ -180,6 +180,11 @@ void GameScene::drawCard(Card card){
 	//show the flip in effect
 	this->add(new Animator<double>(uncolldectedCards[uncollectedCardsNum]->pos.x, 0.25, targetPos.x));
 	this->add(new Animator<double>(uncolldectedCards[uncollectedCardsNum]->size.x, 0.25, cardDeckSprite->size.x));
+	//play flip card sfx
+	if(card.type==CARD_WLCHAN||card.type==CARD_NOBEL)
+		playSfx("./assets/gamescene/holy.wav");
+	else
+		playSfx("./assets/gamescene/flip.wav");
 
 	//adjust the position of flipMoreButton and collectCardsButton, hide it until the card drawing animation is completed.
 	uncollectedCardsNum++;
@@ -244,6 +249,7 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->pos, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos+sp[playerIndex].item[itemType][i]->size*0.5, 0.2+0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos));
 			sp[playerIndex].item[itemType][i]->size = Vec2(0, 0);
 		}
+		playSfx("./assets/gamescene/add.wav");
 	}else{
 		for(int i=oldNum; i-->newNum; ){
 			//remove the items with zoom out effect
@@ -253,6 +259,7 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 				sp[playerIndex].statusPlate->remove(sp[playerIndex].item[itemType][i]);
 			}, 0.2+0.25*collectedCardNum));
 		}
+		playSfx("./assets/gamescene/remove.wav");
 	}
 }
 
@@ -262,7 +269,7 @@ void GameScene::processAi(){
 
 	//If there is a damn einstein card in the uncollected cards, don't collect it.
 	bool haveEinstein = false;
-	for(int i=0; i<cards.size(); i++){
+	for(unsigned int i=0; i<cards.size(); i++){
 		if(cards[i].type==CARD_EINSTEIN){
 			haveEinstein = true;
 			break;
@@ -277,10 +284,10 @@ void GameScene::processAi(){
 		gameLogic->collectCards();
 		return;
 	}
-
+	
 	int totalQuantity = 0;
 	//If a silver merit can be gained by collecting the cards, then collect it.
-	for(int i=0; i<cards.size(); i++){
+	for(unsigned int i=0; i<cards.size(); i++){
 		if(aiPlayer.items[cards[i].type]+cards[i].quantity==TARGET_NUM){
 			gameLogic->collectCards();
 			return;

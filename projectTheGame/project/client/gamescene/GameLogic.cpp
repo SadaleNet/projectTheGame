@@ -30,7 +30,7 @@ Card GameLogic::drawCard(){
 		if(this->lostHook)
 			this->lostHook();
 		this->nextTurn();
-	}else if(this->deck.uncollectCardsNum()==MAX_CARD_UNCOLLECTED){
+	}else if(this->deck.getUncollectedCardsNum()==MAX_CARD_UNCOLLECTED){
 		this->collectCards();
 		cardsCollected = true;
 	}
@@ -146,6 +146,10 @@ bool GameLogic::isDeckEmpty() const{
 	return this->deck.isEmpty();
 }
 
+std::vector<Card> GameLogic::getUncollectedCards() const{
+	return this->deck.getUncollectedCards();
+}
+
 bool GameLogic::isLost(){
 	return this->deck.isLost();
 }
@@ -235,7 +239,7 @@ void GameLogic::test(){
 		}
 		if(lost)
 			std::cerr << "LOST!" <<std::endl;
-		else if(gameLogic.deck.uncollectCardsNum()<MAX_CARD_UNCOLLECTED)
+		else if(gameLogic.deck.getUncollectedCardsNum()<MAX_CARD_UNCOLLECTED)
 			gameLogic.collectCards();
 		std::cerr <<std::endl <<std::endl;
 	}

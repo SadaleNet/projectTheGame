@@ -17,6 +17,7 @@ namespace{
 	Panel* playerPanelPtrs[MAX_PLAYER];
 	TextBox* playerNamePtr[MAX_PLAYER];
 	TextBox* passwordPtr[MAX_PLAYER];
+	CheckBox* aiCheckBoxPtr[MAX_PLAYER];
 	Button* removePlayerButtonPtrs[MAX_PLAYER];
 	std::shared_ptr<GameDb> gameDb;
 	Text* loggingInText;
@@ -46,7 +47,6 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	this->add(bannar);
 
 	//add the panels to the scene
-	//Vec2 panelPos[] = {Vec2(20, 200), Vec2(210, 200), Vec2(400, 200), Vec2(590, 200)};
 	for(int i=0; i<MAX_PLAYER; i++){
 		Panel* playerPanel = new Panel(Vec2(800, 200), Vec2(PANEL_WIDTH, 220), Color(0.9, 0.9, 0.9, 1.0), 1, Color(0.8, 0.8, 0.8, 1));
 		//add the player name+password UI to the player panel
@@ -64,11 +64,9 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 		removePlayerButton->hide();
 		removePlayerButton->action = [=](){ this->removePlayer(); };
 		playerPanel->add(removePlayerButton);
-		//add radio buttons to play panel. TODO: unimplemented
-		/*RadioButton* human = new RadioButton(Vec2(10, 130), Vec2(110, 20), "Human", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
-		RadioButton* computer = new RadioButton(Vec2(10, 160), Vec2(110, 20), "Computer", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
-		playerPanel->add(human);
-		playerPanel->add(computer);*/
+		//add radio buttons to play panel.
+		CheckBox* aiCheckBox = new CheckBox(Vec2(10, 140), Vec2(110, 20), "AI Player", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
+		playerPanel->add(aiCheckBox);
 		//add the register button
 		Button* registerButton = new Button(Vec2(10, 190), Vec2(120, 20), "Register", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
 		registerButton->action = [=](){ this->registerPlayer(playerName->text, password->text); };
@@ -79,6 +77,7 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 		//and do assign some variables to some pointers for later manipulation purpose.
 		playerPanelPtrs[i] = playerPanel;
 		removePlayerButtonPtrs[i] = removePlayerButton;
+		aiCheckBoxPtr[i] = aiCheckBox;
 		playerNamePtr[i] = playerName;
 		passwordPtr[i] = password;
 	}
@@ -154,9 +153,16 @@ void LoginScene::login(){
 	loggingIn = true;
 	gameDb->loginStart();
 	for(int i=0; i<playerPanelShownNum; i++){
-		if(!gameDb->loginNext(playerNamePtr[i]->text, passwordPtr[i]->text)){
-			showMessage(std::string("Error: failed logging in Player ")+std::to_string((long long)i+1), "Login Failed");
-			return;
+		if(aiCheckBoxPtr[i]->checked){
+			if(!gameDb->loginAiNext(playerNamePtr[i]->text)){
+				showMessage(std::string("Error: Empty name on AI Player ")+std::to_string((long long)i+1), "Login Failed");
+				return;
+			}
+		}else{
+			if(!gameDb->loginNext(playerNamePtr[i]->text, passwordPtr[i]->text)){
+				showMessage(std::string("Error: failed logging in Player ")+std::to_string((long long)i+1), "Login Failed");
+				return;
+			}
 		}
 	}
 	gameDb->loginDone();

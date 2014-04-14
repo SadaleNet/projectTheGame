@@ -193,8 +193,12 @@ void GameScene::drawCard(Card card){
 		this->add(
 			new Timer([=](){
 				if(!hideButtons){
-					flipMoreButton->show();
-					collectCardsButton->show();
+					if(!gameDb->isAi(gameLogic->getCurrentPlayerIndex())){
+						flipMoreButton->show();
+						collectCardsButton->show();
+					}else{
+						processAi();
+					}
 				}
 			}, 0.3)
 		);
@@ -250,4 +254,53 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 			}, 0.2+0.25*collectedCardNum));
 		}
 	}
+}
+
+void GameScene::processAi(){
+	Player aiPlayer = gameLogic->getCurrentPlayer();
+	std::vector<Card> cards = gameLogic->getUncollectedCards();
+
+	//If there is a damn einstein card in the uncollected cards, don't collect it.
+	bool haveEinstein = false;
+	for(int i=0; i<cards.size(); i++){
+		if(cards[i].type==CARD_EINSTEIN){
+			haveEinstein = true;
+			break;
+		}
+	}
+	if(haveEinstein){
+		gameLogic->drawCard();
+		return;
+	}
+	//If the card drawn is a great card, then collect it.
+	if(cards.back().type==CARD_WLCHAN||cards.back().type==CARD_NOBEL){
+		gameLogic->collectCards();
+		return;
+	}
+
+	int totalQuantity = 0;
+	//If a silver merit can be gained by collecting the cards, then collect it.
+	for(int i=0; i<cards.size(); i++){
+		if(aiPlayer.items[cards[i].type]+cards[i].quantity==TARGET_NUM){
+			gameLogic->collectCards();
+			return;
+		}
+		totalQuantity += cards[i].quantity;
+	}
+	//If the total quantity of items is large enough, then collect it. The more items are there, the higher the chance it is being collected
+	if(totalQuantity>0 && (rand()%totalQuantity)>=4){
+		gameLogic->collectCards();
+		return;
+	}
+
+	//depending on the chance of busting, collect the cards.
+	double bustProbability = cards.size()/4.0;
+	if(rand()%100*bustProbability>20){
+		gameLogic->collectCards();
+		return;
+	}
+
+	//After all consideration, the AI decide not the collect the card.
+	gameLogic->drawCard();
+	
 }

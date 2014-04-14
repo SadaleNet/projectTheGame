@@ -68,8 +68,12 @@ std::vector<Card> Deck::collectCards(){
 	return ret;
 }
 
-int Deck::uncollectCardsNum() const{
+int Deck::getUncollectedCardsNum() const{
 	return this->drawnCards.size();
+}
+
+std::vector<Card> Deck::getUncollectedCards() const{
+	return this->drawnCards;
 }
 
 bool Deck::isLost(){

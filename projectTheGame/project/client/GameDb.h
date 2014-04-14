@@ -44,7 +44,7 @@ public:
 	///@see loginStart
 	bool loginNext(std::string username, std::string password);
 	///@see loginStart
-	void loginAiNext();
+	bool loginAiNext(std::string username);
 	///@see loginStart
 	void loginDone();
 

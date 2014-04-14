@@ -53,7 +53,9 @@ public:
 	std::vector<Card> collectCards();
 
 	///@return number of uncollected cards
-	int uncollectCardsNum() const;
+	int getUncollectedCardsNum() const;
+	///@return uncollected cards
+	std::vector<Card> getUncollectedCards() const;
 
 	///@return true if the cards are lost(because of having the same kind of food in other uncollected cards), false else.
 	bool isLost();

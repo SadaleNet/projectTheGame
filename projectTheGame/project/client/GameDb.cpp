@@ -37,12 +37,16 @@ bool GameDb::loginNext(std::string username, std::string password){
 	this->loggingIn = false;
 	return false;
 }
-void GameDb::loginAiNext(){
+bool GameDb::loginAiNext(std::string username){
 	assert(this->loggingIn);
+	if(username=="")
+		return false;
 	Player player;
+	player.username = username;
 	player.ai = true;
 	player.wins = 0;
 	this->players.push_back(player);
+	return true;
 }
 void GameDb::loginDone(){
 	assert(this->loggingIn);
@@ -63,12 +67,17 @@ std::string GameDb::getHighScoreBoard() const{
 }
 
 std::string GameDb::getUserName(int index) const{
-	return this->players.at(index).username;
+	std::string ret;
+	Player player = this->players.at(index);
+	if(player.ai)
+		ret += "[AI]";
+	ret += this->players.at(index).username;
+	return ret;
 }
 std::string GameDb::getUserNames() const{
 	std::string ret;
-	for(std::vector<Player>::const_iterator it=this->players.begin(); it!=this->players.end(); it++)
-		ret += it->username+", ";
+	for(unsigned int i=0; i<this->players.size(); i++)
+		ret += this->getUserName(i)+", ";
 	//remove the tailing ", "
 	ret.pop_back(); ret.pop_back();
 	return ret;
@@ -84,10 +93,11 @@ bool GameDb::isAi(int index) const{
 	return this->players.at(index).ai;
 }
 void GameDb::addWins(int index){
-	Player player = this->players.at(index);
+	Player& player = this->players.at(index);
+	player.wins++;
 	if(!player.ai){
 		assert(this->userDb->login(player.username, player.password));
-		this->userDb->setHighScore(++player.wins);
+		this->userDb->setHighScore(player.wins);
 		assert(this->userDb->logout());
 	}
 }

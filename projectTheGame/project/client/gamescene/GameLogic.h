@@ -58,6 +58,8 @@ public:
 
 	/// @return	If someone have won the game, return the index of the winner. Return -1 else.
 	int getWinner() const;
+	///@return uncollected cards
+	std::vector<Card> getUncollectedCards() const;
 	/// @return	true if the deck is empty, false else.
 	bool isDeckEmpty() const;
 

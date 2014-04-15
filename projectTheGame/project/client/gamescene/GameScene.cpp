@@ -260,10 +260,11 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 	}else{
 		for(int i=oldNum; i-->newNum; ){
 			//remove the items with zoom out effect
-			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->pos, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos, 0.2+0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos+sp[playerIndex].item[itemType][i]->size*0.5));
-			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->size, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->size, 0.2+0.25*collectedCardNum, Vec2(0, 0)));
+			SpriteObject* itemPtr = sp[playerIndex].item[itemType][i];
+			this->add(new Animator<Vec2>(itemPtr->pos, 0.25*collectedCardNum, itemPtr->pos, 0.2+0.25*collectedCardNum, itemPtr->pos+itemPtr->size*0.5));
+			this->add(new Animator<Vec2>(itemPtr->size, 0.25*collectedCardNum, itemPtr->size, 0.2+0.25*collectedCardNum, Vec2(0, 0)));
 			this->add( new Timer([=](){
-				sp[playerIndex].statusPlate->remove(sp[playerIndex].item[itemType][i]);
+				sp[playerIndex].statusPlate->remove(itemPtr);
 			}, 0.2+0.25*collectedCardNum));
 		}
 		//play sfx of removel of item

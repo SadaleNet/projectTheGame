@@ -120,10 +120,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
 	//show console, stolen from https://stackoverflow.com/questions/2501968/visual-c-enable-console/10370043#10370043
-	AllocConsole();
+	/*AllocConsole();
 	freopen("conin$","r",stdin);
 	freopen("conout$","w",stdout);
-	freopen("conout$","w",stderr);
+	freopen("conout$","w",stderr);*/
 
 	//initialize global variables
 	hInst = hInstance; // Store instance handle in our global variable

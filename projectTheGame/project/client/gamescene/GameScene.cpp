@@ -219,6 +219,7 @@ void GameScene::cardsLost(){
 	}
 	nextTurnDelay += 0.5;
 	hideButtons = true;
+	playSfx("./assets/gamescene/lost.wav");
 }
 
 void GameScene::gameEnd(){
@@ -249,7 +250,13 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 			this->add(new Animator<Vec2>(sp[playerIndex].item[itemType][i]->pos, 0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos+sp[playerIndex].item[itemType][i]->size*0.5, 0.2+0.25*collectedCardNum, sp[playerIndex].item[itemType][i]->pos));
 			sp[playerIndex].item[itemType][i]->size = Vec2(0, 0);
 		}
-		playSfx("./assets/gamescene/add.wav");
+		//play sfx. Note: CARD_ITEM_TYPES_NUM menas silver merit
+		this->add( new Timer([=](){
+			if(itemType==CARD_ITEM_TYPES_NUM)
+				playSfx("./assets/gamescene/silverMerit.wav");
+			else
+				playSfx("./assets/gamescene/add.wav");
+		}, 0.25*collectedCardNum));
 	}else{
 		for(int i=oldNum; i-->newNum; ){
 			//remove the items with zoom out effect
@@ -259,7 +266,10 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 				sp[playerIndex].statusPlate->remove(sp[playerIndex].item[itemType][i]);
 			}, 0.2+0.25*collectedCardNum));
 		}
-		playSfx("./assets/gamescene/remove.wav");
+		//play sfx of removel of item
+		this->add( new Timer([=](){
+			playSfx("./assets/gamescene/remove.wav");
+		}, 0.25*collectedCardNum));
 	}
 }
 

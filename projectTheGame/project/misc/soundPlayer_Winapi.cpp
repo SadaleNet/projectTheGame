@@ -16,11 +16,18 @@ bool playSfx(std::string filePath){
 	return mciSendStringA((std::string("play ")+filePath+"_CACHED").data(), NULL, 0, NULL)==0;
 }
 
+namespace{ std::string currentPlayingFilePath; }
+
 bool playBgm(std::string filePath){
+	//If the same BGM is being played, do not restart the track.
+	if(!currentPlayingFilePath.empty())
+		return false;
+	currentPlayingFilePath = filePath.data();
 	//can't figure out how to repeat audiowave with mciSendStringA(). Using PlaySoundA() instead. NB: I've tried "play file repeat"
 	return PlaySoundA(filePath.data(), NULL, SND_FILENAME|SND_ASYNC|SND_LOOP)==TRUE;
 }
 
 bool stopBgm(){
+	currentPlayingFilePath.clear();
 	return PlaySoundA(NULL, NULL, NULL)==TRUE;
 }

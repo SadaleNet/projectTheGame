@@ -230,6 +230,7 @@ void GameScene::gameEnd(){
 	}else{
 		showMessage(std::string("The winner is ")+gameDb->getUserName(gameLogic->getWinner())
 			+std::string("\r\nCongratulation! This player gain 1 score in the highscore board(yes, 1 only)."), "Game Over");
+		gameDb->addWins(gameLogic->getWinner());
 	}
 
 	//back to MeunScene

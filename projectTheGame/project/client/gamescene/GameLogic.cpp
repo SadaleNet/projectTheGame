@@ -61,10 +61,6 @@ Card GameLogic::drawCard(){
 			}
 		}
 
-		//If someone won, add a score for him in the database
-		if(this->gameStatus==GAME_WON)
-			this->gameDb->addWins(this->winner);
-
 		if(this->gameEndHook)
 			this->gameEndHook();
 	}
@@ -112,7 +108,6 @@ std::vector<Card> GameLogic::collectCards(){
 		||(!this->winOn4&&silverMeritsDistributed>=11)){
 		this->gameStatus = GAME_WON;
 		this->winner = this->getCurrentPlayerIndex();
-		this->gameDb->addWins(this->winner);
 		if(this->gameEndHook)
 			this->gameEndHook();
 		return ret;

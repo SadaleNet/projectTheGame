@@ -140,8 +140,8 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 			"There are three special cards, namely, W.L.Chan card, Nobel card and Einstein card.\r\n"
 			"The features of these cards are listed below :\r\n"
 			"WL Chan card: Each opponent will be given one random fruit (i.e. carrot, apple, nuts or pears) .\r\n"
-			"obel card: you can get one extra silver merit.\r\n"
-			"Einstein card: All of your cards will be removed.", "Help");
+			"Nobel card: you will be given get one extra silver merit.\r\n"
+			"Einstein card: All of your fruits will be removed.", "Help");
 	};
 	this->add(helpButton);
 

@@ -109,7 +109,7 @@ void GameScene::initTurn(){
 	this->removeCardsOnPanel();
 	uncollectedCardsNum = 0;
 	collectedCardNum = 0;
-	nextTurnDelay = 0.55;
+	nextTurnDelay = 0.6;
 	hideButtons = false;
 
 	//set the color of the status plates appropiately.
@@ -180,6 +180,7 @@ void GameScene::drawCard(Card card){
 	//show the flip in effect
 	this->add(new Animator<double>(uncolldectedCards[uncollectedCardsNum]->pos.x, 0.25, targetPos.x));
 	this->add(new Animator<double>(uncolldectedCards[uncollectedCardsNum]->size.x, 0.25, cardDeckSprite->size.x));
+
 	//play flip card sfx
 	if(card.type==CARD_WLCHAN||card.type==CARD_NOBEL)
 		playSfx("./assets/gamescene/holy.wav");
@@ -265,7 +266,7 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 			this->add(new Animator<Vec2>(itemPtr->size, 0.25*collectedCardNum, itemPtr->size, 0.2+0.25*collectedCardNum, Vec2(0, 0)));
 			this->add( new Timer([=](){
 				sp[playerIndex].statusPlate->remove(itemPtr);
-			}, 0.2+0.25*collectedCardNum));
+			}, 0.25+0.25*collectedCardNum));
 		}
 		//play sfx of removel of item
 		this->add( new Timer([=](){

@@ -44,8 +44,11 @@ Card Deck::drawCard(){
 		}
 	}
 
+	//draw card from the deck
+	this->drawnCards.push_back(drawnCard);
+
 	//Check whether it is lost(because of having the same kind of food in other uncollected cards)
-	for(std::vector<Card>::iterator it=this->drawnCards.begin(); it!=this->drawnCards.end(); it++){
+	for(std::vector<Card>::iterator it=this->drawnCards.begin(); it!=(this->drawnCards.end()-1); it++){
 		//Busted! Push all values into this->bustedCards then return
 		if(drawnCard.type == it->type){
 			for(std::vector<Card>::iterator jt=this->drawnCards.begin(); jt!=this->drawnCards.end(); jt++)
@@ -56,8 +59,6 @@ Card Deck::drawCard(){
 		}
 	}
 
-	//draw card from the deck
-	this->drawnCards.push_back(drawnCard);
 	return this->drawnCards.back();
 }
 
@@ -76,6 +77,12 @@ std::vector<Card> Deck::getUncollectedCards() const{
 	return this->drawnCards;
 }
 
+int Deck::getCardsNum() const{
+	if(this->reuse)
+		return this->cards.size()+this->lostCards.size();
+	return this->cards.size();
+}
+
 bool Deck::isLost(){
 	//clear the this->busted flag then return the old value of this->busted.
 	bool ret = this->lost;
@@ -84,11 +91,7 @@ bool Deck::isLost(){
 }
 
 bool Deck::isEmpty() const{
-	if(this->cards.size()>0)
-		return false;
-	if(this->reuse&&this->lostCards.size()>0)
-		return false;
-	return true;
+	return (this->getCardsNum()==0);
 }
 
 #include <iostream>

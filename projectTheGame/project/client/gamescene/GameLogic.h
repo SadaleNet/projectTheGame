@@ -62,6 +62,8 @@ public:
 	std::vector<Card> getUncollectedCards() const;
 	/// @return	true if the deck is empty, false else.
 	bool isDeckEmpty() const;
+	/// @return	number of cards in the deck
+	int getCardsNum() const;
 
 	//Trivial getters
 	int getCurrentPlayerIndex() const;

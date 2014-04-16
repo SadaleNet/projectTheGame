@@ -20,6 +20,7 @@ private:
 	void drawCard(Card card);
 	//@param	itemType	CARD_ITEM_TYPES_NUM means silver merit.
 	void showDeltaItem(int playerIndex, int itemType, int oldNum, int newNum);
+	void updateDeckCardsNum();
 	void processAi();
 public:
 	GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gameDb, bool winOn4, bool reuseLost);

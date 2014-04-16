@@ -141,6 +141,10 @@ bool GameLogic::isDeckEmpty() const{
 	return this->deck.isEmpty();
 }
 
+int GameLogic::getCardsNum() const{
+	return this->deck.getCardsNum();
+}
+
 std::vector<Card> GameLogic::getUncollectedCards() const{
 	return this->deck.getUncollectedCards();
 }

@@ -35,6 +35,7 @@ namespace{
 
 	Panel* gameBoardPanel;
 	SpriteObject* cardDeckSprite;
+	Text* cardDeckNumText;
 	Button *flipMoreButton, *collectCardsButton;
 	const int CARD_MARGIN = 120;
 }
@@ -85,6 +86,10 @@ GameScene::GameScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 	//add card deck
 	cardDeckSprite = new SpriteObject(Vec2(gameBoardPanel->size.x-220, 22), Vec2(100, 150), "./assets/gamescene/cards.png", Vec2(0, 0), Vec2(100, 150));
 	gameBoardPanel->add(cardDeckSprite);
+
+	cardDeckNumText = new Text(cardDeckSprite->pos+cardDeckSprite->size*0.5-Vec2(50/2, 30/2), Vec2(50, 30), "", 20, Color(1, 1, 1, 1), Text::CENTER);
+	this->updateDeckCardsNum();
+	gameBoardPanel->add(cardDeckNumText);
 
 	this->add(gameBoardPanel);
 
@@ -209,6 +214,8 @@ void GameScene::drawCard(Card card){
 			}, 0.3)
 		);
 	}
+
+	this->updateDeckCardsNum();
 }
 
 void GameScene::cardsLost(){
@@ -221,6 +228,7 @@ void GameScene::cardsLost(){
 	nextTurnDelay += 0.5;
 	hideButtons = true;
 	playSfx("./assets/gamescene/lost.wav");
+	this->updateDeckCardsNum();
 }
 
 void GameScene::gameEnd(){
@@ -274,6 +282,13 @@ void GameScene::showDeltaItem(int playerIndex, int itemType, int oldNum, int new
 			playSfx("./assets/gamescene/remove.wav");
 		}, 0.25*collectedCardNum));
 	}
+}
+
+void GameScene::updateDeckCardsNum(){
+	int cardsNum = gameLogic->getCardsNum();
+	cardDeckNumText->text = std::to_string((long long)cardsNum);
+	if(cardsNum==0)
+		cardDeckNumText->hide();
 }
 
 void GameScene::processAi(){

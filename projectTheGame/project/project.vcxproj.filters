@@ -176,6 +176,9 @@
     <ClInclude Include="misc\environment.h">
       <Filter>Misc</Filter>
     </ClInclude>
+    <ClInclude Include="client\showHelpMessage.h">
+      <Filter>Client</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scenes\SceneRunner.cpp">
@@ -281,6 +284,9 @@
       <Filter>Client\Menu Scene</Filter>
     </ClCompile>
     <ClCompile Include="client\GameDb.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="client\showHelpMessage.cpp">
       <Filter>Client</Filter>
     </ClCompile>
   </ItemGroup>

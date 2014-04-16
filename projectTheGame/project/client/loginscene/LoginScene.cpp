@@ -8,6 +8,7 @@
 #include "../GameDb.h"
 #include "../menuscene/MenuScene.h"
 #include "../../misc/environment.h"
+#include "../showHelpMessage.h"
 
 #define PANEL_WIDTH 150
 
@@ -119,30 +120,7 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 
 	//add a help button
 	Button* helpButton = new Button(Vec2(350, 500), Vec2(80, 20), "Help", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
-	helpButton->action = [=](){
-		//TODO: show the real help message
-		showMessage(
-			"Rules of the game\r\n"
-			"There are totally 52 supply cards. Each supply card shows the number of apple, pears, carrots or nuts. Each kind of food has 13 supply cards. The number on each card is either 2, 4, or 6. There are five cards of 2, four cards of 4 and four cards of 6.  The target number is 12.\r\n"
-			"\r\n"
-			"When the active player uncover the cards, if the same kind of food appear one after the other, the players loses all the cards uncovered in this turn. The player can choose the number of cards to uncover up to a maximum of 4 cards.\r\n"
-			"\r\n"
-			"After the player has uncovered the cards successfully without any loses, he can collect the cards according to the kinds of food.\r\n"
-			"\r\n"
-			"If the player has collected more than the target number of a certain kind of food, he will lose all he has collected so far for this kind of food.\r\n"
-			"\r\n"
-			"If the player has collected exactly the target number of food, the player receives silver merit in exchange for the food. The corresponding cards are discarded.\r\n"
-			"Any card lost will not return to the deck of covered cards by default.\r\n"
-			"Scoring: Marks will be given based on the number silver merits the player can get. There are totally 11 silver merits to be delivered to players. The game ends when all the supply cards are uncovered or all the silver merits are delivered.\r\n"
-			"You can select an option that the game will end when a player can get 4 silver merits.\r\n"
-			"The player can select an option that if there are not enough cards in the deck, the cards lost from the players before can be re-used.\r\n"
-			"\r\n"
-			"There are three special cards, namely, W.L.Chan card, Nobel card and Einstein card.\r\n"
-			"The features of these cards are listed below :\r\n"
-			"WL Chan card: Each opponent will be given one random fruit (i.e. carrot, apple, nuts or pears) .\r\n"
-			"Nobel card: you will be given get one extra silver merit.\r\n"
-			"Einstein card: All of your fruits will be removed.", "Help");
-	};
+	helpButton->action = showHelpMessage;
 	this->add(helpButton);
 
 	//Finally, play bgm.

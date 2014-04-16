@@ -9,6 +9,7 @@
 #include "../../db/UserDb.h"
 #include "../gamescene/GameScene.h"
 #include "../loginscene/LoginScene.h"
+#include "../showHelpMessage.h"
 
 namespace{
 	Text* welcomeMessage;
@@ -53,17 +54,24 @@ MenuScene::MenuScene(SceneRunner* const sceneRunner, std::shared_ptr<GameDb> gam
 	playPanel->add(playButton);
 	this->add(playPanel);
 
+	//add highscore button
 	Button* highScoreButton = new Button(Vec2(190, 400), Vec2(200, 35), "High Score", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 	highScoreButton->action = [=](){
 		showMessage(gameDb->getHighScoreBoard(), "High Score");
 	};
 	this->add(highScoreButton);
 
+	//add logout button
 	Button* logoutButton = new Button(Vec2(410, 400), Vec2(200, 35), "Logout", Color(0,0,0,1), Color(0.5,0.5,0.5,1));
 	logoutButton->action = [=](){
 		this->getSceneRunner()->setScene(new LoginScene(this->getSceneRunner()));
 	};
 	this->add(logoutButton);
+
+	//add a help button
+	Button* helpButton = new Button(Vec2(530, 440), Vec2(80, 20), "Help", Color(1,1,0,1), Color(0.5,0.5,0.5,1));
+	helpButton->action = showHelpMessage;
+	this->add(helpButton);
 	
 	std::string scoreBoardStr = "Scores\n";
 	for(unsigned int i=0; i<gameDb->getUserNum(); i++)

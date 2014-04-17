@@ -10,6 +10,7 @@ class GameScene;
 struct Player;
 struct Card;
 
+/** @brief The scene when the game is being played. */
 class GameScene: public Scene{
 private:
 	void gameEnd();

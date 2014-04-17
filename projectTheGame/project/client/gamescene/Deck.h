@@ -20,7 +20,7 @@ enum CardType{
 	CARD_ITEM_TYPES_NUM=CARD_NUT+1
 };
 
-/** A struct that define the type of card with quantity */
+/** @brief A struct that define the type of card with quantity */
 struct Card{
 	CardType type;
 	int quantity;
@@ -32,6 +32,7 @@ struct Card{
 	}
 };
 
+/** @brief A class contains a vector of cards to be drawn with member methods. */
 class Deck{
 	std::vector<Card> cards; ///store available cards
 	std::vector<Card> lostCards; ///store all cards that is lost

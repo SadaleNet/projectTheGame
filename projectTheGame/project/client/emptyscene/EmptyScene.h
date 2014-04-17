@@ -17,6 +17,7 @@ class EmptyScene;
 #include "../../scenes/Scene.h"
 #include <string>
 
+/** @brief A template scene to be copied and modified */
 class EmptyScene: public Scene{
 public:
 	EmptyScene(SceneRunner* const sceneRunner);

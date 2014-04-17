@@ -7,6 +7,7 @@ class MenuScene;
 #include "../GameDb.h"
 #include <string>
 
+/** @brief A scene providing a highscore board, options, a play button, etc. */
 class MenuScene: public Scene{
 private:
 	void addWelcomeMessageColorAnimator();

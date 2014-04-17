@@ -5,6 +5,7 @@
 
 #define TARGET_NUM 12
 
+/** @brief A struct containing the number of items and silver merits that a player own. */
 struct Player{
 	int items[CARD_ITEM_TYPES_NUM];
 	int silverMeritNum;
@@ -24,6 +25,7 @@ enum GameStatus{
 
 class GameDb; //forwad declaration
 
+/** @brief A class that contains the logic of the game */
 class GameLogic{
 	Deck deck;
 	GameDb* gameDb;
@@ -44,8 +46,7 @@ public:
 
 	std::function<void()> lostHook, nextTurnHook, gameEndHook;
 
-	/**	@param	userList	contain a list of username and password with `userNum` elements
-		@param	userNum		see above
+	/**	@param	userList	contain a list of username and password
 		@param	winOn4		Win when 4 silver merit is obtained.
 		@param	reuse		Reuse card when there is not enough cards
 	*/

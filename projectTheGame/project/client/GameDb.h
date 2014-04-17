@@ -7,9 +7,8 @@
 
 #ifndef GAME_DB_H
 #define GAME_DB_H
-/** @brief A proxy class for accessing UserDb
-
-	Provides simplified interface for accessing data of multiple players.
+/**
+@brief A proxy class for accessing UserDb, Provides simplified interface for accessing data of multiple players.
 */
 class GameDb{
 private:

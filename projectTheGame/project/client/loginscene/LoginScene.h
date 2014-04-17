@@ -6,6 +6,7 @@ class LoginScene;
 #include "../../scenes/Scene.h"
 #include <string>
 
+/** @brief The scene of login. This is the first scene shown when the game is launched. */
 class LoginScene: public Scene{
 public:
 	LoginScene(SceneRunner* const sceneRunner);

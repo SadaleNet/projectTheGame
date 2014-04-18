@@ -51,8 +51,12 @@ Card Deck::drawCard(){
 	for(std::vector<Card>::iterator it=this->drawnCards.begin(); it!=(this->drawnCards.end()-1); it++){
 		//Busted! Push all values into this->bustedCards then return
 		if(drawnCard.type == it->type){
-			for(std::vector<Card>::iterator jt=this->drawnCards.begin(); jt!=this->drawnCards.end(); jt++)
-				this->lostCards.push_back(*jt);
+			for(std::vector<Card>::iterator jt=this->drawnCards.begin(); jt!=this->drawnCards.end(); jt++){
+				//When a Einstein card is lost, it won't be reused. This is to prevent an infinity loop when there is only
+				//AI players in the game.
+				if(jt->type!=CARD_EINSTEIN)
+					this->lostCards.push_back(*jt);
+			}
 			this->drawnCards.clear();
 			this->lost = true;
 			return drawnCard;

@@ -178,7 +178,7 @@ void GameScene::drawCard(Card card){
 	}else{
 		//the card is a special character card.
 		uncolldectedCards[uncollectedCardsNum]
-			= new AnimatedSprite(cardDeckSprite->pos, cardDeckSprite->size, "./assets/gamescene/cards.png", Vec2(100, 150), 0.05, 3);
+			= new AnimatedSprite(cardDeckSprite->pos+Vec2(cardDeckSprite->size.x/2, 0), Vec2(0, cardDeckSprite->size.y), "./assets/gamescene/cards.png", Vec2(100, 150), 0.05, 3);
 		uncolldectedCards[uncollectedCardsNum]->tileIndex.y = (int)card.type+1;
 	}
 	gameBoardPanel->add(uncolldectedCards[uncollectedCardsNum]);

@@ -124,7 +124,7 @@ LoginScene::LoginScene(SceneRunner* const sceneRunner)
 	this->add(helpButton);
 
 	//Finally, play bgm.
-	playBgm("./assets/bgm.wav");
+	playBgm("./assets/bgm1.wav");
 }
 
 void LoginScene::login(){

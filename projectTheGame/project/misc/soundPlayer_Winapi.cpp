@@ -20,7 +20,7 @@ namespace{ std::string currentPlayingFilePath; }
 
 bool playBgm(std::string filePath){
 	//If the same BGM is being played, do not restart the track.
-	if(!currentPlayingFilePath.empty())
+	if(currentPlayingFilePath==filePath)
 		return false;
 	currentPlayingFilePath = filePath.data();
 	//can't figure out how to repeat audiowave with mciSendStringA(). Using PlaySoundA() instead. NB: I've tried "play file repeat"

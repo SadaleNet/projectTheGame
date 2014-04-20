@@ -217,4 +217,10 @@ pip-log.txt
 #doxygen
 doc/
 
+#other ignored files
 GameDataFile
+readme.txt
+run.bat
+report*
+video*
+presentation*

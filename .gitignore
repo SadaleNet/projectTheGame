@@ -218,7 +218,6 @@ pip-log.txt
 doc/
 
 #other ignored files
-GameDataFile
 readme.txt
 run.bat
 report*
